@@ -9,7 +9,7 @@ downloadfiles:
 # installation: sudo apt-get install ruby1.8-dev rubygems ruby; gem install jekyll
 export PATH:=$(PATH):/var/lib/gems/1.8/bin
 test:	downloadfiles
-	xterm -e jekyll --server &
+	xterm -e jekyll --server --auto &
 	sleep 5
 	sensible-browser http://localhost:4000/ &
 
