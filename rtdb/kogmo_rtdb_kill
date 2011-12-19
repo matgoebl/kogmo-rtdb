@@ -1,0 +1,73 @@
+#!/bin/bash
+
+if [ "`uname -s`" = "Darwin" ]; then
+ echo "Mac-OSX: BRUTE FORCE not supported, trying standard termination..."
+ exec kogmo_rtdb_man -k
+fi
+
+if [ "$1" = "-h" ]; then
+ echo "Usage: kogmo_rtdb_kill [-a] [-h] [DBNAME]"
+ echo " This script removes a kogmo-rtdb database and kills all its clients"
+ echo " using BRUTE FORCE(!)."
+ echo " DBNAME  kill database with name DBNAME (local:bla or just bla)"
+ echo " -a      kill ALL databases and their clients"
+ echo " -h      help"
+ echo " By default the database given in \$KOGMO_RTDB_DBHOST is killed."
+ echo " Killing is done by sending a SIGTERM, followed by SIGKILL 3 seconds later."
+ exit 0
+fi
+
+DBNAME="${KOGMO_RTDB_DBHOST##local:}"
+
+if [ "$1" = "-a" ]; then
+ DBNAME="*"
+else
+ if [ "$1" != "" ]; then
+  DBNAME=${1##local:}
+ fi
+fi
+
+echo "Killing database 'local:$DBNAME':"
+
+DBFILE="/dev/shm/kogmo_rtdb.$DBNAME"
+export PATH="/sbin:/usr/sbin:$PATH"
+PIDS=`lsof -n | grep " $DBFILE$" | awk '{print $2}' | sort -n | uniq`
+ALLPROCS="`ps -ew -o pid,command`"
+
+echo "- Connected processes:"
+if [ -z "$PIDS" ]; then
+ echo " None."
+else
+ for pid in $PIDS; do
+  echo -n " "
+  echo "$ALLPROCS" | grep "^ *$pid "
+ done
+fi
+
+if [ "$DBNAME" != "*" ]; then
+ echo "- Ask the kogmo-rtdb manager for a clean termination and give him 5 seconds"
+ kogmo_rtdb_man -H "local:$DBNAME" -k &
+ sleep 5
+fi
+
+if [ -n "$PIDS" ]; then
+ echo "- Sending the processes a SIGTERM"
+ kill -TERM $PIDS 2>/dev/null
+
+ echo "- Waiting 3 seconds"
+ sleep 3
+
+ echo "- Sending the processes a SIGKILL"
+ kill -KILL $PIDS 2>/dev/null
+fi
+
+echo "- Removing the database $DBFILE"
+rm -v -f $DBFILE
+
+SURVIVED=`lsof -n | grep " $DBFILE$"`                    
+if [ -z "$SURVIVED" ]; then
+ echo "- OK, all processes gone."
+else
+ echo "- ERROR: There are processes that survived: (do you have permission to kill them? root?)"
+ echo "$SURVIVED"
+fi

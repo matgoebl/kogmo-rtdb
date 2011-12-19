@@ -1,0 +1,11 @@
+kogmo_rtdb_man -k
+kogmo_rtdb_kill -a
+make clean
+kogmo_rtdb_kill -a & make all && kogmo_rtdb_man -S 100M
+make clean;kogmo_rtdb_kill -a & make all CFLAGS=-DKOGMO_RTDB_IPC_DO_POLLING && kogmo_rtdb_man -S 100M
+kogmo_rtdb_man -S 100M
+KOGMO_RTDB_DEBUG=1 KOGMO_RTDB_DEBUG_TEST_BLOCKTIME_WRITE=1 kogmo_rtdb_test -c -d -w -n 1000 -s 1000000 -T -D 0.1 -W
+
+kogmo_rtdb_test -w -n 99999999 -s 100 -T -D 0.001
+
+KOGMO_RTDB_DEBUG=127 kogmo_rtdb_test -r -t -n 99999999 -T -D 0.001

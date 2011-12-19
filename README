@@ -1,0 +1,20 @@
+This is KogMo-RTDB, the Real-Time Database for Cognitive Automobiles.
+
+Copyright (c) 2003-2009 Matthias Goebl <matthias.goebl*goebl.net,mg*tum.de>
+Lehrstuhl fuer Realzeit-Computersysteme (RCS)
+Technische Universitaet Muenchen (TUM)
+
+Licensed under the GNU Lesser General Public License v3, see the file COPYING.
+
+
+Release 2009-08-17:
+This is the first published LGPL version of this software.
+I'm currently working on code and documentation cleanup.
+An improved package with more examples, gui tools and
+instructions for hard real-time use will follow in september 2009.
+
+Release 2009-11-20:
+This is the second published LGPL version of this software.
+The code has been cleaned up and the package now contains
+more examples and gui tools. The documentation will be cleaned
+up and improved soon.

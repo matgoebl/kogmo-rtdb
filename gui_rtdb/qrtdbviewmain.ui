@@ -1,0 +1,314 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>QRTDBGUI</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>QRTDBGUI</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>681</width>
+            <height>468</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>C3 RTDB Viewer   (c) 2007 Matthias Goebl (mg@tum.de)</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QTabWidget" row="0" column="0" rowspan="1" colspan="3">
+            <property name="name">
+                <cstring>tabWidgetObjects</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>3</hsizetype>
+                    <vsizetype>3</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="minimumSize">
+                <size>
+                    <width>200</width>
+                    <height>200</height>
+                </size>
+            </property>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Objects</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QListBox" row="0" column="0">
+                        <property name="name">
+                            <cstring>listBoxObjects</cstring>
+                        </property>
+                        <property name="enabled">
+                            <bool>true</bool>
+                        </property>
+                        <property name="font">
+                            <font>
+                                <pointsize>8</pointsize>
+                            </font>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>RTDB</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QTextBrowser" row="0" column="0">
+                        <property name="name">
+                            <cstring>textBrowserInfo</cstring>
+                        </property>
+                        <property name="enabled">
+                            <bool>true</bool>
+                        </property>
+                        <property name="font">
+                            <font>
+                                <pointsize>8</pointsize>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string></string>
+                        </property>
+                    </widget>
+                </grid>
+            </widget>
+        </widget>
+        <widget class="QGroupBox" row="1" column="0">
+            <property name="name">
+                <cstring>groupBox1</cstring>
+            </property>
+            <property name="title">
+                <string>Screen Update</string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QCheckBox" row="0" column="3">
+                    <property name="name">
+                        <cstring>checkBoxUpdateStop</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Stop</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+S</string>
+                    </property>
+                </widget>
+                <widget class="QSpinBox" row="0" column="0">
+                    <property name="name">
+                        <cstring>spinBoxUpdateFreq</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>true</bool>
+                    </property>
+                    <property name="maxValue">
+                        <number>99</number>
+                    </property>
+                    <property name="value">
+                        <number>2</number>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="0" column="1">
+                    <property name="name">
+                        <cstring>textLabelUpdateFreq</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>true</bool>
+                    </property>
+                    <property name="text">
+                        <string>Upd./Sec.</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton" row="0" column="2">
+                    <property name="name">
+                        <cstring>pushButtonUpdate</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>true</bool>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Update!</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+U</string>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+        <widget class="QGroupBox" row="1" column="1">
+            <property name="name">
+                <cstring>groupBox2</cstring>
+            </property>
+            <property name="title">
+                <string>View History</string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLabel" row="0" column="1">
+                    <property name="name">
+                        <cstring>textLabelPast</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>true</bool>
+                    </property>
+                    <property name="text">
+                        <string>Sec.</string>
+                    </property>
+                </widget>
+                <widget class="QSpinBox" row="0" column="0">
+                    <property name="name">
+                        <cstring>spinBoxPast</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>true</bool>
+                    </property>
+                    <property name="maxValue">
+                        <number>600</number>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+        <widget class="QGroupBox" row="1" column="2">
+            <property name="name">
+                <cstring>groupBox3</cstring>
+            </property>
+            <property name="title">
+                <string>Viewer</string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QCheckBox" row="0" column="0">
+                    <property name="name">
+                        <cstring>checkBoxVideo</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Video</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+V</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton" row="0" column="1">
+                    <property name="name">
+                        <cstring>pushButtonCloseTab</cstring>
+                    </property>
+                    <property name="enabled">
+                        <bool>true</bool>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Close Tab</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+C</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton" row="0" column="2">
+                    <property name="name">
+                        <cstring>pushButtonQuit</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Quit</string>
+                    </property>
+                    <property name="accel">
+                        <string>Alt+Q</string>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>pushButtonQuit</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonUpdate</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>update()</slot>
+    </connection>
+    <connection>
+        <sender>spinBoxUpdateFreq</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>update()</slot>
+    </connection>
+    <connection>
+        <sender>spinBoxPast</sender>
+        <signal>valueChanged(int)</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>toggle_history()</slot>
+    </connection>
+    <connection>
+        <sender>checkBoxUpdateStop</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>update_toggle_stop()</slot>
+    </connection>
+    <connection>
+        <sender>listBoxObjects</sender>
+        <signal>doubleClicked(QListBoxItem*)</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>add_object(QListBoxItem*)</slot>
+    </connection>
+    <connection>
+        <sender>checkBoxVideo</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>toggle_video()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonCloseTab</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>remove_object()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in implementation">qrtdbviewmain.ui.h</include>
+</includes>
+<slots>
+    <slot>init()</slot>
+    <slot>update()</slot>
+    <slot>update_toggle_stop()</slot>
+    <slot>add_object(QListBoxItem*)</slot>
+    <slot>remove_object()</slot>
+    <slot>toggle_video()</slot>
+    <slot>toggle_history()</slot>
+</slots>
+<functions>
+    <function access="private">update_rtdbinfo(void)</function>
+    <function access="private">update_objlist(void)</function>
+    <function access="private">update_objlist_recursive( long long int ts, int oid, int level )</function>
+</functions>
+<pixmapinproject/>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

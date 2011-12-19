@@ -1,0 +1,1335 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>QRTDBGUI</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>QRTDBGUI</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>440</width>
+            <height>512</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>C3 Player Control   (c) 2007 Matthias Goebl (mg@tum.de)</string>
+    </property>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonStop</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>70</x>
+                <y>80</y>
+                <width>60</width>
+                <height>31</height>
+            </rect>
+        </property>
+        <property name="focusPolicy">
+            <enum>NoFocus</enum>
+        </property>
+        <property name="text">
+            <string>St&amp;op</string>
+        </property>
+        <property name="accel">
+            <string>Alt+O</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonQuit</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>380</x>
+                <y>80</y>
+                <width>60</width>
+                <height>30</height>
+            </rect>
+        </property>
+        <property name="focusPolicy">
+            <enum>NoFocus</enum>
+        </property>
+        <property name="text">
+            <string>&amp;Quit</string>
+        </property>
+        <property name="accel">
+            <string>Alt+Q</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>cmdargs</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>70</x>
+                <y>50</y>
+                <width>370</width>
+                <height>29</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string></string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonStart</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>80</y>
+                <width>60</width>
+                <height>31</height>
+            </rect>
+        </property>
+        <property name="focusPolicy">
+            <enum>NoFocus</enum>
+        </property>
+        <property name="text">
+            <string>Pl&amp;ay</string>
+        </property>
+        <property name="accel">
+            <string>Alt+A</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>50</y>
+                <width>69</width>
+                <height>30</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>PlayerArgs:</string>
+        </property>
+    </widget>
+    <widget class="QTextEdit">
+        <property name="name">
+            <cstring>output</cstring>
+        </property>
+        <property name="enabled">
+            <bool>true</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>150</y>
+                <width>440</width>
+                <height>100</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="paletteBackgroundColor">
+            <color>
+                <red>230</red>
+                <green>230</green>
+                <blue>230</blue>
+            </color>
+        </property>
+        <property name="font">
+            <font>
+                <pointsize>8</pointsize>
+            </font>
+        </property>
+        <property name="text">
+            <string></string>
+        </property>
+        <property name="wordWrap">
+            <enum>WidgetWidth</enum>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_2_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>320</y>
+                <width>50</width>
+                <height>30</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>SeekTo:</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonGoSet</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>230</x>
+                <y>320</y>
+                <width>31</width>
+                <height>31</height>
+            </rect>
+        </property>
+        <property name="focusPolicy">
+            <enum>NoFocus</enum>
+        </property>
+        <property name="text">
+            <string>&amp;Go!</string>
+        </property>
+        <property name="accel">
+            <string>Alt+G</string>
+        </property>
+    </widget>
+    <widget class="QGroupBox">
+        <property name="name">
+            <cstring>groupBox1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>4</x>
+                <y>420</y>
+                <width>431</width>
+                <height>90</height>
+            </rect>
+        </property>
+        <property name="title">
+            <string>Loop</string>
+        </property>
+        <widget class="QPushButton">
+            <property name="name">
+                <cstring>pushButtonBeginSet</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>240</x>
+                    <y>22</y>
+                    <width>31</width>
+                    <height>26</height>
+                </rect>
+            </property>
+            <property name="focusPolicy">
+                <enum>NoFocus</enum>
+            </property>
+            <property name="text">
+                <string>Set</string>
+            </property>
+        </widget>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel1_2_2_2_2</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>10</x>
+                    <y>50</y>
+                    <width>50</width>
+                    <height>30</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>End:</string>
+            </property>
+        </widget>
+        <widget class="QPushButton">
+            <property name="name">
+                <cstring>pushButtonBeginClr</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>280</x>
+                    <y>22</y>
+                    <width>31</width>
+                    <height>26</height>
+                </rect>
+            </property>
+            <property name="focusPolicy">
+                <enum>NoFocus</enum>
+            </property>
+            <property name="text">
+                <string>Clr</string>
+            </property>
+        </widget>
+        <widget class="QPushButton">
+            <property name="name">
+                <cstring>pushButtonEndClr</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>280</x>
+                    <y>52</y>
+                    <width>31</width>
+                    <height>26</height>
+                </rect>
+            </property>
+            <property name="focusPolicy">
+                <enum>NoFocus</enum>
+            </property>
+            <property name="text">
+                <string>Clr</string>
+            </property>
+        </widget>
+        <widget class="QPushButton">
+            <property name="name">
+                <cstring>pushButtonEndSet</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>240</x>
+                    <y>52</y>
+                    <width>31</width>
+                    <height>26</height>
+                </rect>
+            </property>
+            <property name="focusPolicy">
+                <enum>NoFocus</enum>
+            </property>
+            <property name="text">
+                <string>Set</string>
+            </property>
+        </widget>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel1_2_2_2</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>10</x>
+                    <y>20</y>
+                    <width>50</width>
+                    <height>30</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>Start:</string>
+            </property>
+        </widget>
+        <widget class="QLineEdit">
+            <property name="name">
+                <cstring>begintime</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>60</x>
+                    <y>22</y>
+                    <width>170</width>
+                    <height>26</height>
+                </rect>
+            </property>
+            <property name="font">
+                <font>
+                    <pointsize>8</pointsize>
+                </font>
+            </property>
+            <property name="text">
+                <string></string>
+            </property>
+        </widget>
+        <widget class="QLineEdit">
+            <property name="name">
+                <cstring>endtime</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>60</x>
+                    <y>52</y>
+                    <width>170</width>
+                    <height>26</height>
+                </rect>
+            </property>
+            <property name="font">
+                <font>
+                    <pointsize>8</pointsize>
+                </font>
+            </property>
+            <property name="text">
+                <string></string>
+            </property>
+        </widget>
+        <widget class="QPushButton">
+            <property name="name">
+                <cstring>pushButtonBeginCur</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>320</x>
+                    <y>22</y>
+                    <width>100</width>
+                    <height>26</height>
+                </rect>
+            </property>
+            <property name="focusPolicy">
+                <enum>NoFocus</enum>
+            </property>
+            <property name="text">
+                <string>SetCurrentPos</string>
+            </property>
+            <property name="accel">
+                <string></string>
+            </property>
+        </widget>
+        <widget class="QPushButton">
+            <property name="name">
+                <cstring>pushButtonEndCur</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>320</x>
+                    <y>52</y>
+                    <width>100</width>
+                    <height>26</height>
+                </rect>
+            </property>
+            <property name="focusPolicy">
+                <enum>NoFocus</enum>
+            </property>
+            <property name="text">
+                <string>SetCurrentPos</string>
+            </property>
+            <property name="accel">
+                <string></string>
+            </property>
+        </widget>
+    </widget>
+    <widget class="QSlider">
+        <property name="name">
+            <cstring>position</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>280</y>
+                <width>440</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="cursor">
+            <cursor>12</cursor>
+        </property>
+        <property name="focusPolicy">
+            <enum>NoFocus</enum>
+        </property>
+        <property name="maxValue">
+            <number>1000</number>
+        </property>
+        <property name="orientation">
+            <enum>Horizontal</enum>
+        </property>
+        <property name="tickmarks">
+            <enum>Below</enum>
+        </property>
+        <property name="tickInterval">
+            <number>100</number>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonRename</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>260</x>
+                <y>0</y>
+                <width>90</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="focusPolicy">
+            <enum>NoFocus</enum>
+        </property>
+        <property name="text">
+            <string>&amp;Rename File</string>
+        </property>
+        <property name="accel">
+            <string>Alt+R</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonNotes</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>350</x>
+                <y>0</y>
+                <width>90</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="focusPolicy">
+            <enum>NoFocus</enum>
+        </property>
+        <property name="text">
+            <string>&amp;Notes File</string>
+        </property>
+        <property name="accel">
+            <string>Alt+N</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>gototime</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>50</x>
+                <y>320</y>
+                <width>170</width>
+                <height>29</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+                <pointsize>8</pointsize>
+            </font>
+        </property>
+        <property name="text">
+            <string>2000-00-00 00:00:00.000000000</string>
+        </property>
+    </widget>
+    <widget class="QCheckBox">
+        <property name="name">
+            <cstring>log</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>120</y>
+                <width>80</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Te&amp;xt Log</string>
+        </property>
+        <property name="accel">
+            <string>Alt+X</string>
+        </property>
+    </widget>
+    <widget class="QComboBox">
+        <item>
+            <property name="text">
+                <string>100</string>
+            </property>
+        </item>
+        <item>
+            <property name="text">
+                <string>1</string>
+            </property>
+        </item>
+        <item>
+            <property name="text">
+                <string>10</string>
+            </property>
+        </item>
+        <item>
+            <property name="text">
+                <string>50</string>
+            </property>
+        </item>
+        <item>
+            <property name="text">
+                <string>100</string>
+            </property>
+        </item>
+        <item>
+            <property name="text">
+                <string>200</string>
+            </property>
+        </item>
+        <item>
+            <property name="text">
+                <string>500</string>
+            </property>
+        </item>
+        <item>
+            <property name="text">
+                <string>1000</string>
+            </property>
+        </item>
+        <item>
+            <property name="text">
+                <string>10000</string>
+            </property>
+        </item>
+        <property name="name">
+            <cstring>speed</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>260</x>
+                <y>80</y>
+                <width>70</width>
+                <height>30</height>
+            </rect>
+        </property>
+        <property name="editable">
+            <bool>true</bool>
+        </property>
+        <property name="currentItem">
+            <number>3</number>
+        </property>
+        <property name="sizeLimit">
+            <number>10</number>
+        </property>
+        <property name="duplicatesEnabled">
+            <bool>false</bool>
+        </property>
+    </widget>
+    <widget class="QCheckBox">
+        <property name="name">
+            <cstring>loop</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>180</x>
+                <y>120</y>
+                <width>50</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>&amp;Loop</string>
+        </property>
+        <property name="accel">
+            <string>Alt+L</string>
+        </property>
+    </widget>
+    <widget class="QCheckBox">
+        <property name="name">
+            <cstring>scan</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>120</y>
+                <width>60</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>S&amp;can</string>
+        </property>
+        <property name="accel">
+            <string>Alt+C</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pause</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>80</y>
+                <width>60</width>
+                <height>30</height>
+            </rect>
+        </property>
+        <property name="focusPolicy">
+            <enum>NoFocus</enum>
+        </property>
+        <property name="text">
+            <string>&amp;Pause</string>
+        </property>
+        <property name="accel">
+            <string>Alt+P</string>
+        </property>
+        <property name="toggleButton">
+            <bool>true</bool>
+        </property>
+        <property name="on">
+            <bool>false</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonKill</cstring>
+        </property>
+        <property name="enabled">
+            <bool>true</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>116</x>
+                <y>99</y>
+                <width>14</width>
+                <height>12</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+                <pointsize>6</pointsize>
+            </font>
+        </property>
+        <property name="focusPolicy">
+            <enum>NoFocus</enum>
+        </property>
+        <property name="text">
+            <string>&amp;kill</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonRev</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>360</x>
+                <y>320</y>
+                <width>31</width>
+                <height>31</height>
+            </rect>
+        </property>
+        <property name="focusPolicy">
+            <enum>NoFocus</enum>
+        </property>
+        <property name="text">
+            <string>&lt;&lt;</string>
+        </property>
+        <property name="accel">
+            <string>Alt+Left</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonFwd</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>400</x>
+                <y>320</y>
+                <width>31</width>
+                <height>31</height>
+            </rect>
+        </property>
+        <property name="focusPolicy">
+            <enum>NoFocus</enum>
+        </property>
+        <property name="text">
+            <string>&gt;&gt;</string>
+        </property>
+        <property name="accel">
+            <string>Alt+Right</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonBrowse</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>350</x>
+                <y>20</y>
+                <width>90</width>
+                <height>30</height>
+            </rect>
+        </property>
+        <property name="focusPolicy">
+            <enum>NoFocus</enum>
+        </property>
+        <property name="text">
+            <string>Choose &amp;File</string>
+        </property>
+        <property name="accel">
+            <string>Alt+F</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_4_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>260</y>
+                <width>40</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>00:00</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>endmin</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>393</x>
+                <y>260</y>
+                <width>40</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>99:99</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>currenttime</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>150</x>
+                <y>260</y>
+                <width>212</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>2000-00-00 00:00:00.000000000</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>currentmin</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>90</x>
+                <y>260</y>
+                <width>40</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>99:99</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_4</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>130</x>
+                <y>260</y>
+                <width>16</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>=</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>204</width>
+                <height>22</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>File with RTDB-Recording to play:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>filename</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>20</y>
+                <width>350</width>
+                <height>29</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>/data/noname.avi</string>
+        </property>
+    </widget>
+    <widget class="QGroupBox">
+        <property name="name">
+            <cstring>groupBox2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>4</x>
+                <y>360</y>
+                <width>430</width>
+                <height>60</height>
+            </rect>
+        </property>
+        <property name="title">
+            <string>Single Object Control (Seeking resets history!)</string>
+        </property>
+        <widget class="QLineEdit">
+            <property name="name">
+                <cstring>frameobj</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>10</x>
+                    <y>20</y>
+                    <width>220</width>
+                    <height>29</height>
+                </rect>
+            </property>
+            <property name="font">
+                <font>
+                    <pointsize>8</pointsize>
+                </font>
+            </property>
+            <property name="text">
+                <string>camera_left</string>
+            </property>
+        </widget>
+        <widget class="QSpinBox">
+            <property name="name">
+                <cstring>framex</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>346</x>
+                    <y>20</y>
+                    <width>40</width>
+                    <height>31</height>
+                </rect>
+            </property>
+            <property name="buttonSymbols">
+                <enum>PlusMinus</enum>
+            </property>
+            <property name="maxValue">
+                <number>9999</number>
+            </property>
+            <property name="minValue">
+                <number>1</number>
+            </property>
+            <property name="lineStep">
+                <number>1</number>
+            </property>
+            <property name="value">
+                <number>33</number>
+            </property>
+        </widget>
+        <widget class="QPushButton">
+            <property name="name">
+                <cstring>pushButtonFramePrev</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>238</x>
+                    <y>20</y>
+                    <width>31</width>
+                    <height>31</height>
+                </rect>
+            </property>
+            <property name="focusPolicy">
+                <enum>NoFocus</enum>
+            </property>
+            <property name="text">
+                <string>&lt;|</string>
+            </property>
+            <property name="accel">
+                <string>Alt+Down</string>
+            </property>
+        </widget>
+        <widget class="QPushButton">
+            <property name="name">
+                <cstring>pushButtonFrameNext</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>270</x>
+                    <y>20</y>
+                    <width>31</width>
+                    <height>31</height>
+                </rect>
+            </property>
+            <property name="focusPolicy">
+                <enum>NoFocus</enum>
+            </property>
+            <property name="text">
+                <string>|&gt;</string>
+            </property>
+            <property name="accel">
+                <string>Alt+Up</string>
+            </property>
+        </widget>
+        <widget class="QPushButton">
+            <property name="name">
+                <cstring>pushButtonFramePrevX</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>312</x>
+                    <y>20</y>
+                    <width>31</width>
+                    <height>31</height>
+                </rect>
+            </property>
+            <property name="focusPolicy">
+                <enum>NoFocus</enum>
+            </property>
+            <property name="text">
+                <string>&lt;&lt;|</string>
+            </property>
+            <property name="accel">
+                <string>Alt+PgDown</string>
+            </property>
+        </widget>
+        <widget class="QPushButton">
+            <property name="name">
+                <cstring>pushButtonFrameNextX</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>390</x>
+                    <y>20</y>
+                    <width>31</width>
+                    <height>31</height>
+                </rect>
+            </property>
+            <property name="focusPolicy">
+                <enum>NoFocus</enum>
+            </property>
+            <property name="text">
+                <string>|&gt;&gt;</string>
+            </property>
+            <property name="accel">
+                <string>Alt+PgUp</string>
+            </property>
+        </widget>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonGoCur</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>270</x>
+                <y>320</y>
+                <width>80</width>
+                <height>31</height>
+            </rect>
+        </property>
+        <property name="focusPolicy">
+            <enum>NoFocus</enum>
+        </property>
+        <property name="text">
+            <string>CurrentPos</string>
+        </property>
+        <property name="accel">
+            <string></string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>firsttime</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>300</y>
+                <width>212</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>2000-00-00 00:00:00.000000000</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>lasttime</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>224</x>
+                <y>300</y>
+                <width>212</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>2000-00-00 00:00:00.000000000</string>
+        </property>
+    </widget>
+    <widget class="QCheckBox">
+        <property name="name">
+            <cstring>keepcreated</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>260</x>
+                <y>120</y>
+                <width>150</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>&amp;Keep objects in loop</string>
+        </property>
+        <property name="accel">
+            <string>Alt+K</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>214</x>
+                <y>80</y>
+                <width>50</width>
+                <height>33</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Speed
+(in %):</string>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>pushButtonQuit</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>quit()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonBrowse</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>browse()</slot>
+    </connection>
+    <connection>
+        <sender>loop</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>commit()</slot>
+    </connection>
+    <connection>
+        <sender>keepcreated</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>commit()</slot>
+    </connection>
+    <connection>
+        <sender>log</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>commit()</slot>
+    </connection>
+    <connection>
+        <sender>scan</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>commit()</slot>
+    </connection>
+    <connection>
+        <sender>pause</sender>
+        <signal>stateChanged(int)</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>commit()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonGoSet</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>goset()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonStart</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>start()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonStop</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>stop()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonKill</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>kill()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonGoCur</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>gocur()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonBeginCur</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>begincur()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonEndCur</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>endcur()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonBeginSet</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>beginset()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonEndSet</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>endset()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonBeginClr</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>beginclr()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonEndClr</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>endclr()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonFramePrevX</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>frameprevx()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonFramePrev</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>frameprev()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonFrameNextX</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>framenextx()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonFrameNext</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>framenext()</slot>
+    </connection>
+    <connection>
+        <sender>position</sender>
+        <signal>sliderMoved(int)</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>gopos()</slot>
+    </connection>
+    <connection>
+        <sender>position</sender>
+        <signal>sliderPressed()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>posupd_off()</slot>
+    </connection>
+    <connection>
+        <sender>position</sender>
+        <signal>sliderReleased()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>posupd_on()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonFwd</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>gofwd()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonRev</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>gorev()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonNotes</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>notes()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonRename</sender>
+        <signal>clicked()</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>renamefile()</slot>
+    </connection>
+    <connection>
+        <sender>speed</sender>
+        <signal>activated(int)</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>commit()</slot>
+    </connection>
+    <connection>
+        <sender>speed</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>QRTDBGUI</receiver>
+        <slot>commit()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in implementation">qrtdbplaymain.ui.h</include>
+</includes>
+<slots>
+    <slot>init()</slot>
+    <slot>update()</slot>
+    <slot>commit()</slot>
+    <slot>browse()</slot>
+    <slot>renamefile()</slot>
+    <slot>start()</slot>
+    <slot>stop()</slot>
+    <slot>kill()</slot>
+    <slot>notes()</slot>
+    <slot>stdout()</slot>
+    <slot>exited()</slot>
+    <slot>goset()</slot>
+    <slot>beginset()</slot>
+    <slot>endset()</slot>
+    <slot>gocur()</slot>
+    <slot>begincur()</slot>
+    <slot>endcur()</slot>
+    <slot>beginclr()</slot>
+    <slot>endclr()</slot>
+    <slot>framenextx()</slot>
+    <slot>framenext()</slot>
+    <slot>frameprevx()</slot>
+    <slot>frameprev()</slot>
+    <slot>quit()</slot>
+    <slot>gopos()</slot>
+    <slot>posupd_on()</slot>
+    <slot>posupd_off()</slot>
+    <slot>gofwd()</slot>
+    <slot>gorev()</slot>
+</slots>
+<functions>
+    <function>framego( int n )</function>
+</functions>
+<pixmapinproject/>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

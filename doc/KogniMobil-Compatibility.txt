@@ -1,0 +1,69 @@
+The following Changes to the existing Code are necessary:
+
+(see also patch and kognimobil-svn changes for revisions r6786 r6787 r6788 r6808)
+
+
+*** (Master-)Makefile:
+*** export CPPFLAGS+= -DKOGNIMOBIL_OLD_INCLUDES
+
+Index: Makefile
+===================================================================
+--- Makefile	(revision 6785)
++++ Makefile	(working copy)
+@@ -57,7 +57,7 @@
+ endif
+ export KOGMOHOME KOGMOINSTALLS MUCAR_HOME KOGMO_OBJECTS KOGMO_RTDB_HOME QT3DIR QT4DIR
+ 
+-export CPPFLAGS+= -I$(KOGMO_RTDB_HOME)/include/ -I$(KOGMO_OBJECTS)/ -I$(KOGMOHOME)/kogmo_rtdb/include/ -I$(KOGMOHOME)/kogmo_objects/ -I$(KOGMOINSTALLS)/include/ -I/usr/include/opencv
++export CPPFLAGS+= -DKOGNIMOBIL_OLD_INCLUDES -I$(KOGMO_RTDB_HOME)/include/ -I$(KOGMO_OBJECTS)/ -I$(KOGMOHOME)/kogmo_rtdb/include/ -I$(KOGMOHOME)/kogmo_objects/ -I$(KOGMOINSTALLS)/include/ -I/usr/include/opencv
+ export LDFLAGS_ALL+= -L$(KOGMO_RTDB_HOME)/lib/ -L$(KOGMOHOME)/kogmo_rtdb/lib -L$(KOGMOINSTALLS)/lib/
+
+
+
+*** QT Project Files:
+*** DEFINES += KOGNIMOBIL_OLD_INCLUDES
+
+Index: gui_rtdb/c3_gui_rtdbview.pro
+===================================================================
+--- gui_rtdb/c3_gui_rtdbview.pro        (revision 6785)
++++ gui_rtdb/c3_gui_rtdbview.pro        (working copy)
+@@ -3,6 +3,8 @@
+ 
+ CONFIG += qt warn_on release
+ 
++DEFINES += KOGNIMOBIL_OLD_INCLUDES
++
+ LIBS   += -lrt -lkogmo_rtdb -L$(KOGMO_RTDB_HOME)/lib -L$(KOGMOHOME)/kogmo_rtdb/lib
+ 
+ INCLUDEPATH    += $(KOGMO_RTDB_HOME)/include/ $(KOGMO_OBJECTS)/ $(KOGMOHOME)/kogmo_rtdb/include/ $(KOGMOHOME)/kogmo_objects/
+
+
+
+
+*** KogMo-Objects Include Files: (kogmo_objects/*)
+*** Some Objects deactivated for new rtdb release (IFDEFs): (ifndef KOGMO_RTDB_OBJ_BASE_SYSTEM_CLASSES_HXX)
++++ kogmo_rtdb_obj_c3_base_classes.hxx  (working copy)
++++ kogmo_rtdb_obj_a2_classes.hxx       (working copy)
++++ kogmo_rtdb_obj_c3_classes.hxx       (working copy)
++#ifndef KOGMO_RTDB_OBJ_BASE_SYSTEM_CLASSES_HXX
+...
+
++++ kogmo_rtdb_obj_a2.h (working copy)
++++ c3/kogmo_rtdb_obj_c3_misc.h (working copy)
++++ c3/kogmo_rtdb_obj_c3_playrec.h      (working copy)
++#if KOGMO_RTDB_REV < 540   /* From now on in kogmo_rtdb_obj_base.h/.id:*/
+...
+
+
+
+*** Type-IDs:
+*** Removed Link, Copied, added IFDEFs
+
++++ kogmo_rtdb_obj_typeids.h    (working copy)
++#ifndef KOGMO_RTDB_WITHIN_OBJ_TYPEIDS_ENUM
+ enum kogmo_rtdb_objtype {
++#endif
++#if KOGMO_RTDB_REV < 540   /* From now on in kogmo_rtdb_obj_base.h/.id:*/
+   KOGMO_RTDB_OBJTYPE_A2_IMAGE                                          = 0xA20030,
++#endif
+...

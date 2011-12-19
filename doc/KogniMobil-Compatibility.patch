@@ -1,0 +1,355 @@
+------------------------------------------------------------------------
+r6786 | matthias.goebl | 2009-11-18 18:59:52 +0100 (Wed, 18 Nov 2009) | 1 line
+Changed paths:
+   M /a3/trunk/gui_lidar/a3_gui_lidar.pro
+   M /c3/trunk/kogmo_rtdb/gui_launcher/c3_gui_launcher.pro
+   M /c3/trunk/kogmo_rtdb/gui_playercontrol2/c3_gui_playercontrol.pro
+   M /c3/trunk/kogmo_rtdb/gui_rtdb/c3_gui_rtdbview.pro
+   M /c3/trunk/kogmo_rtdb/gui_status/c3_gui_status.pro
+   M /c3/trunk/kogmo_rtdb/gui_videoannot/c3_gui_videoannot.pro
+
++DEFINES += KOGNIMOBIL_OLD_INCLUDES
+------------------------------------------------------------------------
+Index: a3/trunk/gui_lidar/a3_gui_lidar.pro
+===================================================================
+--- a3/trunk/gui_lidar/a3_gui_lidar.pro	(revision 6785)
++++ a3/trunk/gui_lidar/a3_gui_lidar.pro	(revision 6786)
+@@ -1,6 +1,7 @@
+ TEMPLATE = app
+ LANGUAGE = C++
+ CONFIG += qt release warn_off
++DEFINES += KOGNIMOBIL_OLD_INCLUDES
+ LIBS += -lrt -lkogmo_rtdb -L$(KOGMO_RTDB_HOME)/lib -L$(KOGMOHOME)/kogmo_rtdb/lib
+ INCLUDEPATH += $(KOGMO_RTDB_HOME)/include/ $(KOGMO_OBJECTS)/ $(KOGMOHOME)/kogmo_rtdb/include/ $(KOGMOHOME)/kogmo_objects/
+ unix {
+Index: c3/trunk/kogmo_rtdb/gui_playercontrol2/c3_gui_playercontrol.pro
+===================================================================
+--- c3/trunk/kogmo_rtdb/gui_playercontrol2/c3_gui_playercontrol.pro	(revision 6785)
++++ c3/trunk/kogmo_rtdb/gui_playercontrol2/c3_gui_playercontrol.pro	(revision 6786)
+@@ -3,6 +3,8 @@
+ 
+ CONFIG	+= qt warn_on release
+ 
++DEFINES += KOGNIMOBIL_OLD_INCLUDES
++
+ LIBS	+= -lrt -lkogmo_rtdb -L$(KOGMO_RTDB_HOME)/lib -L$(KOGMOHOME)/kogmo_rtdb/lib
+ 
+ INCLUDEPATH	+= $(KOGMO_RTDB_HOME)/include/ $(KOGMO_OBJECTS)/ $(KOGMOHOME)/kogmo_rtdb/include/ $(KOGMOHOME)/kogmo_objects/
+Index: c3/trunk/kogmo_rtdb/gui_rtdb/c3_gui_rtdbview.pro
+===================================================================
+--- c3/trunk/kogmo_rtdb/gui_rtdb/c3_gui_rtdbview.pro	(revision 6785)
++++ c3/trunk/kogmo_rtdb/gui_rtdb/c3_gui_rtdbview.pro	(revision 6786)
+@@ -3,6 +3,8 @@
+ 
+ CONFIG	+= qt warn_on release
+ 
++DEFINES += KOGNIMOBIL_OLD_INCLUDES
++
+ LIBS	+= -lrt -lkogmo_rtdb -L$(KOGMO_RTDB_HOME)/lib -L$(KOGMOHOME)/kogmo_rtdb/lib
+ 
+ INCLUDEPATH	+= $(KOGMO_RTDB_HOME)/include/ $(KOGMO_OBJECTS)/ $(KOGMOHOME)/kogmo_rtdb/include/ $(KOGMOHOME)/kogmo_objects/
+Index: c3/trunk/kogmo_rtdb/gui_launcher/c3_gui_launcher.pro
+===================================================================
+--- c3/trunk/kogmo_rtdb/gui_launcher/c3_gui_launcher.pro	(revision 6785)
++++ c3/trunk/kogmo_rtdb/gui_launcher/c3_gui_launcher.pro	(revision 6786)
+@@ -3,6 +3,8 @@
+ 
+ CONFIG	+= qt warn_on release
+ 
++DEFINES += KOGNIMOBIL_OLD_INCLUDES
++
+ LIBS	+= -lrt -lkogmo_rtdb -L$(KOGMO_RTDB_HOME)/lib -L$(KOGMOHOME)/kogmo_rtdb/lib
+ 
+ INCLUDEPATH	+= $(KOGMO_OBJECTS)/ $(KOGMOHOME)/kogmo_objects/ $(KOGMO_RTDB_HOME)/include/ $(KOGMOHOME)/kogmo_rtdb/include/
+Index: c3/trunk/kogmo_rtdb/gui_videoannot/c3_gui_videoannot.pro
+===================================================================
+--- c3/trunk/kogmo_rtdb/gui_videoannot/c3_gui_videoannot.pro	(revision 6785)
++++ c3/trunk/kogmo_rtdb/gui_videoannot/c3_gui_videoannot.pro	(revision 6786)
+@@ -3,6 +3,8 @@
+ 
+ CONFIG	+= qt warn_on release
+ 
++DEFINES += KOGNIMOBIL_OLD_INCLUDES
++
+ LIBS	+= -lrt -lkogmo_rtdb -L$(KOGMO_RTDB_HOME)/lib -L$(KOGMOHOME)/kogmo_rtdb/lib
+ 
+ INCLUDEPATH	+= $(KOGMO_RTDB_HOME)/include/ $(KOGMO_OBJECTS)/ $(KOGMOHOME)/kogmo_rtdb/include/ $(KOGMOHOME)/kogmo_objects/
+Index: c3/trunk/kogmo_rtdb/gui_status/c3_gui_status.pro
+===================================================================
+--- c3/trunk/kogmo_rtdb/gui_status/c3_gui_status.pro	(revision 6785)
++++ c3/trunk/kogmo_rtdb/gui_status/c3_gui_status.pro	(revision 6786)
+@@ -3,6 +3,8 @@
+ 
+ CONFIG	+= qt warn_on release
+ 
++DEFINES += KOGNIMOBIL_OLD_INCLUDES
++
+ LIBS    += -lrt -lkogmo_rtdb -L$(KOGMO_RTDB_HOME)/lib -L$(KOGMOHOME)/kogmo_rtdb/lib
+ 
+ INCLUDEPATH     += $(KOGMO_RTDB_HOME)/include/ $(KOGMO_OBJECTS)/ $(KOGMOHOME)/kogmo_rtdb/include/ $(KOGMOHOME)/kogmo_objects/
+------------------------------------------------------------------------
+r6787 | matthias.goebl | 2009-11-18 19:23:00 +0100 (Wed, 18 Nov 2009) | 1 line
+Changed paths:
+   M /c3/trunk/kogmo_rtdb/kogmo_rtdb/include/kogmo_rtdb_obj_typeids.h
+   M /qag3/trunk/kogmo_objects/c3/kogmo_rtdb_obj_c3_misc.h
+   M /qag3/trunk/kogmo_objects/c3/kogmo_rtdb_obj_c3_playrec.h
+   M /qag3/trunk/kogmo_objects/kogmo_rtdb_obj_a2.h
+   M /qag3/trunk/kogmo_objects/kogmo_rtdb_obj_a2_classes.hxx
+   M /qag3/trunk/kogmo_objects/kogmo_rtdb_obj_c3_base_classes.hxx
+   M /qag3/trunk/kogmo_objects/kogmo_rtdb_obj_c3_classes.hxx
+
+Some Objects deactivated for new rtdb release (IFDEFs)
+------------------------------------------------------------------------
+Index: qag3/trunk/kogmo_objects/kogmo_rtdb_obj_c3_base_classes.hxx
+===================================================================
+--- qag3/trunk/kogmo_objects/kogmo_rtdb_obj_c3_base_classes.hxx	(revision 6786)
++++ qag3/trunk/kogmo_objects/kogmo_rtdb_obj_c3_base_classes.hxx	(revision 6787)
+@@ -6,6 +6,7 @@
+  *     Technische Universitaet Muenchen (TUM)
+  */
+ 
++#ifndef KOGMO_RTDB_OBJ_BASE_SYSTEM_CLASSES_HXX
+ #ifndef KOGMO_RTDB_OBJ_C3_BASE_CLASSES_HXX
+ #define KOGMO_RTDB_OBJ_C3_BASE_CLASSES_HXX
+ 
+@@ -237,3 +238,4 @@
+ }; /* namespace KogniMobil */
+ 
+ #endif /* KOGMO_RTDB_OBJ_C3_BASE_CLASSES_HXX */
++#endif
+Index: qag3/trunk/kogmo_objects/kogmo_rtdb_obj_a2_classes.hxx
+===================================================================
+--- qag3/trunk/kogmo_objects/kogmo_rtdb_obj_a2_classes.hxx	(revision 6786)
++++ qag3/trunk/kogmo_objects/kogmo_rtdb_obj_a2_classes.hxx	(revision 6787)
+@@ -205,6 +205,7 @@
+ 
+ 
+ 
++#ifndef KOGMO_RTDB_OBJ_BASE_SYSTEM_CLASSES_HXX
+ 	// for an example: see kogmo_rtdb_obj_a2_classes.hxx: template A2_Image
+ 	// int bits: 8 for 8bit unsigned / 16 for 16bit unsigned / 32 for 32bit FLOAT!
+ 	template < int width = 1024, int height = 768, int channels = 1, int bits=8>
+@@ -361,6 +362,7 @@
+ 			setMinSize( - calcImgSize() );
+ 		}
+ 	};
++#endif /* KOGMO_RTDB_OBJ_BASE_SYSTEM_CLASSES_HXX */
+ 
+ 
+ 	typedef RTDBObj_T < kogmo_rtdb_subobj_a2_imageannot_t, KOGMO_RTDB_OBJTYPE_A2_IMAGEANNOT, RTDBObj > A2_ImageAnnot_T;
+Index: qag3/trunk/kogmo_objects/kogmo_rtdb_obj_c3_classes.hxx
+===================================================================
+--- qag3/trunk/kogmo_objects/kogmo_rtdb_obj_c3_classes.hxx	(revision 6786)
++++ qag3/trunk/kogmo_objects/kogmo_rtdb_obj_c3_classes.hxx	(revision 6787)
+@@ -377,6 +377,7 @@
+ 
+ 
+ 
++#ifndef KOGMO_RTDB_OBJ_BASE_SYSTEM_CLASSES_HXX
+ typedef RTDBObj_T < kogmo_rtdb_subobj_c3_text_t, KOGMO_RTDB_OBJTYPE_C3_TEXT > C3_Text_T;
+ class C3_Text : public C3_Text_T
+ {
+@@ -427,6 +428,7 @@
+         return RTDBObj::dump() + ostr.str();
+       }; 
+ };
++#endif /* KOGMO_RTDB_OBJ_BASE_SYSTEM_CLASSES_HXX */
+ 
+ 
+ 
+@@ -556,6 +558,7 @@
+ };
+ 
+ 
++#ifndef KOGMO_RTDB_OBJ_BASE_SYSTEM_CLASSES_HXX
+ typedef RTDBObj_T < kogmo_rtdb_subobj_c3_playerstat_t, KOGMO_RTDB_OBJTYPE_C3_PLAYERSTAT, RTDBObj > C3_PlayerStat_T;
+ class C3_PlayerStat : public C3_PlayerStat_T
+ {
+@@ -815,6 +818,7 @@
+         return RTDBObj::dump() + totalInfo() + currInfo();
+       };
+ };
++#endif /* KOGMO_RTDB_OBJ_BASE_SYSTEM_CLASSES_HXX */
+ 
+ 
+ 
+Index: qag3/trunk/kogmo_objects/kogmo_rtdb_obj_a2.h
+===================================================================
+--- qag3/trunk/kogmo_objects/kogmo_rtdb_obj_a2.h	(revision 6786)
++++ qag3/trunk/kogmo_objects/kogmo_rtdb_obj_a2.h	(revision 6787)
+@@ -250,6 +250,7 @@
+ 
+ 
+ 
++#if KOGMO_RTDB_REV < 540   /* From now on in kogmo_rtdb_obj_base.h/.id:*/
+ 
+ /*! \brief Ein Videobild
+  * (aehnlich OpenCV)
+@@ -293,7 +294,10 @@
+   kogmo_rtdb_subobj_a2_image_t image;
+ } kogmo_rtdb_obj_a2_image_t;
+ 
++#endif
+ 
++
++
+ /*! \brief Image Info - additional information
+  * like shutter time, camera timestamp, etc
+  */
+Index: qag3/trunk/kogmo_objects/c3/kogmo_rtdb_obj_c3_misc.h
+===================================================================
+--- qag3/trunk/kogmo_objects/c3/kogmo_rtdb_obj_c3_misc.h	(revision 6786)
++++ qag3/trunk/kogmo_objects/c3/kogmo_rtdb_obj_c3_misc.h	(revision 6787)
+@@ -79,10 +79,6 @@
+ 
+ 
+ 
+-/*! \brief Type of a pre-allocated String to receive the Output of
+- * kogmo_rtdb_obj_c3_process_getprocessinfo()
+- */
+-typedef char kogmo_rtdb_obj_c3_process_info_t[KOGMO_RTDB_OBJMETA_NAME_MAXLEN+100];
+ 
+ 
+ 
+@@ -104,6 +100,13 @@
+ 
+ 
+ 
++#if KOGMO_RTDB_REV < 540   /* From now on in kogmo_rtdb_obj_base.h/.id:*/
++
++/*! \brief Type of a pre-allocated String to receive the Output of
++ * kogmo_rtdb_obj_c3_process_getprocessinfo()
++ */
++typedef char kogmo_rtdb_obj_c3_process_info_t[KOGMO_RTDB_OBJMETA_NAME_MAXLEN+100];
++
+ /*! \brief Plain ASCII-Text Object
+  */
+ typedef struct
+@@ -136,6 +139,9 @@
+   kogmo_rtdb_subobj_c3_text1k_t text;
+ } kogmo_rtdb_obj_c3_text1k_t;
+ 
++#endif
++
++
+ /*@}*/
+ 
+ #ifdef __cplusplus
+Index: qag3/trunk/kogmo_objects/c3/kogmo_rtdb_obj_c3_playrec.h
+===================================================================
+--- qag3/trunk/kogmo_objects/c3/kogmo_rtdb_obj_c3_playrec.h	(revision 6786)
++++ qag3/trunk/kogmo_objects/c3/kogmo_rtdb_obj_c3_playrec.h	(revision 6787)
+@@ -1,3 +1,6 @@
++#if KOGMO_RTDB_REV < 540   /* From now on in kogmo_rtdb_obj_base.h/.id:*/
++
++
+ /*! \file kogmo_rtdb_obj_playrec_c3.h
+  * \brief Recorder and Player Objects from C3
+  *
+@@ -131,3 +134,6 @@
+ #endif
+ 
+ #endif /* KOGMO_RTDB_OBJ_C3_PLAYREC_H */
++
++
++#endif
+Index: c3/trunk/kogmo_rtdb/kogmo_rtdb/include/kogmo_rtdb_obj_typeids.h
+===================================================================
+--- c3/trunk/kogmo_rtdb/kogmo_rtdb/include/kogmo_rtdb_obj_typeids.h	(revision 6786)
++++ c3/trunk/kogmo_rtdb/kogmo_rtdb/include/kogmo_rtdb_obj_typeids.h	(revision 6787)
+@@ -12,7 +12,10 @@
+ #ifndef KOGMO_RTDB_OBJ_TYPEIDS_H
+ #define KOGMO_RTDB_OBJ_TYPEIDS_H
+ 
++#ifndef KOGMO_RTDB_WITHIN_OBJ_TYPEIDS_ENUM
+ enum kogmo_rtdb_objtype {
++#endif
++
+   // Alle: Ein Objekt, das keinen Datenblock enthaelt
+   KOGMO_RTDB_OBJTYPE_EMPTY							= 0x000001,
+   // Alle: Ein Objekt, das einen beliebig langen, unspezifizierten Datenblock enthaelt
+@@ -50,7 +53,9 @@
+   // Zusätzliche Informationen über USB-Kameras mvBlueFOX
+   KOGMO_RTDB_OBJTYPE_A2_CAMINFO                     = 0xA20023,
+   // Ein Videobild, incl Aufloesung, Farbtiefe, etc.
++#if KOGMO_RTDB_REV < 540   /* From now on in kogmo_rtdb_obj_base.h/.id:*/
+   KOGMO_RTDB_OBJTYPE_A2_IMAGE						= 0xA20030,
++#endif
+   // Infos zu einem Videobild, zeitstempel, shutter zeit, frame drop, etc.
+   KOGMO_RTDB_OBJTYPE_A2_IMAGE_INFO			        = 0xA20032,
+   // Annotationen (Liniensegmente) zu einem Videobild
+@@ -260,6 +265,7 @@
+   //-----------------------------------------------------------
+ 
+   // C3: Datenbank-interne Objekte
++#if KOGMO_RTDB_REV < 540   /* From now on in kogmo_rtdb_obj_base.h/.id:*/
+   KOGMO_RTDB_OBJTYPE_C3_ROOT						= 0xC30001,
+   KOGMO_RTDB_OBJTYPE_C3_PROCESSLIST					= 0xC30002,
+   KOGMO_RTDB_OBJTYPE_C3_PROCESS						= 0xC30003,
+@@ -268,6 +274,8 @@
+   KOGMO_RTDB_OBJTYPE_C3_RECORDERCTRL				= 0xC30007,
+   KOGMO_RTDB_OBJTYPE_C3_PLAYERSTAT					= 0xC30008,
+   KOGMO_RTDB_OBJTYPE_C3_PLAYERCTRL					= 0xC30009,
++#endif
++
+   // Objekt zur Repraesentation einer 3-dimensionalen Lage im Raum
+   KOGMO_RTDB_OBJTYPE_C3_SIXDOF						= 0xC30010,
+   // Objekt mit Fahrzeug-Rohdaten
+@@ -278,7 +286,12 @@
+   KOGMO_RTDB_OBJTYPE_C3_LWSCAN						= 0xC30030,
+   // Objekt mit Log-Message
+   KOGMO_RTDB_OBJTYPE_C3_LOGMESSAGE					= 0xC30040,
+-  KOGMO_RTDB_OBJTYPE_C3_TEXT						= 0xC30050,
++#if KOGMO_RTDB_REV < 540   /* From now on in kogmo_rtdb_obj_base.h/.id:*/
++  // This is essential for the Examples
++  KOGMO_RTDB_OBJTYPE_C3_TEXT                                            = 0xC30050,
++  KOGMO_RTDB_OBJTYPE_C3_INTS                                            = 0xC30051,
++  KOGMO_RTDB_OBJTYPE_C3_FLOATS                                          = 0xC30052,
++#endif
+   // Objekt mit CAN-Rohdaten
+   KOGMO_RTDB_OBJTYPE_C3_CANDATA						= 0xC30060,
+   // Kameraplattform Status und Kommando
+@@ -430,6 +443,8 @@
+ 
+ 
+ 
++#ifndef KOGMO_RTDB_WITHIN_OBJ_TYPEIDS_ENUM
+ };
++#endif
+ 
+ #endif /* KOGMO_RTDB_OBJ_TYPEIDS_H */
+------------------------------------------------------------------------
+r6788 | matthias.goebl | 2009-11-18 19:24:03 +0100 (Wed, 18 Nov 2009) | 1 line
+Changed paths:
+   M /qag3/trunk/kogmomuc/Makefile
+
+export CPPFLAGS+= -DKOGNIMOBIL_OLD_INCLUDES
+------------------------------------------------------------------------
+Index: qag3/trunk/kogmomuc/Makefile
+===================================================================
+--- qag3/trunk/kogmomuc/Makefile	(revision 6787)
++++ qag3/trunk/kogmomuc/Makefile	(revision 6788)
+@@ -57,7 +57,7 @@
+ endif
+ export KOGMOHOME KOGMOINSTALLS MUCAR_HOME KOGMO_OBJECTS KOGMO_RTDB_HOME QT3DIR QT4DIR
+ 
+-export CPPFLAGS+= -I$(KOGMO_RTDB_HOME)/include/ -I$(KOGMO_OBJECTS)/ -I$(KOGMOHOME)/kogmo_rtdb/include/ -I$(KOGMOHOME)/kogmo_objects/ -I$(KOGMOINSTALLS)/include/ -I/usr/include/opencv
++export CPPFLAGS+= -DKOGNIMOBIL_OLD_INCLUDES -I$(KOGMO_RTDB_HOME)/include/ -I$(KOGMO_OBJECTS)/ -I$(KOGMOHOME)/kogmo_rtdb/include/ -I$(KOGMOHOME)/kogmo_objects/ -I$(KOGMOINSTALLS)/include/ -I/usr/include/opencv
+ export LDFLAGS_ALL+= -L$(KOGMO_RTDB_HOME)/lib/ -L$(KOGMOHOME)/kogmo_rtdb/lib -L$(KOGMOINSTALLS)/lib/
+ 
+ 
+------------------------------------------------------------------------
+r6808 | matthias.goebl | 2009-11-20 13:53:29 +0100 (Fri, 20 Nov 2009) | 2 lines
+Changed paths:
+   D /qag3/trunk/kogmo_objects/kogmo_rtdb_obj_base.h
+
+removed kogmo_rtdb_obj_base.h from kogmo_objects
+
+------------------------------------------------------------------------
+Index: qag3/trunk/kogmo_objects/kogmo_rtdb_obj_base.h
+===================================================================
+--- qag3/trunk/kogmo_objects/kogmo_rtdb_obj_base.h	(revision 6807)
++++ qag3/trunk/kogmo_objects/kogmo_rtdb_obj_base.h	(revision 6808)
+@@ -1 +0,0 @@
+-link ../kogmo_rtdb/include/kogmo_rtdb_obj_base.h
+\ No newline at end of file

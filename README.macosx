@@ -1,0 +1,42 @@
+Einschraenkungen auf MAC OS-X:
+
+- kein exit-handler!
+ => kogmo_rtdb_disconnect() nicht vergessen
+ (der destruktur von RTDBConn funktioniert aber :-)
+
+- timestamps sind nur mikrosekundengenau (statt nanosek.)
+  [mac hat kein clock_gettime(), daher wird gettimeofday() verwendet]
+
+- kogmo_timestamp_to_string liefert timestamps in textform
+  nicht als "2006-07-15 17:18:14.966891234" sondern
+  als grosse zahl (nanosecs seit 1.1.1970)
+  [localtime_r() faulted mit bus-error]
+
+- aufpassen, dass kein alter shared memory noch existiert und kein
+  manager noch laeuft
+  (normal wird dieser geloescht)
+  [shm_open() nimmt kein O_TRUNC]
+
+- clients immer *nach* dem manager starten
+  (normal warten die, bis der manager gestartet wird)
+  [fstat() auf den shm geht nicht]
+
+- auf mac funktioniert nur der nicht-realzeit-memory-allocator
+ => unwichtig, da sowieso kein realzeit-linux auf mac laeuft
+
+- auf dem mac funktionieren prozessuebergreifende mutexes und
+  condition variables nicht => polling als workaround (macht
+  die libboost auch!) -> damit ist das zeitverhalten schlechter,
+  aber zur funktionsentwicklung sollte es reichen.
+  Dazu gibt es 2 environment-variablen (mit defaults):
+   export KOGMO_RTDB_IPC_POLL_MUTEX_USECS=500
+   export KOGMO_RTDB_IPC_POLL_CONDVAR_USECS=2000
+   (..CONDVAR_USECS=10000 (=10ms) reicht fuer langsame prozesse
+   auch und macht weniger last)
+  -> ACHTUNG: wenn man programme mit ctrl-c (bzw. absturz) im
+     unguenstigen moment beendet, koennten die emulierten mutexes
+     noch gesperrt sein -> RTDB haengt bis zum Neustart :-(
+
+- der recorder funktioniert nicht, der player schon
+
+(mg, 2009-01-30)

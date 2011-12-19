@@ -1,0 +1,44 @@
+kogmo_rtdb_obj_insert():
+kogmo_rtdb_objmeta_lock
+kogmo_rtdb_obj_do_metanotify_prepare
+kogmo_rtdb_obj_do_metanotify
+kogmo_rtdb_objmeta_unlock
+
+kogmo_rtdb_objmeta_purge():
+kogmo_rtdb_objmeta_lock
+kogmo_rtdb_objmeta_unlock
+kogmo_rtdb_objmeta_lock
+kogmo_rtdb_objmeta_unlock
+
+kogmo_rtdb_obj_delete():
+kogmo_rtdb_objmeta_lock
+kogmo_rtdb_obj_do_notify_prepare
+kogmo_rtdb_obj_do_notify
+kogmo_rtdb_objmeta_unlock
+
+kogmo_rtdb_obj_readinfo():
+kogmo_rtdb_objmeta_lock
+kogmo_rtdb_objmeta_unlock
+
+kogmo_rtdb_obj_searchinfo():
+kogmo_rtdb_objmeta_lock
+kogmo_rtdb_objmeta_unlock
+
+kogmo_rtdb_obj_readdata_waitnext():
+kogmo_rtdb_obj_wait_notify_prepare
+ kogmo_rtdb_obj_wait_notify_done
+kogmo_rtdb_obj_wait_notify
+
+kogmo_rtdb_obj_searchinfo_wait():
+kogmo_rtdb_obj_wait_metanotify_prepare
+kogmo_rtdb_obj_searchinfo_nolock
+ kogmo_rtdb_obj_wait_metanotify_done
+kogmo_rtdb_obj_wait_metanotify
+
+kogmo_rtdb_obj_readdata_*():
+no locks
+
+
+WARNING: NEVER LOCK heap_lock when holding meta_lock!
+
+/(kogmo_rtdb_objmeta_.*lock|return)
