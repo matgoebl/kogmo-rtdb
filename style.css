@@ -1,0 +1,120 @@
+body {
+ background-color: white;
+ color: black;
+ font-family: arial, verdana, sans-serif;;
+ margin: 10px;
+ border: 1px solid black;
+}
+
+a:link, a:visited {
+ color: #000088;
+ text-decoration: none;
+}
+a:active, a:hover {
+ color: #008888;
+ text-decoration: underline; 
+}
+
+/*
+h1, h2, h3, h4, h5, h6 {
+ margin: 0px;
+ padding: 0px;
+}
+*/
+
+div#header {
+ background-color: #ffff99;
+ display: block;
+ font-size: 10pt;
+ height: 65px;
+ margin: 0px;
+ padding: 0px;
+ border-bottom: 1px solid black;
+ background-image: url(images/rtdb-logo-small.png);
+ background-position: right;
+ background-repeat: no-repeat;
+}
+div#header h1 {
+ color: #0088aa;
+ display: block;
+ padding: 5px;
+ font-size: 20pt;
+ font-weight: bold;
+ margin: 0px;
+}
+
+ul#nav {
+ position: absolute;
+ top: 44px;
+ padding: 0px 3px;
+}
+ul#nav li {
+ display: inline;
+ font-variant: small-caps;
+/* width: 100px; text-align: center; */
+}
+ul#nav li a {
+ background-color: #0000aa;
+ color: white;
+ font-size: 10pt;
+ font-weight: bold;
+ padding: 3px 1em;
+ margin-left: 1px;
+ border: 1px solid black;
+ text-decoration: none; 
+/*
+  width: 80px;
+  height: 20px;
+  display: -moz-inline-stack;
+  display: inline-block;
+  text-align: center;
+*/
+}
+ul#nav li a:hover {
+ background-color: #00aaaa;
+}
+
+div#main {
+ text-indent: 0em;
+ padding: 10px;
+}
+
+div#main h3, h4 {
+ text-indent: 0em;
+}
+
+div#main ul {
+ text-indent: 0em;
+ padding-left: 1em;
+}
+
+.noskip {
+ margin-bottom: 0px;
+}
+
+
+.box {
+ background-color: #88FFFF;
+ padding: 5px;
+ border: 1px solid black;
+ font-size: 100%;
+ padding: 5px;
+}
+.box a:link, .box a:visited {
+ color: #FFFF00; 
+}
+.box h3 {
+ font-size: 120%;
+ color: #FF0000;
+}
+
+
+#footer {
+ background-color: #ffff99;
+ text-align: right;
+ font-size: 10pt;
+ padding-right: 10px;
+ height: 20px;
+ border: 0px;
+ border-top: 1px solid black;
+}

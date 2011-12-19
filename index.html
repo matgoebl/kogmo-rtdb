@@ -1,0 +1,100 @@
+---
+layout: default
+title: Home
+---
+
+The Real-Time Database for Cognitive Automobiles (KogMo-RTDB) is the key
+component of an integration framework for cognitive systems. It allows the
+publication of all relevant data within the system at a central place. 
+Every piece of information is packed into an object. Objects are the
+smallest unit the database handles. The KogMo-RTDB provides a unified
+interface to insert, update and delete data objects. Published objects can
+be accessed by all other software modules if they are not intentionally
+protected. Modules can also search and wait for data. Modules can allow
+other modules to update the data of their objects. Data within the RTDB is
+preserved for a defined time span.
+
+<P>
+The KogMo-RTDB interfaces can be regarded as part of an outer framework for
+interprocess communication. The actual inner framework used within a
+cognitive module heavily depends on the engineering discipline it comes
+from: for the control level, this might be a robotics or control framework,
+at an artificial intelligence level an interference machine might be the
+choice.
+
+<h3>Features</h3>
+<ul>
+ <li>Real-time Database as central interface for interprocess communication (event trigger available)
+ <li>Data exchange between both real-time and non-real-time modules
+ <li>Data consistency guaranteed by non-blocking read/write protocol
+ <li>History for temporal decoupling of slower modules with longer cycle times
+ <li>Comprehensive data logging using an interference-free method
+ <li>Hard real-time capable with specified hard- and software platform
+</ul>
+
+<h3>Requirements</h3>
+<ul>
+ <li>Reference platform for hard real-time:<BR>
+  GNU/Linux (<a href='http://www.centos.org/'>CentOS</a> <a href='http://centos.bio.lmu.de/4.7/isos/i386/CentOS-4.7-i386-binDVD.iso'>4</a>)
+  with <a href='http://www.kernel.org/'>Kernel</a> <a href='http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.25.6.tar.bz2'>2.6.25.6</a>
+  and <a href='http://www.xenomai.org'>Xenomai</a> <a href='http://download.gna.org/xenomai/stable/xenomai-2.4.4.tar.bz2'>2.4.4</a>
+ <li>Full functionality with soft real-time:<BR>
+  C compiler and a POSIX compatible system (uses pthreads, mutexes, condvars, message queues, shared memory)
+ <li>Minimal requirements (no real-time):<br>
+  shared memory (e.g. tmpfs on /dev/shm/)<BR>
+  emulates mutexes with polling and atomic instructions on x86, arm and mips
+ <li>Successfully running on embedded systems:
+ <ul>
+  <li> <a href='http://en.wikipedia.org/wiki/NSLU2'>Linksys NSLU2</a> running
+    <a href='http://www.nslu2-linux.org/wiki/SlugOS/'>SlugOS</a> 4.8-beta (compiled little endian with GNU-EABI)
+  <li> Asus WL-500GPv2 running <a href='http://www.openwrt.org'>OpenWRT</a> 8.09 (Kamikaze, BRCM-2.4)
+    (see this german <a href='http://www.praxisbuch.net/embedded-linux/'>book on embedded linux</a>
+     and this <a href='http://www.praxisbuch.net/embedded-linux/downloads/Pimp_my_Router.pdf'>article</a>)
+ </ul>
+</ul>
+
+<h3>Applications</h3>
+<ul>
+ <li><a href='http://www.kognimobil.org'>Cognitive Automobiles</a> (Transregional Collaborative Research Center 28 funded by
+     <a href='http://www.dfg.de'>Deutsche Forschungsgemeinschaft</a>)
+ <li>The autonomous robot car <a href='http://www.mrt.uni-karlsruhe.de/annieway.php'>AnnieWAY</a>(<a href='http://www.darpa.mil/grandchallenge/images/photos/11_3_07/D20_4132.jpg'>photo</a>)
+     at the <a href='http://www.darpa.mil/grandchallenge/'>DARPA Urban Challenge 2007</a>
+ <li><a href='http://www.cotesys.de/research/demonstration-scenarios.html'>Cognitive Factory and Cognitive Household</a>
+     (<a href='http://www.cotesys.org'>Cognition for Technical Systems</a>)
+ <li>...
+</ul>
+
+<h3>License</h3>
+
+The source code on this site is published under the 
+<a href='http://www.gnu.org/licenses/lgpl-3.0-standalone.html'>GNU Lesser General Public License Version 3</a>.
+So you are allowed to link the KogMo-RTDB against your proprietary software and use its API.
+Changes to the KogMo-RTDB itself must be made public.
+In every case you must retain the copyright notice of the original authors of the KogMo-RTDB.
+(Other licensing models on request).
+<P>
+If you use the KogMo-RTDB in your own projects, I'd be pleased if you tell me about it.
+If you agree, I could add a link on www.kogmo-rtdb.de.
+<BR>
+If you publish about projects using the KogMo-RTDB, I'd ask you to cite one of my papers
+and send me a note. The first paper on the KogMo-RTDB was the
+<a href='/documentation.php#goebl07iv'>IEEE Intelligent Vehicles 2007 paper</a>:
+<BR>-  Matthias Goebl und Georg Färber.
+  A Real-Time-capable Hard- and Software Architecture for Joint Image and
+  Knowledge Processing in Cognitive Automobiles.
+  In Proc. IEEE Intelligent Vehicles Symposium, pages 734-740, IEEE Press, Juni 2007.      
+
+
+<div style="clear:both">&nbsp;</div>
+
+
+<!--
+<div class="box">
+ <h3>Changes</h3>
+ <ul>
+ <li>1
+ <li>2
+ </ul>
+</div>
+-->
+      
