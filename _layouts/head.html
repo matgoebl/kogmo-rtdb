@@ -29,7 +29,6 @@ temporal decoupling, interference-free data logging,
 real-time analysis, cognitive vehicles, advanced driver assistance systems
 ">
  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-15">
- <link rel="stylesheet" type="text/css" href="style.css">
 
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -41,44 +40,6 @@ real-time analysis, cognitive vehicles, advanced driver assistance systems
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
-  window.onload = function(){
-   var a = document.getElementsByTagName('a');
-   for(i = 0; i < a.length; i++){a
-    if ( a[i].href.indexOf(location.host) == -1 && a[i].href.match(/^http:/i) ) {
-     a[i].onclick = function(){
-      _gaq.push(['_trackEvent', 'Outbound Links', this.href]);
-      setTimeout('document.location = "' + this.href + '"', 100);
-      return false;
-     }
-    }
-   }
-  }
 </script>
 
-</head>
-<body>
-
-
-<div id="header" align="left">
- <h1>KogMo-RTDB - <i>Real-time Database for Cognitive Automobiles</i></h1>
- <ul id="nav">
-  <li><a href="index.html">Home</a></li>
-  <li><a href="documentation.html"><font>Documentation</font></a></li>
-  <li><a href="download.html"><font>Download</font></a></li>
-  <li><a href="links.html"><font>Links</font></a></li>
-  <li><a href="contact.html"><font>Contact</font></a></li>
- </ul>
-</div>
-
-<div id="main">
-
 {{ content }}
-
-</div>
-
-<div id="footer">
-www.kogmo-rtdb.de &nbsp; &copy; 2009 - 2012 Matthias Goebl &nbsp; (<a href="contact.html">Impressum</a>)
-</div>
-
-</body>
-</html>

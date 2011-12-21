@@ -3,7 +3,7 @@
 all: downloadfiles
 
 downloadfiles:
-	find download -name '.*' -prune -o -type f -printf "<li><a href=\"/%p\" onClick=\"javascript: _gaq.push(['_trackPageview', '/%p']);\">x%p</a> (%kk)\\n" | sed -e 's|xdownload/||' > _includes/downloadfiles.html
+	find download -name '.*' -prune -o -type f -printf "<li><a href=\"/%p\" onClick=\"_gaq.push(['_trackPageview', '/%p']);\">x%p</a> (%kk)\\n" | sed -e 's|xdownload/||' > _includes/downloadfiles.html
 
 
 # installation: sudo apt-get install ruby1.8-dev rubygems ruby; gem install jekyll
