@@ -1,13 +1,13 @@
 /* KogMo-RTDB: Real-time Database for Cognitive Automobiles
- * Copyright (c) 2003-2007 Matthias Goebl <matthias.goebl*goebl.net,mg*tum.de>
+ * Copyright (c) 2003-2007 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
- * Licensed under the GNU Lesser General Public License v3, see the file COPYING.
+ * Licensed under the Apache License Version 2.0.
  */
 /*! \file kogmo_rtdb_internal.h
  * \brief Some internal Definitions
  *
- * Copyright (c) 2003-2006 Matthias Goebl <mg*tum.de>
+ * Copyright (c) 2003-2006 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */
@@ -97,7 +97,7 @@
 
 #if defined(RTMALLOC_tlsf)
 #define KOGMO_RTDB_REVSPEC_DSA "+rtmalloc"
-#define MALLOC_COPYRIGHT "Includes TLSF allocator by M.Masmano, I.Ripoll, A.Crespo (GPL License)"
+#define MALLOC_COPYRIGHT "Includes TLSF allocator by M.Masmano, I.Ripoll, A.Crespo (GPLv2/LGPLv2.1 License)"
 #elif defined(RTMALLOC_suba)
 #define KOGMO_RTDB_REVSPEC_DSA "+nonrtmalloc"
 #define MALLOC_COPYRIGHT "Includes suba allocator by M.Allen (MIT License)"
@@ -121,9 +121,9 @@
 
 #define KOGMO_RTDB_COPYRIGHT \
                 "KogMo-RTDB: Real-time Database for Cognitive Automobiles - www.kogmo-rtdb.de\n" \
-                "Copyright (c) 2003-2009 Matthias Goebl <matthias.goebl*goebl.net,mg*tum.de>\n" \
+                "Copyright (c) 2003-2011 Matthias Goebl <matthias.goebl*goebl.net>\n" \
                 "Lehrstuhl fuer Realzeit-Computersysteme, Technische Universitaet Muenchen\n" \
-                "Licensed under the GNU Lesser General Public License v3\n" \
+                "Licensed under the Apache License Version 2.0.\n" \
                 MALLOC_COPYRIGHT"\n"
 
 

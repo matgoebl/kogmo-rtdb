@@ -1,7 +1,7 @@
 /*! \file kogmo_rtdb_obj_base_funcs.h
  * \brief Functions for Basis Object (C-Interface).
  *
- * Copyright (c) 2003-2006 Matthias Goebl <mg*tum.de>
+ * Copyright (c) 2003-2006 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */
@@ -55,7 +55,7 @@ kogmo_rtdb_obj_dumphex_str (kogmo_rtdb_handle_t *db_h, void *data_p);
 /*!
  * \brief Functions for C3 Objects (C-Interface).
  *
- * Copyright (c) 2003-2006 Matthias Goebl <mg*tum.de>
+ * Copyright (c) 2003-2006 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

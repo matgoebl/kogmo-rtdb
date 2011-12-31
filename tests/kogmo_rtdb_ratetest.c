@@ -1,7 +1,7 @@
 /*! \file kogmo_rtdb_ratetest.c
  * \brief Example for writing to the RTDB with high commit rates
  *
- * (c) 2007 Matthias Goebl <mg@tum.de>
+ * (c) 2007 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

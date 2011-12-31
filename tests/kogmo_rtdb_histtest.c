@@ -1,7 +1,7 @@
 /*! \file kogmo_rtdb_histtest.c
  * \brief Testprogram for History
  *
- * Copyright (c) 2007 Matthias Goebl <mg*tum.de>
+ * Copyright (c) 2007 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

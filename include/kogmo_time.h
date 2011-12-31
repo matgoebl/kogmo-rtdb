@@ -1,7 +1,7 @@
 /*! \file kogmo_time.h
  * \brief Definition of Time Handling Types and Functions (C-Interface)
  *
- * Copyright (c) 2005,2006 Matthias Goebl <mg*tum.de>
+ * Copyright (c) 2005,2006 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */
@@ -73,7 +73,7 @@
  * For exchanging times you should use kogmo_time_t.
  *
  * For any questions, please contact me!
- * Matthias Goebl <mg*tum.de>
+ * Matthias Goebl <matthias.goebl*goebl.net>
  */
 typedef int64_t kogmo_timestamp_t;
 

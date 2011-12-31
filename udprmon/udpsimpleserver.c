@@ -1,7 +1,7 @@
 /*! \file udpsimpleserver.c
  * \brief Simple Server to access remote Objects via UDP/IP - for Debugging and Monitoring - NOT FOR CAR2CAR!!!
  *
- * (c) 2008 Matthias Goebl <mg@tum.de>
+ * (c) 2008 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

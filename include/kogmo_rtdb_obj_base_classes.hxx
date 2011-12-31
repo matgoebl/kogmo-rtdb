@@ -1,7 +1,7 @@
 /*! \file kogmo_rtdb_obj_base_classes.hxx
  * \brief Base-Class that every Object has to inherit from (C++ Interface).
  *
- * Copyright (c) 2003-2006 Matthias Goebl <mg*tum.de>
+ * Copyright (c) 2003-2006 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

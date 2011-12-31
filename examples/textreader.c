@@ -1,7 +1,7 @@
 /*! \file textreader.c
  * \brief Example for reading text (also XML) from the RTDB
  *
- * (c) 2005-2007 Matthias Goebl <mg@tum.de>
+ * (c) 2005-2007 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

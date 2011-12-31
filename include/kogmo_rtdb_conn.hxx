@@ -1,7 +1,7 @@
 /*! \file kogmo_rtdb.hxx
  * \brief Object that holds a Connection to the Real-time Vehicle Database
  *
- * Copyright (c) 2003-2006 Matthias Goebl <mg*tum.de>
+ * Copyright (c) 2003-2006 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

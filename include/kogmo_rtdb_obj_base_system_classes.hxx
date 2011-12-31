@@ -1,7 +1,7 @@
 /*! \file kogmo_rtdb_obj_base_system_classes.hxx
  * \brief Objects from C3
  *
- * Copyright (c) 2003-2006 Matthias Goebl <mg*tum.de>
+ * Copyright (c) 2003-2006 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */
@@ -290,7 +290,7 @@ class C3_RecorderStatConvenient : public C3_RecorderStat
 /*!
  * \brief Objects that are necessary for the base object (this list must not grow to long!!)
  *
- * Copyright (c) 2003-2006 Matthias Goebl <mg*tum.de>
+ * Copyright (c) 2003-2006 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

@@ -1,7 +1,7 @@
 /*! \file exampleobj_writer.c
  * \brief Example for writing the ExampleObject
  *
- * (c) 2005-2009 Matthias Goebl <mg@tum.de>
+ * (c) 2005-2009 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

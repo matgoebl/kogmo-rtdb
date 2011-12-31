@@ -1,7 +1,7 @@
 /*! \file kogmo_rtdb_typessizecheck.c
  * \brief This program tests whether the kogmo-rtdb standard types have the correct size
  *
- * Copyright (c) 2005,2006 Matthias Goebl <mg*tum.de>
+ * Copyright (c) 2005,2006 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

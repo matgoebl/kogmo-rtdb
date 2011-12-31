@@ -1,7 +1,7 @@
 /*! \file rtdbplayctrl.C
  * \brief Commandline Tool to control the KogMo-RTDB-Player
  *
- * (c) 2009 Matthias Goebl <mg@tum.de>
+ * (c) 2009 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

@@ -7,7 +7,7 @@
 /*! \file textreader_multithread.c - NOT ALWAYS WORKING !!!
  * \brief Example for reading from the RTDB with multiple threads
  *
- * (c) 2005-2007 Matthias Goebl <mg@tum.de>
+ * (c) 2005-2007 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

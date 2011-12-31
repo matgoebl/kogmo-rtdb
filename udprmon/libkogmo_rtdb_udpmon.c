@@ -1,7 +1,7 @@
 /*! \file libkogmo_rtdb_udpmon.c
  * \brief Fake Library for Simple Clients that get Objects via UDP/IP - for Debugging and Remote Monitoring - NOT FOR CAR2CAR!!!
  *
- * (c) 2009 Matthias Goebl <mg@tum.de>
+ * (c) 2009 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

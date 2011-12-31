@@ -1,13 +1,13 @@
 /* KogMo-RTDB: Real-time Database for Cognitive Automobiles
- * Copyright (c) 2003-2009 Matthias Goebl <matthias.goebl*goebl.net,mg*tum.de>
+ * Copyright (c) 2003-2009 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
- * Licensed under the GNU Lesser General Public License v3, see the file COPYING.
+ * Licensed under the Apache License Version 2.0.
  */
 /*! \file kogmo_rtdb_objtool.c
  * \brief Object-Manipulation-Tool for the Real-time Database
  *
- * Copyright (c) 2009 Matthias Goebl <mg*tum.de>
+ * Copyright (c) 2009 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */
@@ -27,7 +27,7 @@ void
 usage (void)
 {
   fprintf(stderr,
-"KogMo-RTDB Object-Manipulation-Tool (Rev.%d) (c) Matthias Goebl <mg*tum.de> RCS-TUM\n"
+"KogMo-RTDB Object-Manipulation-Tool (Rev.%d) (c) Matthias Goebl <matthias.goebl*goebl.net> RCS-TUM\n"
 "Usage: kogmo_rtdb_objtool [.....]\n"
 " -i OID | -n NAME      use object with OID or NAME (regular expression if starting with ~)\n"
 " -o [r|w|c|i|d]   select operation: read/write/change/insert/delete object (and write/,, to file)\n"

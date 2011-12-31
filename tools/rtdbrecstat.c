@@ -1,7 +1,7 @@
 /*! \file rtdbrecstat.c
  * \brief Watch RTDB-Recorder Status
  *
- * (c) 2008 Matthias Goebl <mg@tum.de>
+ * (c) 2008 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

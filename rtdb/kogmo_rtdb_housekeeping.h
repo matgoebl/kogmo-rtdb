@@ -1,8 +1,8 @@
 /* KogMo-RTDB: Real-time Database for Cognitive Automobiles
- * Copyright (c) 2003-2007 Matthias Goebl <matthias.goebl*goebl.net,mg*tum.de>
+ * Copyright (c) 2003-2007 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
- * Licensed under the GNU Lesser General Public License v3, see the file COPYING.
+ * Licensed under the Apache License Version 2.0.
  */
 
 #ifndef KOGMO_RTDB_IPC_HOUSEKEEPING_H

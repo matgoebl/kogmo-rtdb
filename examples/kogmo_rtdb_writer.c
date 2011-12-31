@@ -1,7 +1,7 @@
 /*! \file kogmo_rtdb_writer.c
  * \brief Example for writing to the RTDB
  *
- * (c) 2005,2006 Matthias Goebl <mg@tum.de>
+ * (c) 2005,2006 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

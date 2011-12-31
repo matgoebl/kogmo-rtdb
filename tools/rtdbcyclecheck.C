@@ -1,7 +1,7 @@
 /*! \file rtdbcyclecheck.C
  * \brief Check the Cycle Time time of any Object
  *
- * (c) 2007 Matthias Goebl <mg@tum.de>
+ * (c) 2007 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

@@ -1,0 +1,36 @@
+This is KogMo-RTDB, the Real-Time Database (not only) for Cognitive Automobiles.
+
+Copyright (c) 2003-2011 Matthias Goebl <matthias.goebl*goebl.net>
+Lehrstuhl fuer Realzeit-Computersysteme (RCS)
+Technische Universitaet Muenchen (TUM)
+
+Licensed under the Apache License Version 2.0.
+
+If you use the KogMo-RTDB in your own projects, I'd be pleased if you tell me about it.
+If you agree, I'll add a link on http://www.kogmo-rtdb.de.
+If you publish about projects using the KogMo-RTDB, please cite one of my papers,
+preferably:
+- Matthias Goebl und Georg Faerber.
+  A Real-Time-capable Hard- and Software Architecture for Joint Image and
+  Knowledge Processing in Cognitive Automobiles.
+  In Proc. IEEE Intelligent Vehicles Symposium, pages 734-740, IEEE Press, Juni 2007.
+
+
+When compiled with -DRTMALLOC_suba, this software includes
+suba - sub-allocate memory from larger chunk of memory
+Copyright (c) 2003 Michael B. Allen <mba2000 ioplex.com>
+Source: http://www.ioplex.com/~miallen/libmba/dl/src/suba.c
+Licensed under the The MIT License.
+
+When compiled with -DRTMALLOC_tlsf, this software includes
+Two Levels Segregate Fit memory allocator (TLSF), Version 2.2.0
+Written by Miguel Masmano Tello <mimastel@doctor.upv.es>
+Thanks to Ismael Ripoll for his suggestions and reviews
+Copyright (C) 2006, 2005, 2004
+This code is released using a dual license strategy: GPL/LGPL
+You can choose the licence that better fits your requirements.
+Released under the terms of the GNU General Public License Version 2.0
+Released under the terms of the GNU Lesser General Public License Version 2.1
+
+When compiled without -DRTMALLOC_suba and -DRTMALLOC_tlsf,
+a very simple one-time memory allocation is used.

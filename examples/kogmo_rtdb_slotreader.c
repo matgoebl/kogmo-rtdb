@@ -1,7 +1,7 @@
 /*! \file kogmo_rtdb_slotreader.c
  * \brief Example for reading from the RTDB slot-by-slot
  *
- * (c) 2005-2009 Matthias Goebl <mg@tum.de>
+ * (c) 2005-2009 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

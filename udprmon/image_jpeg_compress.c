@@ -1,7 +1,7 @@
 /*! \file image_jpeg_compress.c
  * \brief Compresses Images from a Video with JPEG (from an to the RTDB)
  *
- * (c) 2008 Matthias Goebl <mg@tum.de>
+ * (c) 2008 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

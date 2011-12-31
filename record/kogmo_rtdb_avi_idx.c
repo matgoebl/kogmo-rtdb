@@ -1,13 +1,13 @@
 /* KogMo-RTDB: Real-time Database for Cognitive Automobiles
- * Copyright (c) 2003-2007 Matthias Goebl <matthias.goebl*goebl.net,mg*tum.de>
+ * Copyright (c) 2003-2007 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
- * Licensed under the GNU Lesser General Public License v3, see the file COPYING.
+ * Licensed under the Apache License Version 2.0.
  */
 /*! \file kogmo_rtdb_avi_idx.c
  * \brief Append AVI-Index to RTDB-Streams
  *
- * Copyright (c) 2008 Matthias Goebl <mg*tum.de>
+ * Copyright (c) 2008 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */
@@ -49,7 +49,7 @@ void
 usage (void)
 {
   fprintf(stderr,
-"KogMo-RTDB AVI-Index (Rev.%d) (c) Matthias Goebl <mg*tum.de> RCS-TUM\n"
+"KogMo-RTDB AVI-Index (Rev.%d) (c) Matthias Goebl <matthias.goebl*goebl.net> RCS-TUM\n"
 "Usage: kogmo_rtdb_avi_idx [-c] -o FILE\n"
 "Creates an avi-index for rtdb avi files and updates the avi header with the correct size.\n"
 "Afterwards even the windows media player should play this avi.\n"

@@ -1,7 +1,7 @@
 /*! \file udpsimple.h
  * \brief Helpers for the Simple Client & Server for Objects via UDP/IP
  *
- * (c) 2008 Matthias Goebl <mg@tum.de>
+ * (c) 2008 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

@@ -1,13 +1,13 @@
 /* KogMo-RTDB: Real-time Database for Cognitive Automobiles
- * Copyright (c) 2003-2007 Matthias Goebl <matthias.goebl*goebl.net,mg*tum.de>
+ * Copyright (c) 2003-2007 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
- * Licensed under the GNU Lesser General Public License v3, see the file COPYING.
+ * Licensed under the Apache License Version 2.0.
  */
 /*! \file kogmo_rtdb_record.c
  * \brief AVI-Recorder for the Real-time Database
  *
- * Copyright (c) 2004-2006 Matthias Goebl <mg*tum.de>
+ * Copyright (c) 2004-2006 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */
@@ -39,7 +39,7 @@ void
 usage (void)
 {
   fprintf(stderr,
-"KogMo-RTDB Recorder (Rev.%d) (c) Matthias Goebl <mg*tum.de> RCS-TUM\n"
+"KogMo-RTDB Recorder (Rev.%d) (c) Matthias Goebl <matthias.goebl*goebl.net> RCS-TUM\n"
 "Usage: kogmo_rtdb_record [.....]\n"
 " -i ID    record object with id ID\n"
 " -t TID   record objects with type TID\n"

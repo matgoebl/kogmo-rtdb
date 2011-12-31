@@ -1,7 +1,7 @@
 /*! \file qrtdbviewmain.ui.h
  * \brief GUI to inspect the contents of the RTDB
  *
- * (c) 2007 Matthias Goebl <mg@tum.de>
+ * (c) 2007 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

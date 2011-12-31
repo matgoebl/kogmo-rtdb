@@ -1,7 +1,7 @@
 /*! \file kogmo_rtdb_writer2_cxx.cxx
  * \brief Example for writing 2 Objects to the RTDB with the C++ Interface (see kogmo_rtdb_reader2_cxx.C)
  *
- * (c) 2005,2006 Matthias Goebl <mg@tum.de>
+ * (c) 2005,2006 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */

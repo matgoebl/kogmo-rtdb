@@ -1,7 +1,7 @@
 /*! \file process-waitother.C
  * \brief Example for a Process that waits for another Process
  *
- * (c) 2007 Matthias Goebl <mg@tum.de>
+ * (c) 2007 Matthias Goebl <matthias.goebl*goebl.net>
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */
