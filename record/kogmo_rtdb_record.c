@@ -148,6 +148,7 @@ known_obj(kogmo_rtdb_objid_t id)
 }
 
 
+// comparison function for qsort to sort oids ascending           
 static int compare_oid(const void *a, const void *b) {
      kogmo_rtdb_objid_t * oid_a = (kogmo_rtdb_objid_t *) a;
      kogmo_rtdb_objid_t * oid_b = (kogmo_rtdb_objid_t *) b;
@@ -439,6 +440,7 @@ main (int argc, char **argv)
                 DIE("cannot get list of initial objects");
               while ( n_obj < KOGMO_RTDB_OBJIDLIST_MAX && initial_objects[n_obj] > 0)
                 n_obj++;
+              // sort oids numerically ascending so is it guaranteed that a parent objects is created first
               qsort(&initial_objects[0], n_obj, sizeof(kogmo_rtdb_objid_t), compare_oid);
               init_i=0;
             }

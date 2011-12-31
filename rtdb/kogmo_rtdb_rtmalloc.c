@@ -79,7 +79,7 @@ kogmo_rtdb_obj_mem_alloc (kogmo_rtdb_handle_t *db_h, kogmo_rtdb_objsize_t size )
   if ( ptr == NULL )
     {
       kogmo_rtdb_heap_unlock(db_h);
-      ERR("object mem_alloc failed for %i bytes, only %lli free", size,
+      ERR("object mem_alloc failed for %i continuous bytes, %lli (discontinuous) bytes free", size,
           (long long int) db_h->localdata_p -> heap_free );
       return -1;
     }

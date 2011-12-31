@@ -31,12 +31,25 @@ main (int argc, char **argv)
   err = kogmo_rtdb_connect_initinfo (&dbinfo, "", "textwriter", 1.0); DIEonERR(err);
   oid = kogmo_rtdb_connect (&dbc, &dbinfo); DIEonERR(oid);
 
-  err = kogmo_rtdb_obj_initinfo (dbc, &textobj_info,
-    name, KOGMO_RTDB_OBJTYPE_C3_TEXT, sizeof (textobj)); DIEonERR(err);
-  textobj_info.history_interval = 10;
-  textobj_info.avg_cycletime = 1;
-  textobj_info.max_cycletime = 1;
-  oid = kogmo_rtdb_obj_insert (dbc, &textobj_info); DIEonERR(oid);
+  // Object schon da (kein neues anlegen)
+  oid = kogmo_rtdb_obj_searchinfo (dbc, name,
+    KOGMO_RTDB_OBJTYPE_C3_TEXT, 0, 0, 0, NULL, 1);
+
+  if ( oid > 0 )
+    {
+      // Infoblock des Objektes holen, wenn es schon existiert
+      err = kogmo_rtdb_obj_readinfo (dbc, oid, 0, &textobj_info); DIEonERR(err);
+    }
+  else
+    {
+      err = kogmo_rtdb_obj_initinfo (dbc, &textobj_info,
+        name, KOGMO_RTDB_OBJTYPE_C3_TEXT, sizeof (textobj)); DIEonERR(err);
+      textobj_info.history_interval = 10;
+      textobj_info.avg_cycletime = 1;
+      textobj_info.max_cycletime = 1;
+      textobj_info.flags.write_allow=1; // damit andere Prozesse den Text auch aendern koennen
+      oid = kogmo_rtdb_obj_insert (dbc, &textobj_info); DIEonERR(oid);
+    }
 
   // Datenobjekt initialisieren
   err = kogmo_rtdb_obj_initdata (dbc, &textobj_info, &textobj); DIEonERR(err);

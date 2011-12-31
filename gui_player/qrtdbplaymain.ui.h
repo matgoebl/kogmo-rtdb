@@ -48,6 +48,8 @@ QRTDBGUI::init ()
   Ctrl = new C3_PlayerCtrl(*dbc);
   Stat = new C3_PlayerStat(*dbc);
   cmdargs->setText( "-T 0xC30003" );
+  if ( getenv("PLAYER_ARGS") )
+    cmdargs->setText( getenv("PLAYER_ARGS") );
 
   updateTimer = new QTimer(this);
   connect( updateTimer, SIGNAL(timeout()), this, SLOT(update()) );
