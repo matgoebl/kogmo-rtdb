@@ -474,6 +474,9 @@ kogmo_rtdb_obj_insert (kogmo_rtdb_handle_t *db_h,
                 }
              }
 
+          if ( found_slot >= 0 )
+            break; // leave retry-loop
+
           // here: found no free slot!
           if ( !purge_retry )
             {
