@@ -46,8 +46,8 @@ real-time analysis, cognitive vehicles, advanced driver assistance systems
    for(i = 0; i < a.length; i++){a
     if ( a[i].href.indexOf(location.host) == -1 && a[i].href.match(/^http:/i) ) {
      a[i].onclick = function(){
-      _gaq.push(['_trackEvent', 'Outbound Links', this.href]);
-      setTimeout('document.location = "' + this.href + '"', 100);
+      _gaq.push(['_trackEvent', 'OutboundLinks', this.href, this.title]);
+      setTimeout('document.location = "' + this.href + '"', 300);
       return false;
      }
     }
