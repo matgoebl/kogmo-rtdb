@@ -1,4 +1,4 @@
-SUBDIRS= rtdb/ record/ tools/ tests/ examples/ gui_recorder/ gui_player/ gui_rtdb/
+SUBDIRS= rtdb/ record/ tools/ tests/ examples/ gui_recorder/ gui_player/ gui_rtdb/ udprmon/
 DEST=$(PWD)/installed/kogmo_rtdb/
 export DEST
 
@@ -23,5 +23,5 @@ veryclean:
 doc:
 	mkdir -p doc/generated
 	doxygen doc/Doxyfile
-	#-cd doc/;./mkpdftex all
+	-cd doc/;./mkpdftex all
 	@echo "file://$(shell pwd)/doc/generated/html/index.html"    
