@@ -351,7 +351,7 @@ typedef struct
  //!< Please use this only for processes that need much memory for
  //!< raw data acquisition (and for the player).
 #define KOGMO_RTDB_CONNECT_FLAGS_REALTIME   0x0100
- //!< (internal, ask mg*tum.de before use)
+ //!< (internal, ask matthias.goebl*goebl.net before use)
 
 /*@}*/
 

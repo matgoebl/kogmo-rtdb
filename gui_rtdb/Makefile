@@ -1,4 +1,4 @@
-# Eine nette Loesung, um mit den QMakefiles zurechtzukommen - (c) mg@tum.de
+# Eine nette Loesung, um mit den QMakefiles zurechtzukommen - (c) matthias.goebl*goebl.net
 TARGET=qrtdbview
 
 all: .Makefile.Qt

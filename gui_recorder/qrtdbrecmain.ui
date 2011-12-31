@@ -13,7 +13,7 @@
         </rect>
     </property>
     <property name="caption">
-        <string>C3 Recorder Control   (c) 2007 Matthias Goebl (mg@tum.de)</string>
+        <string>C3 Recorder Control   (c) 2007 Matthias Goebl (matthias.goebl*goebl.net)</string>
     </property>
     <widget class="QPushButton">
         <property name="name">

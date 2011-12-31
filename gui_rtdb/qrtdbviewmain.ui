@@ -13,7 +13,7 @@
         </rect>
     </property>
     <property name="caption">
-        <string>C3 RTDB Viewer   (c) 2007 Matthias Goebl (mg@tum.de)</string>
+        <string>C3 RTDB Viewer   (c) 2007 Matthias Goebl (matthias.goebl*goebl.net)</string>
     </property>
     <grid>
         <property name="name">
