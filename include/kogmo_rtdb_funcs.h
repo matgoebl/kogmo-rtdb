@@ -22,11 +22,13 @@
 #endif
 
 
+/*! \defgroup kogmo_rtdb_conn C-Functions for Connection Handling
+ */
 
-/*! \defgroup kogmo_rtdb_meta Object Metadata Handling: Add, Remove, Search and Wait for Objects.
+/*! \defgroup kogmo_rtdb_meta C-Functions for Object Metadata Handling: Add, Remove, Search and Wait for Objects.
  *
  * \brief Using these functions you can create new objects within the database
- * and allocate space for actual data-block. You can also find exisition objects.
+ * and allocate space for actual data-block. You can also search for existing objects.
  *
  * See kogmo_rtdb_data on how to read and write object data.
  *
@@ -40,11 +42,11 @@
 
 /*! \brief Initialize Metadata for a new Object
  *
- * Zeros the Metadata, fills it with defaults (e.g. the cycletime of the calling process)
+ * Zeros the metadata, fills it with defaults (e.g. the cycle time of the calling process)
  * and the given parameters.
  *
  * This function is for convenience and only helps to initialize the
- * Metadata-Struct.
+ * metadata structure.
  * It does not yet create the object and does not modify the database.
  *
  * \param db_h        Database handle
@@ -178,7 +180,7 @@ kogmo_rtdb_obj_dumpinfo_str (kogmo_rtdb_handle_t *db_h,
  *                    into this user-preallocated array, terminated by an element with ID 0. The
  *                    maximum size is fixed, see kogmo_rtdb_objid_list.
  *                    When you want an idlist, you normally set nth=0.
- * \param nth         If !=0, stop the search after the n-th occurence
+ * \param nth         If !=0, stop the search after the n-th occurrence
  *                    (starting with 1).
  *                    So if you want the oid of the first hit, set idlist=NULL and nth=1.
  *                    Set nth=2 for the second hit, and so on.
@@ -254,7 +256,7 @@ kogmo_rtdb_obj_searchinfo_wait(kogmo_rtdb_handle_t *db_h,
  * \param wakeup_ts   Absolute Time at which to wake up and return if there is still no object found,
  *                    0 means infinite (like kogmo_rtdb_obj_searchinfo_wait())
  * \returns           <0 on errors, otherwise the object-ID of the first matching object is returned
- *  \retval -KOGMO_RTDB_ERR_TIMEOUT    A timeout occured.
+ *  \retval -KOGMO_RTDB_ERR_TIMEOUT    A timeout occurred.
  *  \retval -KOGMO_RTDB_ERR_INVALID    Invalid parameters (parent object does not exist (at that time)
  *                                     or has been deleted (to avoid waiting forever), invalid regular expression).
  */
@@ -322,7 +324,7 @@ kogmo_rtdb_obj_searchinfo_waitnext(kogmo_rtdb_handle_t *db_h,
  * \param wakeup_ts   Absolute Time at which to wake up and return if there is still no change,
  *                    0 means infinite (like kogmo_rtdb_obj_searchinfo_waitnext())
  * \returns           <0 on error, otherwise the sum of created plus deleted objects.
- *  \retval -KOGMO_RTDB_ERR_TIMEOUT    A timeout occured.
+ *  \retval -KOGMO_RTDB_ERR_TIMEOUT    A timeout occurred.
  *  \retval -KOGMO_RTDB_ERR_INVALID    Invalid parameters (parent object does not exist (at that time)
  *                                     or has been deleted (to avoid waiting forever), invalid regular expression).
  */
@@ -345,7 +347,7 @@ kogmo_rtdb_obj_searchinfo_waitnext_until(kogmo_rtdb_handle_t *db_h,
 
 
 
-/*! \defgroup kogmo_rtdb_data Object Data Handling: Read and Write Object Data.
+/*! \defgroup kogmo_rtdb_data C-Functions for Object Data Handling: Read and Write Object Data.
  *
  * \brief These functions access the actual contents of the data-block
  * of a certain object at a given point in time.
@@ -360,7 +362,7 @@ kogmo_rtdb_obj_searchinfo_waitnext_until(kogmo_rtdb_handle_t *db_h,
 
 /*! \brief Initialize a new data block for an existing object.
  *
- * Zeros the data structur, and fills it with defaults (e.g. the maximum size from the given kogmo_rtdb_obj_info_t).
+ * Zeros the data structure, and fills it with defaults (e.g. the maximum size from the given kogmo_rtdb_obj_info_t).
  *
  * This function is for convenience and only helps to locally initialize the
  * passed object data structure (that always begins with kogmo_rtdb_subobj_base_t).
@@ -387,13 +389,13 @@ kogmo_rtdb_obj_initdata (kogmo_rtdb_handle_t *db_h,
  * \param oid         Object-ID of the object to write
  * \param data_p      Pointer to an object data structure that will be copied into the database
  * \returns           <0 on errors
- *  \retval -KOGMO_RTDB_ERR_NOTFOUND   There is no object with the given object-id, the specified objects has no spaces for data blocks (size=0).
+ *  \retval -KOGMO_RTDB_ERR_NOTFOUND   There is no object with the given object-id, the specified object has no space for data blocks (size=0).
  *  \retval -KOGMO_RTDB_ERR_INVALID    The data size not allowed (more than size_max in kogmo_rtdb_obj_info_t or less than kogmo_rtdb_subobj_base_t)
  *  \retval -KOGMO_RTDB_ERR_NOPERM     You are not allowed to write this object (see flags.write_allow)
  *  \retval -KOGMO_RTDB_ERR_TOOFAST    You are committing faster than the specified min_cycle_time and flags.cycle_watch is set)
  *
  * \note
- *  - The data_p should point to a structure, that starts with a sub-struct of
+ *  - The data_p should point to a structure, that starts with a sub-structure of
  *    kogmo_rtdb_subobj_base_t
  *  - Set your kogmo_rtdb_subobj_base_t.size to the correct size of your
  *    whole data-struct you want to commit
@@ -406,192 +408,105 @@ kogmo_rtdb_obj_writedata (kogmo_rtdb_handle_t *db_h,
                           kogmo_rtdb_objid_t oid,
                           void *data_p);
 
-//MG TODO HERE
 
-/*! \brief Start pointer-based write (fast but difficult)
- * Call this function to receive a pointer where you can
- * write your Data. If you are done, call kogmo_rtdb_obj_writedata_ptr_commit.
+/*! \brief Read the latest Data of an Object from the Database
  *
- * \param db_h    database handle
- * \param oid     Object-ID of the Object
- * \param data_pp Pointer to a Pointer to a Object-Data-Struct
- * \returns       <0 on errors
+ * This function reads the latest Data-Block of an Object from the database
+ * and writes it into a local structure of the calling process.\n
+ * It finds the block with a committed_ts <= ts.
  *
- *
- * Please note:
- *  - The object must be created by you.
- *  - The object must not be public writable.
- *  - The maximum length is objmeta.size_max.
- *  - You must manually set base.size before each write.
- *  - Be cautious! You can damage the whole database.
- *  - DO NOT TOUCH base.committed_ts !!!
- *  - Pointer operations are useful for object with >= 10KB size.
+ * \param db_h        Database handle
+ * \param oid         Object-ID of the desired object
+ * \param ts          Timestamp at which the Object must be "the last committed";
+ *                    0 for "now"
+ * \param data_p      Pointer to a local object data structure where the data found in the rtdb will be copied to
+ * \param size        Maximum size of the object data structure at data_p
+ * \returns           <0 on errors, the real size of the object data found in the rtdb on success
+ *  \retval -KOGMO_RTDB_ERR_NOTFOUND   There is no object with the given object-id for the specified timestamp, the specified object has no data block (not yet or size=0).
+ *  \retval -KOGMO_RTDB_ERR_INVALID    The Pointer is NULL, The data size not allowed (more than size_max in kogmo_rtdb_obj_info_t or less than kogmo_rtdb_subobj_base_t)
+ *  \retval -KOGMO_RTDB_ERR_NOPERM     You are not allowed to read this object (see flags.read_deny)
+ *  \retval -KOGMO_RTDB_ERR_HISTWRAP   A history wrap-around occurred: While reading this object, the data has been overwritten.
+ *                                     Either your reading process it too slow or the history_interval is to short.
+ *  \retval -KOGMO_RTDB_ERR_TOOFAST    The data it stale (too old, now_ts-committed_ts > max_cycle_time) and
+ *                                     this check is active (flags.withhold_stale is set).
  */
 kogmo_rtdb_objsize_t
-kogmo_rtdb_obj_writedata_ptr_begin (kogmo_rtdb_handle_t *db_h,
-                                    kogmo_rtdb_objid_t oid,
-                                    void *data_pp);
+kogmo_rtdb_obj_readdata (kogmo_rtdb_handle_t *db_h,
+                         kogmo_rtdb_objid_t oid,
+                         kogmo_timestamp_t ts,
+                         void *data_p,
+                         kogmo_rtdb_objsize_t size);
 
-/*! \brief Finish pointer-based write and publish data
- * Call this function when you are done.
- * DO NOT MODIFY THE DATA AFTERWARDS!!!
+
+
+/*! \brief Read the Data of an Object committed before a given Timestamp
  *
- * \param db_h    database handle
- * \param oid     Object-ID of the Object
- * \param data_pp Pointer to a Pointer to a Object-Data-Struct
- * \returns       <0 on errors
- *
+ * This function finds the nearest data block of an object within the database with a committed_ts < ts.
+ * \see kogmo_rtdb_obj_readdata()
  */
 kogmo_rtdb_objsize_t
-kogmo_rtdb_obj_writedata_ptr_commit (kogmo_rtdb_handle_t *db_h,
-                                     kogmo_rtdb_objid_t oid,
-                                     void *data_pp);
+kogmo_rtdb_obj_readdata_older (kogmo_rtdb_handle_t *db_h, 
+                               kogmo_rtdb_objid_t oid,
+                               kogmo_timestamp_t ts,
+                               void *data_p,
+                               kogmo_rtdb_objsize_t size);
 
 
-
-/*! \brief Read the Data of an Object from the Database (last Commit)
- * This function reads the Data-Block of an Object from the database.\n
- * It takes the block from the latest commit.
+/*! \brief Read the Data of an Object committed after a given Timestamp
  *
- * \param db_h    database handle
- * \param oid     Object-ID of the desired Object
- * \param ts      Timestamp at which the Object must be "the last committed";
- *                0 for "now"
- * \param data_p  Pointer to a Object-Data-Struct where the found Data will
- *                be copied
- * \param size    Maximum size the Object-Data-Struct at data_p can absorb
- * \returns       <0 on errors, size of found Object on success
- */
-kogmo_rtdb_objsize_t
-kogmo_rtdb_obj_readdata (kogmo_rtdb_handle_t *db_h, kogmo_rtdb_objid_t oid,
-                       kogmo_timestamp_t ts,
-                       void *data_p, kogmo_rtdb_objsize_t size);
-
-/*! \brief Experimental: Return Pointer to the Data of an Object from the Database (last Commit)
- * At the end of your Calculations you SHOULD call this function again and check
- * that your pointer is still valid and the same!
- * It takes the block from the latest commit.
- *
- * \param db_h    database handle
- * \param oid     Object-ID of the desired Object
- * \param ts      Timestamp at which the Object must be "the last committed";
- *                0 for "now"
- * \param data_pp Pointer to A POINTER TO a Object-Data-Struct where the found Data will
- *                be copied. Example: \n
- *                kogmo_rtdb_obj_c3_blaobj_t *myobj_p; kogmo_rtdb_obj_readdata_ptr(..,&myobj_p); access data with e.g. myobj_p->base.data_ts
- * \param size    Maximum size the Object-Data-Struct at data_p can absorb
- * \returns       <0 on errors, size of found Object on success
- */
-kogmo_rtdb_objsize_t
-kogmo_rtdb_obj_readdata_ptr (kogmo_rtdb_handle_t *db_h, kogmo_rtdb_objid_t oid,
-                       kogmo_timestamp_t ts, void *data_pp);
-
-
-/*! \brief Read the Data of Object committed before a after given Timestamp
- * This function reads the Data-Block of an Object from the database,\n
- * whose Commit Timestamp is less than the given one.
- *
- * \param db_h    database handle
- * \param oid     Object-ID of the desired Object
- * \param ts      Timestamp to compare with the Object-Data.
- *                (the timestamp in the returned object will be less
- *                than this timestamp; no interpolation will be done!)
- * \param data_p  Pointer to a Object-Data-Struct where the found Data will
- *                be copied
- * \param size    Maximum size the Object-Data-Struct at data_p can absorb
- * \returns       <0 on errors, size of found Object on success
- */
-kogmo_rtdb_objsize_t
-kogmo_rtdb_obj_readdata_older (kogmo_rtdb_handle_t *db_h,
-                             kogmo_rtdb_objid_t oid,
-                             kogmo_timestamp_t ts,
-                             void *data_p, kogmo_rtdb_objsize_t size);
-
-
-/*! \brief Read the Data of Object committed after a given Timestamp
- * This function reads the Data-Block of an Object from the database,\n
- * whose Commit Timestamp is greater than the given one.
- *
- * \param db_h    database handle
- * \param oid     Object-ID of the desired Object
- * \param ts      Timestamp to compare with the Object-Data.
- *                (the timestamp in the returned object will be greater
- *                than this timestamp; no interpolation will be done!)
- * \param data_p  Pointer to a Object-Data-Struct where the found Data will
- *                be copied
- * \param size    Maximum size the Object-Data-Struct at data_p can absorb
- * \returns       <0 on errors, size of found Object on success
+ * This function finds the nearest data block of an object within the database with a committed_ts > ts.
+ * \see kogmo_rtdb_obj_readdata()
  */
 kogmo_rtdb_objsize_t
 kogmo_rtdb_obj_readdata_younger (kogmo_rtdb_handle_t *db_h,
-                               kogmo_rtdb_objid_t oid,
-                               kogmo_timestamp_t ts,
-                               void *data_p, kogmo_rtdb_objsize_t size);
+                                 kogmo_rtdb_objid_t oid,
+                                 kogmo_timestamp_t ts,
+                                 void *data_p,
+                                 kogmo_rtdb_objsize_t size);
 
 
 /*! \brief Read the Data of an Object from the Database that was valid for the given Data Timestamp.
- * This function reads the Data-Block of an Object from the database,\n
- * whose Data Timestamp is equal or older than the given one.
  *
- * \param db_h    database handle
- * \param oid     Object-ID of the desired Object
- * \param ts      Timestamp at which the Object must be "the last committed";
- *                0 for "now"
- * \param data_p  Pointer to a Object-Data-Struct where the found Data will
- *                be copied
- * \param size    Maximum size the Object-Data-Struct at data_p can absorb
- * \returns       <0 on errors, size of found Object on success
+ * This function finds the nearest data block of an object within the database with a data_ts <= ts.
+ * \see kogmo_rtdb_obj_readdata()
  */
 kogmo_rtdb_objsize_t
-kogmo_rtdb_obj_readdata_datatime (kogmo_rtdb_handle_t *db_h, kogmo_rtdb_objid_t oid,
-                       kogmo_timestamp_t ts,
-                       void *data_p, kogmo_rtdb_objsize_t size);
+kogmo_rtdb_obj_readdata_datatime (kogmo_rtdb_handle_t *db_h, 
+                                  kogmo_rtdb_objid_t oid,
+                                  kogmo_timestamp_t ts,
+                                  void *data_p,
+                                  kogmo_rtdb_objsize_t size);
 
 
-/*! \brief Read the Data of Object that is older than a given Data Timestamp
- * This function reads the Data-Block of an Object from the database,\n
- * whose Data Timestamp is less than the given one.
+/*! \brief Read the Data of Object that has an Data Timestamp older than a given Timestamp.
  *
- * \param db_h    database handle
- * \param oid     Object-ID of the desired Object
- * \param ts      Timestamp to compare with the Object-Data.
- *                (the timestamp in the returned object will be less
- *                or equal to this timestamp; no interpolation will be done!)
- * \param data_p  Pointer to a Object-Data-Struct where the found Data will
- *                be copied
- * \param size    Maximum size the Object-Data-Struct at data_p can absorb
- * \returns       <0 on errors, size of found Object on success
+ * This function finds the nearest data block of an object within the database with a data_ts < ts.
+ * \see kogmo_rtdb_obj_readdata()
  */
 kogmo_rtdb_objsize_t
 kogmo_rtdb_obj_readdata_dataolder (kogmo_rtdb_handle_t *db_h,
-                             kogmo_rtdb_objid_t oid,
-                             kogmo_timestamp_t ts,
-                             void *data_p, kogmo_rtdb_objsize_t size);
+                                   kogmo_rtdb_objid_t oid,
+                                   kogmo_timestamp_t ts,
+                                   void *data_p, 
+                                   kogmo_rtdb_objsize_t size);
 
 
-/*! \brief Read the Data of Object that is younger than a given Data Timestamp
- * This function reads the Data-Block of an Object from the database,\n
- * whose Data Timestamp is greater than the given one.
+/*! \brief Read the Data of Object that has an Data Timestamp younger than a given Timestamp.
  *
- * \param db_h    database handle
- * \param oid     Object-ID of the desired Object
- * \param ts      Timestamp to compare with the Object-Data.
- *                (the timestamp in the returned object will be greater
- *                or equal to this timestamp; no interpolation will be done!)
- * \param data_p  Pointer to a Object-Data-Struct where the found Data will
- *                be copied
- * \param size    Maximum size the Object-Data-Struct at data_p can absorb
- * \returns       <0 on errors, size of found Object on success
+ * This function finds the nearest data block of an object within the database with a data_ts > ts.
+ * \see kogmo_rtdb_obj_readdata()
  */
 kogmo_rtdb_objsize_t
 kogmo_rtdb_obj_readdata_datayounger (kogmo_rtdb_handle_t *db_h,
-                               kogmo_rtdb_objid_t oid,
-                               kogmo_timestamp_t ts,
-                               void *data_p, kogmo_rtdb_objsize_t size);
+                                     kogmo_rtdb_objid_t oid,
+                                     kogmo_timestamp_t ts,
+                                     void *data_p,
+                                     kogmo_rtdb_objsize_t size);
 
 
 
 /*! \brief Get the latest Data for an Object that has been committed after a given timestamp, and wait if there is no newer data
+ *
  * This function waits until the Data-Block of an Object has an 
  * Commit-Timestamp greater than a given Timestamp (normally the last
  * known Timestamp).
@@ -607,17 +522,22 @@ kogmo_rtdb_obj_readdata_datayounger (kogmo_rtdb_handle_t *db_h,
  */
 kogmo_rtdb_objsize_t
 kogmo_rtdb_obj_readdata_waitnext (kogmo_rtdb_handle_t *db_h,
-                            kogmo_rtdb_objid_t oid, kogmo_timestamp_t old_ts,
-                            void *data_p, kogmo_rtdb_objsize_t size);
+                                  kogmo_rtdb_objid_t oid, 
+                                  kogmo_timestamp_t old_ts,
+                                  void *data_p, 
+                                  kogmo_rtdb_objsize_t size);
 
 
 /*! \brief kogmo_rtdb_obj_readdata_waitnext() with pointer.
- * see: kogmo_rtdb_obj_readdata_waitnext() and kogmo_rtdb_obj_readdata_ptr()
+ *
+ * \see kogmo_rtdb_obj_readdata_waitnext() and kogmo_rtdb_obj_readdata_ptr()
  */
 kogmo_rtdb_objsize_t
 kogmo_rtdb_obj_readdata_waitnext_ptr (kogmo_rtdb_handle_t *db_h,
-                            kogmo_rtdb_objid_t oid, kogmo_timestamp_t old_ts,
-                            void *data_p, kogmo_rtdb_objsize_t size);
+                                      kogmo_rtdb_objid_t oid,
+                                      kogmo_timestamp_t old_ts,
+                                      void *data_p, 
+                                      kogmo_rtdb_objsize_t size);
 
 
 
@@ -625,7 +545,108 @@ kogmo_rtdb_obj_readdata_waitnext_ptr (kogmo_rtdb_handle_t *db_h,
 
 
 
-/*! \defgroup kogmo_rtdb_until Waiting for Data with Timeouts (Data and Metadata)
+
+/*! \defgroup kogmo_rtdb_dataptr C-Functions for Object Data Handling with directs Database Pointers: Do not use unless you need to.
+ *
+ * \brief These functions access the actual contents of the data-block
+ * of a certain object.
+ *
+ * The difference to kogmo_rtdb_data is, that they work with pointers,
+ * that point directly into the internal structures of the RTDB.
+ * By misusing the pointer you get, you can severely damage the
+ * internals of the RTDB.
+ *
+ * So please do not use those functions, unless you really need to.
+ * With direct pointer operations you can save some time for objects
+ * significantly larger than 10000 bytes.
+ *
+ */
+/*@{*/
+
+
+/*! \brief Get a Pointer to the latest Data of an Object within the Database
+ *
+ * This function returns a pointer, that points to the last object data
+ * within the RTDB internals.\n
+ * It finds the block with a committed_ts <= ts.
+ *
+ * At the end of your calculations you SHOULD call this function again and check
+ * that your pointer is still the same and therefore valid!
+ * If you get another pointer or an error, the data changed while you were using
+ * it and your results are from corrupted data. Try it again or do an appropriate
+ * error handling.
+ *
+ * \param db_h        Database handle
+ * \param oid         Object-ID of the desired object
+ * \param ts          Timestamp at which the Object must be "the last committed";
+ *                    0 for "now"
+ * \param data_pp     Pointer to a pointer, that will point to the object data structure for reading afterwards
+ * \returns           <0 on errors, the real size of the object data found in the rtdb on success
+ *
+ * Example: \code
+ *                kogmo_rtdb_obj_c3_blaobj_t *myobj_p;
+ *                kogmo_rtdb_obj_readdata_ptr(..,&myobj_p); 
+ *                access data with e.g. myobj_p->base.data_ts
+ * \endcode
+ */
+kogmo_rtdb_objsize_t
+kogmo_rtdb_obj_readdata_ptr (kogmo_rtdb_handle_t *db_h,
+                             kogmo_rtdb_objid_t oid,
+                             kogmo_timestamp_t ts,
+                             void *data_pp);
+
+
+/*! \brief Start pointer-based write (fast but dangerous)
+ *
+ * Call this function to receive a pointer where you can
+ * write your data. If you are done, call kogmo_rtdb_obj_writedata_ptr_commit().
+ *
+ * \param db_h        Database handle
+ * \param oid         Object-ID of the object to write
+ * \param data_pp     Pointer to a pointer, that will point to the object data structure for writing afterwards
+ * \returns           <0 on errors
+ *
+ *
+ * \note
+ *  - The object must be created and owned by the calling process.
+ *  - The object must not be public writable.
+ *  - The maximum length is objmeta.size_max.
+ *  - You must manually set base.size before each write.
+ *  - Be cautious! You can damage the whole database.
+ *  - DO NOT TOUCH base.committed_ts !!!
+ *  - Pointer operations are only useful for objects with sizes >= 10KB size.
+ */
+kogmo_rtdb_objsize_t
+kogmo_rtdb_obj_writedata_ptr_begin (kogmo_rtdb_handle_t *db_h,
+                                    kogmo_rtdb_objid_t oid,
+                                    void *data_pp);
+
+
+/*! \brief Finish pointer-based write and publish data
+ *
+ * Call this function when you are done writing your data to the area,
+ * where you received a pointer from kogmo_rtdb_obj_writedata_ptr_begin().
+ * DO NOT MODIFY THE DATA AFTERWARDS !!!
+ *
+ * \param db_h        Database handle
+ * \param oid         Object-ID of the object to write
+ * \param data_pp     Pointer to a pointer the object data structure, that you got from kogmo_rtdb_obj_writedata_ptr_begin()
+ * \returns           <0 on errors
+ *
+ */
+kogmo_rtdb_objsize_t
+kogmo_rtdb_obj_writedata_ptr_commit (kogmo_rtdb_handle_t *db_h,
+                                     kogmo_rtdb_objid_t oid,
+                                     void *data_pp);
+
+
+
+
+/*@}*/
+
+
+
+/*! \defgroup kogmo_rtdb_until C-Functions for Waiting for Data with Timeouts (Data and Metadata)
  * These functions contain an additional parameter wakeup_ts that
  * specifies an *absolute* timestamp when to wakeup from a blocking call.
  * They return -KOGMO_RTDB_ERR_TIMEOUT in this case.
@@ -663,7 +684,7 @@ kogmo_rtdb_obj_readdata_waitnext_until_ptr(
 
 
 
-/*! \defgroup kogmo_rtdb_misc Other Functions (Get Timestamp,..)
+/*! \defgroup kogmo_rtdb_misc C-Functions to get Timestamp, etc..
  */   
 /*! \brief Get absolute Timestamp for current Time within the given
  * database (can be different to kogmo_timestamp_now() when in
@@ -690,7 +711,7 @@ kogmo_rtdb_timestamp_set (kogmo_rtdb_handle_t *db_h,
 
 
 
-/*! \defgroup kogmo_rtdb_conn Connection Handling
+/*! \addtogroup kogmo_rtdb_conn
  */
 /*@{*/
 
@@ -799,7 +820,7 @@ kogmo_rtdb_sleep_until(kogmo_rtdb_handle_t *db_h,
 
 
 
-/*! \defgroup kogmo_rtdb_error Errors and Debugging
+/*! \defgroup kogmo_rtdb_error C-Functions Return Values and Debugging
  * \brief These values can be returned by Calls to the Database-API.
  * They are returned as an integer (int) or a type kogmo_rtdb_objid_t.\n
  * So far, they are based on errno.h for simplicity. \n
@@ -818,7 +839,8 @@ kogmo_rtdb_sleep_until(kogmo_rtdb_handle_t *db_h,
 #define KOGMO_RTDB_ERR_NOTUNIQ  EEXIST //!< 17 Unique Object already exists
 #define KOGMO_RTDB_ERR_UNKNOWN  EPERM  //!< 1  General/unspecified error (-1)
 #define KOGMO_RTDB_ERR_CONNDENY ECONNREFUSED //!< 111 Connection refused           
-#define KOGMO_RTDB_ERR_NOCONN   ENOTCONN //!< 107 Not connected
+#define KOGMO_RTDB_ERR_NOCONN   ENOTCONN //!< 107 Not connected to the RTDB, can be returned by any function with a database handle,
+                                         //!  even if not explicitly specified as possible return value
 #define KOGMO_RTDB_ERR_HISTWRAP ESTALE //!< 116 History wrap-around, stale data
 #define KOGMO_RTDB_ERR_TOOFAST  EAGAIN //!< 11 Updates too fast, try again
 #define KOGMO_RTDB_ERR_TIMEOUT  ETIMEDOUT //!< Waiting for data timed out

@@ -18,7 +18,7 @@
 namespace KogniMobil
 {
 
-/*! \defgroup kogmo_rtdb_cxx_conn Connection Handling Class
+/*! \defgroup kogmo_rtdb_cxx_conn C++ Class for Connection Handling
  * \brief Classes for a Real-time Database in Cognitive Automobiles.
  */
 /*@{*/

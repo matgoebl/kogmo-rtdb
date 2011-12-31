@@ -1,0 +1,31 @@
+#!/bin/bash
+source /usr/local/etc/package-profiles/teTeX2
+set -e
+set -x
+
+[ "$1" = clean ] && { rm -f *.pdf *.dvi *.eps; exit; }
+[ "$1" = all ] && { for i in *.tex; do $0 $i; done; exit; }
+
+file="$1"
+basefile=`basename "$file" .tex`
+
+for figfile in ${basefile}_*.fig; do
+ [ -e "$figfile" ] && fig2dev -Lpdf $figfile `basename "$figfile" .fig`.pdf
+done
+
+#for epsfile in ${basefile}_*.eps; do
+# epstopdf $epsfile -o `basename "$figfile" .eps`.pdf
+#done
+
+#for pngfile in ${basefile}_*.png; do
+# [ -e "$pngfile" ] && cat "$pngfile" |pngtopnm |pnmtops |epstopdf --filter >`basename "$pngfile" .png`.pdf
+# [ -e "$pngfile" ] && cat "$pngfile" |pngtopnm |pnmtops >`basename "$pngfile" .png`.eps
+#done
+
+
+pdflatex "$file"
+pdflatex "$file"
+pdflatex "$file"
+rm -f "$basefile".{aux,log,toc,svn}
+#xpdf "$basefile".pdf &
+sleep 1

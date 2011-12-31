@@ -27,7 +27,7 @@
 #endif
 
 
-/*! \defgroup kogmo_rtdb_types Types for Database Objects
+/*! \defgroup kogmo_rtdb_types C-Types and Structures for Database Objects
  * \brief These Types are used as Parameters in Calls to the Database-API
  * and should be used in Database Objects if possible.
  */
@@ -261,7 +261,7 @@ typedef PACKED_struct
 
 
 
-/*! \defgroup kogmo_rtdb_specials Special Types for Database Objects
+/*! \defgroup kogmo_rtdb_slot C-Functions for direct History Data Slot Access
  * \brief These Types are used as Parameters for some specializes Calls to the Database-API.
  */
 /*@{*/

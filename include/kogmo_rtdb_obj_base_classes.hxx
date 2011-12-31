@@ -19,7 +19,7 @@
 
 namespace KogniMobil {
 
-/*! \addtogroup kogmo_rtdb_objects_cxx Classes for Data Objects.
+/*! \addtogroup kogmo_rtdb_objects_cxx C++ Classes for Data Objects.
  * \brief These Classes wrap the Structs with the Data-Block of every Object
  * and provide Methods to access them. \n
  * The Data-Block ist the Part of the Object that normally

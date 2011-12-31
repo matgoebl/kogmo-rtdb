@@ -21,7 +21,7 @@
  extern "C" {
 #endif
 
-/*! \addtogroup kogmo_rtdb_objects Data Objects (Basis Object and Derivates)
+/*! \addtogroup kogmo_rtdb_objects C-Structures for Data Objects (Basis Object and Derivates)
  * \brief These Structs define the Data-Block of every Object.
  * The Data-Block ist the Part of the Object that normally
  * changes every cycle by issuing a commit.

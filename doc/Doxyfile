@@ -1,0 +1,40 @@
+PROJECT_NAME           = KogMo-RTDB
+PROJECT_NUMBER         = SVN $Revision: 606 $
+
+JAVADOC_AUTOBRIEF      = YES
+OPTIMIZE_OUTPUT_FOR_C  = YES
+EXTRACT_ALL            = YES
+QUIET                  = YES
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = YES
+
+OUTPUT_DIRECTORY       = ./doc/generated/
+INPUT                  = ./include/ ./doc/Doxygen-mainpage.h
+#./rtdb/ ./record/ ./include/ ./examples/
+# ./objects/
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = YES
+EXPAND_ONLY_PREDEF     = YES
+PREDEFINED             = PACKED_struct=struct
+
+
+FILE_PATTERNS          = *.c *.cc *.cxx *.cpp *.c++ *.java *.ii *.ixx *.ipp *.i++ *.inl *.h *.hh *.hxx *.hpp *.h++ *.idl *.odl *.cs *.php *.php3 *.inc *.m *.mm
+RECURSIVE              = NO
+EXCLUDE                = old/ .svn/ CVS/ rtmalloc/
+EXCLUDE_PATTERNS       = *.bak *~
+
+SOURCE_BROWSER         = YES
+STRIP_CODE_COMMENTS    = NO
+
+GENERATE_HTML          = YES
+GENERATE_TREEVIEW      = YES
+
+#GENERATE_LATEX         = YES
+#USE_PDFLATEX           = YES
+
+#GENERATE_MAN           = YES
+
+#HTML_HEADER            = Doxyfile_header.html
+HTML_FOOTER            = ./doc/Doxyfile_footer.html
+
+FULL_PATH_NAMES		= NO

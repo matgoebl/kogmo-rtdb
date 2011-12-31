@@ -6,7 +6,7 @@
  *     Technische Universitaet Muenchen (TUM)
  */
 
-/*! \defgroup kogmo_time_cc Time Handling Class
+/*! \defgroup kogmo_time_cc C++ Class for Time Handling
  * \brief Class for Time Handling in Cognitive Automobiles.
  */
 /*@{*/

@@ -6,12 +6,6 @@
  *     Technische Universitaet Muenchen (TUM)
  */
 
-/*! \mainpage KogMo-RTDB API Documentation (doxygen generated)
- *
- * See <a href='http://www.kogmo-rtdb.de/documentation.php'>here</a> for more information and an introduction.
- */
-
-
 #ifndef KOGMO_RTDB_H
 #define KOGMO_RTDB_H
 

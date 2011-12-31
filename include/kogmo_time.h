@@ -6,7 +6,7 @@
  *     Technische Universitaet Muenchen (TUM)
  */
 
-/*! \defgroup kogmo_time Time Handling
+/*! \defgroup kogmo_time C-Functions for Time Handling
  * \brief Types and Functions for Time Handling in Cognitive Automobiles.
  */
 /*@{*/
