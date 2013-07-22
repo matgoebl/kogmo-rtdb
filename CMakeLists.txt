@@ -4,10 +4,7 @@ cmake_minimum_required(VERSION 2.8)
 
 # Remove definitions that would include UniBw customizations to RTDB
 # (see tas_build.cmake)
-remove_definitions(-DKOGMO_RTDB_OBJ_TYPEIDS_PROJECT1_FILE=<tas_rtdb/objects/kogmo_rtdb_obj_unibw.id>)
-remove_definitions(-DKOGMO_RTDB_OBJ_DEFS_PROJECT1_FILE=<tas_rtdb/objects/kogmo_rtdb_obj_def_unibw.h>)
-remove_definitions(-DKOGMO_RTDB_OBJ_CLASSES_PROJECT1_FILE=<tas_rtdb/objects/kogmo_rtdb_obj_classes_unibw.hxx>)
-remove_definitions(-DKOGMO_RTDB_OBJ_BASE_CLASS_EXTRA_METHODS_FILE=<tas_rtdb/objects/kogmo_rtdb_obj_base_classes_unibw.hxx>)
+remove_definitions( ${RTDB_OBJECT_DEFS} )
 
 file( GLOB RTDB_FUNCS ./objects/kogmo_rtdb_obj_*_funcs.c )
 file( GLOB RTDB_RECORD ./record/kogmo_rtdb_avirawcodec.c ./record/kogmo_rtdb_timeidx.c )
