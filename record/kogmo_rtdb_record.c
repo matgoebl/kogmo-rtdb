@@ -20,6 +20,7 @@
 #include <stdlib.h> /* qsort */
 #include <getopt.h>
 #include <signal.h>
+#include <sys/resource.h>
 #include "kogmo_rtdb_internal.h"
 #include "kogmo_rtdb_trace.h"
 #include "kogmo_rtdb_stream.h"
@@ -171,6 +172,21 @@ unsigned long int events_total_written = 0, events_total = 0;
 int
 main (int argc, char **argv)
 {
+  // set maximumum object size, and adjust stack size if necessary
+  const uint64_t obj_data_size = 16 * 1024 * 1024; // THIS WILL BE THE MAXIMUM RECORDABLE OBJECT SIZE!!
+  const rlim_t kStackSize = obj_data_size + 1024 * 1024;
+  struct rlimit rl;
+  int result = getrlimit(RLIMIT_STACK, &rl);
+  if (result == 0)
+  {
+    if (rl.rlim_cur < kStackSize)
+    {
+      rl.rlim_cur = kStackSize;
+      result = setrlimit(RLIMIT_STACK, &rl);
+      if (result != 0)
+        sprintf(stderr, "setrlimit failed, returnvalue = %d\n", result);
+    }
+  }
   kogmo_rtdb_connect_info_t dbinfo;
   kogmo_rtdb_objid_t oid, recorderoid;
   //kogmo_rtdb_obj_info_t ctrlobj_info;
@@ -186,7 +202,7 @@ main (int argc, char **argv)
   struct
   {
     kogmo_rtdb_subobj_base_t base;
-    char data[5*1024*1024]; // THIS WILL BE THE MAXIMUM RECORDABLE OBJECT SIZE!!
+    char data[obj_data_size]; // THIS WILL BE THE MAXIMUM RECORDABLE OBJECT SIZE!!
   } obj_data, *obj_data_p;
 
   int event;
