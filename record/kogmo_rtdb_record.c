@@ -317,21 +317,24 @@ main (int argc, char **argv)
   recorderoid = kogmo_rtdb_obj_c3_process_searchprocessobj (dbc, 0, oid); DIEonERR(recorderoid);
 
   // Exklusiven modus überprüfen
-  if (exclusive_recording_enabled)
+  kogmo_rtdb_objid_list_t idlist;
+  int num_matching_objects = kogmo_rtdb_obj_searchinfo (dbc, "c3_recorder", 0, 0, 0, 0, &idlist, 0);
+  int matching_object_idx;
+  for ( matching_object_idx = 0; matching_object_idx < num_matching_objects; ++matching_object_idx )
   {
-    kogmo_rtdb_obj_c3_process_t po;
-    kogmo_rtdb_objid_list_t idlist;
-    int num_matching_objects = kogmo_rtdb_obj_searchinfo (dbc, "c3_recorder", 0, 0, 0, 0, &idlist, 0);
-    int matching_object_idx;
-    for ( matching_object_idx = 0; matching_object_idx < num_matching_objects; ++matching_object_idx )
-    {
-        kogmo_rtdb_objid_t manoid = idlist[matching_object_idx];
-        if (manoid >= 0 && manoid != recorderoid)
-        {
-            printf("Another rtdb_record (OID %d) is already running - quitting.\n",manoid);
-            do_exit();
-        }
-    }
+      kogmo_rtdb_objid_t manoid = idlist[matching_object_idx];
+      if (manoid >= 0 && manoid != recorderoid)
+      {
+          if (exclusive_recording_enabled)
+          {
+              printf("Another rtdb_record (OID %d) is already running - quitting.\n",manoid);
+              do_exit();
+          }
+          else
+          {
+              printf("!!!\n!!! Another rtdb_record (OID %d) is already running - expect a bad recording!\n!!!\n");
+          }
+      }
   }
 
   // Object fuer Status erstellen, initialisieren und initiale Werte eintragen
