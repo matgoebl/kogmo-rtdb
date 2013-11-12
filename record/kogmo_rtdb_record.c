@@ -42,6 +42,7 @@ usage (void)
   fprintf(stderr,
 "KogMo-RTDB Recorder (Rev.%d) (c) Matthias Goebl <matthias.goebl*goebl.net> RCS-TUM\n"
 "Usage: kogmo_rtdb_record [.....]\n"
+" -X       Disable exclusive recording, i.e. allow recording even if another recorder is already running.\n"
 " -i ID    record object with id ID\n"
 " -t TID   record objects with type TID\n"
 " -n NAME  record objects with name NAME\n"
@@ -256,9 +257,11 @@ main (int argc, char **argv)
     }
   known_obj(0);
 
-  while( ( opt = getopt (argc, argv, "i:t:n:I:T:N:0:1:2:3:4:5:6:7:8:9:r:alo:s:BW:P:qh") ) != -1 )
+  int exclusive_recording_enabled = 1;
+  while( ( opt = getopt (argc, argv, "i:t:n:I:T:N:0:1:2:3:4:5:6:7:8:9:r:Xalo:s:BW:P:qh") ) != -1 )
     switch(opt)
       {
+        case 'X': exclusive_recording_enabled = 0; break;
         case 'i': if (++do_oid>MAXOPTLIST) DIE("ERROR: at maximum %d -%c items are allowed!",MAXOPTLIST,opt);
                   oid_list[do_oid-1] = strtol(optarg, (char **)NULL, 0); break;
         case 't': if (++do_tid>MAXOPTLIST) DIE("ERROR: at maximum %d -%c items are allowed!",MAXOPTLIST,opt);
@@ -312,6 +315,24 @@ main (int argc, char **argv)
   dbinfo.flags = KOGMO_RTDB_CONNECT_FLAGS_NOHANDLERS;
   oid = kogmo_rtdb_connect (&dbc, &dbinfo); DIEonERR(oid);
   recorderoid = kogmo_rtdb_obj_c3_process_searchprocessobj (dbc, 0, oid); DIEonERR(recorderoid);
+
+  // Exklusiven modus überprüfen
+  if (exclusive_recording_enabled)
+  {
+    kogmo_rtdb_obj_c3_process_t po;
+    kogmo_rtdb_objid_list_t idlist;
+    int num_matching_objects = kogmo_rtdb_obj_searchinfo (dbc, "c3_recorder", 0, 0, 0, 0, &idlist, 0);
+    int matching_object_idx;
+    for ( matching_object_idx = 0; matching_object_idx < num_matching_objects; ++matching_object_idx )
+    {
+        kogmo_rtdb_objid_t manoid = idlist[matching_object_idx];
+        if (manoid >= 0 && manoid != recorderoid)
+        {
+            printf("Another rtdb_record (OID %d) is already running - quitting.\n",manoid);
+            do_exit();
+        }
+    }
+  }
 
   // Object fuer Status erstellen, initialisieren und initiale Werte eintragen
   err = kogmo_rtdb_obj_initinfo (dbc, &statobj_info,
