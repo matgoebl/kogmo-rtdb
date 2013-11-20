@@ -727,7 +727,7 @@ main (int argc, char **argv)
                       {
                         aviraw_fput_chunk(fout, &dc, buf);
                       }
-                    oid = info_p -> oid;
+                    oid = info_p->oid;
                     if ( map_exists(oid) )
                       {
                         // bei einen RFR refresh ist es erlaubt, dass das objekt schon existiert, bei einen ADD nicht
@@ -750,14 +750,14 @@ main (int argc, char **argv)
                         map_add (oid,1,info_p->name,info_p->otype);
                         break;
                       }
-                    info_p -> oid = 0;
+                    info_p->oid = 0;
                     tmpoid = map_querydest(info_p->parent_oid);
                     if ( tmpoid )
-                      info_p -> parent_oid = tmpoid;
+                      info_p->parent_oid = tmpoid;
                     else
                       // Nicht sehr schoen, ab das sinnvollste: Default-Parent ist Player
-                      info_p -> parent_oid = playeroid;
-                    info_p -> flags.cycle_watch = 0; // sonst geht mehrfache Abspielgeschwindigkeit nicht
+                      info_p->parent_oid = playeroid;
+                    info_p->flags.cycle_watch = 0; // sonst geht mehrfache Abspielgeschwindigkeit nicht
                     destoid = kogmo_rtdb_obj_insert (dbc, info_p);
                     if(destoid==-KOGMO_RTDB_ERR_NOMEMORY)
                       {
@@ -792,7 +792,7 @@ main (int argc, char **argv)
                       }
                     if ( !do_db )
                         break;
-                    info_p -> oid = destoid;
+                    info_p->oid = destoid;
                     if ( destoid != 0 ) // can be 0 if there was an error (was not unique) or it was filtered
                       {
                         err = kogmo_rtdb_obj_delete (dbc, info_p); WARNonERR(err);

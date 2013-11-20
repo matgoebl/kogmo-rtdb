@@ -11,7 +11,7 @@
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */
- 
+
 #include "kogmo_rtdb_internal.h"
 
  /* ******************** OBJECT MANAGEMENT ******************** */
@@ -69,7 +69,7 @@ _kogmo_rtdb_obj_searchinfo(kogmo_rtdb_handle_t *db_h,
         return -KOGMO_RTDB_ERR_INVALID;
       if ( regexec(&re, name, (size_t) 1, re_match, 0) == 0 && re_match[0].rm_so >= 0 )
         oid = strtoll(&name[re_match[0].rm_so+1],NULL,0);
-      regfree(&re);  
+      regfree(&re);
       if ( oid )
         {
           if ( kogmo_rtdb_obj_findmeta_byid (db_h, oid ) == NULL )
@@ -97,7 +97,7 @@ _kogmo_rtdb_obj_searchinfo(kogmo_rtdb_handle_t *db_h,
           name = searchname;
           printf("type: %i %x s.%s.\n", otype,otype,name);
         }
-      regfree(&re);  
+      regfree(&re);
 
       if ( regcomp (&re, &name[1], REG_EXTENDED|REG_NOSUB|REG_ICASE) != 0)
         return -KOGMO_RTDB_ERR_INVALID;
@@ -124,7 +124,7 @@ _kogmo_rtdb_obj_searchinfo(kogmo_rtdb_handle_t *db_h,
                 len = strlen ( q );
               if ( len > sizeof(searchname) )
                 len = sizeof(searchname); // error! remapped name to long!
-              strncpy(searchname, q, len); 
+              strncpy(searchname, q, len);
               searchname[len] = '\0'; // ensure NUL termination
               name = searchname;
               break;
@@ -139,22 +139,22 @@ _kogmo_rtdb_obj_searchinfo(kogmo_rtdb_handle_t *db_h,
 
   while ( ++i < KOGMO_RTDB_OBJ_MAX )
     {
-      scan_objmeta_p = &db_h->localdata_p -> objmeta[i];
+      scan_objmeta_p = &db_h->localdata_p->objmeta[i];
 
       // skip empty slots
-      if ( scan_objmeta_p -> oid == 0 || scan_objmeta_p -> created_ts == 0 )
+      if ( scan_objmeta_p->oid == 0 || scan_objmeta_p->created_ts == 0 )
           continue;
 
       // skip objects with wrong type if type-parameter is set
-      if ( scan_objmeta_p -> otype != otype && otype != 0 )
+      if ( scan_objmeta_p->otype != otype && otype != 0 )
           continue;
 
       // skip objects with wrong parent if parent-parameter is set
-      if ( scan_objmeta_p -> parent_oid != parent_oid && parent_oid != 0 )
+      if ( scan_objmeta_p->parent_oid != parent_oid && parent_oid != 0 )
           continue;
 
       // skip objects with wrong creator if creator-parameter is set
-      if ( scan_objmeta_p -> created_proc != proc_oid && proc_oid != 0 )
+      if ( scan_objmeta_p->created_proc != proc_oid && proc_oid != 0 )
           continue;
 
       // skip deleted objects if time-parameter is not set
@@ -162,12 +162,12 @@ _kogmo_rtdb_obj_searchinfo(kogmo_rtdb_handle_t *db_h,
       // the object didn't exist at the given time
       // (warning: don't use "deleted_ts <= ts"! otherwise a trace reader won't find
       // a deleted object!)
-      if ( scan_objmeta_p -> deleted_ts != 0 && !includedeleted )
-        if ( scan_objmeta_p -> deleted_ts < ts || ts == 0 )
+      if ( scan_objmeta_p->deleted_ts != 0 && !includedeleted )
+        if ( scan_objmeta_p->deleted_ts < ts || ts == 0 )
           continue;
 
       // skip not yet created objects if time-parameter is set
-      if ( scan_objmeta_p -> created_ts > ts && ts != 0 )
+      if ( scan_objmeta_p->created_ts > ts && ts != 0 )
           continue;
 
       // skip if regex doesn't match and regex-parameter is set
@@ -181,7 +181,7 @@ _kogmo_rtdb_obj_searchinfo(kogmo_rtdb_handle_t *db_h,
           continue;
 
       // found!!! this is a match
-      oid = scan_objmeta_p -> oid;
+      oid = scan_objmeta_p->oid;
       nfound++;
 
       // insert match into result-list if given and there's space
@@ -207,8 +207,8 @@ _kogmo_rtdb_obj_searchinfo(kogmo_rtdb_handle_t *db_h,
         {
           scan_objmeta_p = kogmo_rtdb_obj_findmeta_byid (db_h, parent_oid);
           if ( scan_objmeta_p == NULL ) return -KOGMO_RTDB_ERR_INVALID;
-          if ( scan_objmeta_p -> deleted_ts != 0 )
-            if ( scan_objmeta_p -> deleted_ts > ts || ts == 0 )
+          if ( scan_objmeta_p->deleted_ts != 0 )
+            if ( scan_objmeta_p->deleted_ts > ts || ts == 0 )
               return -KOGMO_RTDB_ERR_INVALID;
         }
 
@@ -293,9 +293,9 @@ kogmo_rtdb_obj_insert (kogmo_rtdb_handle_t *db_h,
 
 //  DxBGL (DBGL_API,"obj_insert(%p = %s, db_h=%p,%p)", metadata_p, metadata_p->name,db_h,&db_h->localdata_p->objmeta[0]);
 //  DxBG("obj_insert: handle is at %p and points to %p",&db_h,db_h);
-  DBGL (DBGL_API,"obj_insert(%p = %s, %i)", metadata_p, metadata_p->name, metadata_p -> size_max);
+  DBGL (DBGL_API,"obj_insert(%p = %s, %i)", metadata_p, metadata_p->name, metadata_p->size_max);
 
-  if ( metadata_p -> size_max != 0 && metadata_p -> size_max < sizeof(kogmo_rtdb_subobj_base_t) )
+  if ( metadata_p->size_max != 0 && metadata_p->size_max < sizeof(kogmo_rtdb_subobj_base_t) )
     return -KOGMO_RTDB_ERR_INVALID;
 
   if ( metadata_p == NULL )
@@ -304,8 +304,8 @@ kogmo_rtdb_obj_insert (kogmo_rtdb_handle_t *db_h,
       return -KOGMO_RTDB_ERR_INVALID;
     }
 
-  metadata_p -> name[KOGMO_RTDB_OBJMETA_NAME_MAXLEN-1] = '\0';
-  if ( metadata_p -> name[0] == '\0' )
+  metadata_p->name[KOGMO_RTDB_OBJMETA_NAME_MAXLEN-1] = '\0';
+  if ( metadata_p->name[0] == '\0' )
     {
       DBGL (DBGL_DB,"name for new object is empty");
       return -KOGMO_RTDB_ERR_INVALID;
@@ -322,11 +322,11 @@ kogmo_rtdb_obj_insert (kogmo_rtdb_handle_t *db_h,
       if(*p == '/')
        minhistmaxosize = strtol(++p,NULL,0);
       DBGL (DBGL_DB,"Histsize adjust: %f < %f && %lli < %lli",
-         metadata_p -> history_interval, minhist,
-         (long long int) metadata_p -> size_max, (long long int) minhistmaxosize);
-      if ( metadata_p -> history_interval < minhist
-         && ( minhistmaxosize == 0 || metadata_p -> size_max <= minhistmaxosize ))
-        metadata_p -> history_interval = minhist;
+         metadata_p->history_interval, minhist,
+         (long long int) metadata_p->size_max, (long long int) minhistmaxosize);
+      if ( metadata_p->history_interval < minhist
+         && ( minhistmaxosize == 0 || metadata_p->size_max <= minhistmaxosize ))
+        metadata_p->history_interval = minhist;
     }
 
   // Apply maximal history size restrictions
@@ -339,41 +339,41 @@ kogmo_rtdb_obj_insert (kogmo_rtdb_handle_t *db_h,
       if(*p == '/')
        maxhistmaxosize = strtol(++p,NULL,0);
       DBGL (DBGL_DB,"Histsize adjust: %f > %f && %lli > %lli",
-         metadata_p -> history_interval, maxhist,
-         (long long int) metadata_p -> size_max, (long long int) maxhistmaxosize);
-      if ( metadata_p -> history_interval > maxhist
-         && ( maxhistmaxosize == 0 || metadata_p -> size_max >= maxhistmaxosize ))
-        metadata_p -> history_interval = maxhist;
+         metadata_p->history_interval, maxhist,
+         (long long int) metadata_p->size_max, (long long int) maxhistmaxosize);
+      if ( metadata_p->history_interval > maxhist
+         && ( maxhistmaxosize == 0 || metadata_p->size_max >= maxhistmaxosize ))
+        metadata_p->history_interval = maxhist;
     }
 
   // Init Meta Data
   metadata_p->oid = 0;
-  metadata_p -> created_ts = metadata_p -> lastmodified_ts = ts;
-  metadata_p -> created_proc = metadata_p -> lastmodified_proc = db_h->ipc_h.this_process.proc_oid;
-  metadata_p -> deleted_ts = metadata_p -> deleted_proc = 0;
-  if ( metadata_p -> history_interval <= 0 )
-    metadata_p -> history_interval = 0.001;
-  if ( metadata_p -> max_cycletime <= 0 )
-    metadata_p -> max_cycletime = 0.001;
-  if ( metadata_p -> min_cycletime <= 0 )
-    metadata_p -> min_cycletime = 0.001;
+  metadata_p->created_ts = metadata_p->lastmodified_ts = ts;
+  metadata_p->created_proc = metadata_p->lastmodified_proc = db_h->ipc_h.this_process.proc_oid;
+  metadata_p->deleted_ts = metadata_p->deleted_proc = 0;
+  if ( metadata_p->history_interval <= 0 )
+    metadata_p->history_interval = 0.001;
+  if ( metadata_p->max_cycletime <= 0 )
+    metadata_p->max_cycletime = 0.001;
+  if ( metadata_p->min_cycletime <= 0 )
+    metadata_p->min_cycletime = 0.001;
   #ifdef AUTO_CORRECT_CYCLETIMES
-  if ( metadata_p -> min_cycletime > metadata_p -> max_cycletime )
+  if ( metadata_p->min_cycletime > metadata_p->max_cycletime )
     {
       float tmp;
-      tmp = metadata_p -> max_cycletime;
-      metadata_p -> max_cycletime = metadata_p -> min_cycletime;
-      metadata_p -> min_cycletime = tmp;
+      tmp = metadata_p->max_cycletime;
+      metadata_p->max_cycletime = metadata_p->min_cycletime;
+      metadata_p->min_cycletime = tmp;
     }
   #endif
-  cycle_time =  MIN_CYCLETIME(metadata_p -> min_cycletime, metadata_p -> max_cycletime);
-  metadata_p -> history_size = UNSIGNED_CEIL( metadata_p -> history_interval / cycle_time + 1 );
-  if ( metadata_p -> size_max == 0 )
-    metadata_p -> history_size = 0;
-  metadata_p -> history_slot = -1;
-  metadata_p -> buffer_idx = 0;
-  if ( metadata_p -> size_max & 1 )
-    metadata_p -> size_max++; // make size even
+  cycle_time =  MIN_CYCLETIME(metadata_p->min_cycletime, metadata_p->max_cycletime);
+  metadata_p->history_size = UNSIGNED_CEIL( metadata_p->history_interval / cycle_time + 1 );
+  if ( metadata_p->size_max == 0 )
+    metadata_p->history_size = 0;
+  metadata_p->history_slot = -1;
+  metadata_p->buffer_idx = 0;
+  if ( metadata_p->size_max & 1 )
+    metadata_p->size_max++; // make size even
 
 
   kogmo_rtdb_objmeta_lock(db_h);
@@ -383,7 +383,7 @@ kogmo_rtdb_obj_insert (kogmo_rtdb_handle_t *db_h,
   //  => Then we need not allocate new memory
   for(i=0;i<KOGMO_RTDB_OBJ_MAX;i++)
     {
-      scan_objmeta_p = &db_h->localdata_p -> objmeta[i];
+      scan_objmeta_p = &db_h->localdata_p->objmeta[i];
       if ( !scan_objmeta_p->oid )
         continue; // used
       if ( !scan_objmeta_p->deleted_ts )
@@ -392,22 +392,22 @@ kogmo_rtdb_obj_insert (kogmo_rtdb_handle_t *db_h,
         continue; // not ours
       if ( !scan_objmeta_p->flags.keep_alloc )
         continue; // no keep-alloc
-      if ( scan_objmeta_p->size_max * scan_objmeta_p -> history_size !=
-           metadata_p -> size_max * metadata_p -> history_size)
+      if ( scan_objmeta_p->size_max * scan_objmeta_p->history_size !=
+           metadata_p->size_max * metadata_p->history_size)
         continue; // different size
       // matching object-type-ids are not necessary, relevant is only the total memory size
 
       scan_delete_ts = kogmo_timestamp_add_secs(
-               scan_objmeta_p -> deleted_ts,
-               scan_objmeta_p -> history_interval > db_h->localdata_p->default_keep_deleted_interval ?
-               scan_objmeta_p -> history_interval : db_h->localdata_p->default_keep_deleted_interval);
+               scan_objmeta_p->deleted_ts,
+               scan_objmeta_p->history_interval > db_h->localdata_p->default_keep_deleted_interval ?
+               scan_objmeta_p->history_interval : db_h->localdata_p->default_keep_deleted_interval);
       if ( scan_delete_ts < ts ) // reached deletion time or is 0
         {
           // the slot: has an id + is deleted + was owned by this proc + is flagged
           // + has the same total size + reached deletion time
           found_slot = i;
           scan_oid = scan_objmeta_p->oid;
-          metadata_p -> buffer_idx = scan_objmeta_p->buffer_idx;
+          metadata_p->buffer_idx = scan_objmeta_p->buffer_idx;
           DBGL (DBGL_DB,"reusing pre-allocated metadata slot %d with old "
                         "oid %lli and bufferindex %lli",
                     found_slot, (long long int) scan_oid, (long long int)
@@ -436,13 +436,13 @@ kogmo_rtdb_obj_insert (kogmo_rtdb_handle_t *db_h,
           #endif
 
           // need data blocks and found no preallocated object?
-          if ( metadata_p -> size_max != 0 )
+          if ( metadata_p->size_max != 0 )
             {
               kogmo_rtdb_objmeta_unlock(db_h); // do not block other keep-alloc-inserts by memory allocation (using heap_lock)
 
               // allocate memory for object data, this may fail if there is insufficient space
               new_allocated_heap_idx = kogmo_rtdb_obj_mem_alloc (db_h,
-                             metadata_p -> size_max * metadata_p -> history_size );
+                             metadata_p->size_max * metadata_p->history_size );
               DBG("alloc returned index %i",new_allocated_heap_idx);
               if ( new_allocated_heap_idx < 0 )
                 {
@@ -455,7 +455,7 @@ kogmo_rtdb_obj_insert (kogmo_rtdb_handle_t *db_h,
                   ERR("no more memory for object data in local heap");
                   return -KOGMO_RTDB_ERR_NOMEMORY;
                 }
-              metadata_p -> buffer_idx = new_allocated_heap_idx;
+              metadata_p->buffer_idx = new_allocated_heap_idx;
 
               kogmo_rtdb_objmeta_lock(db_h); // re-acquire lock. Warning: global metadata might have changed in the meantime!
             }
@@ -463,7 +463,7 @@ kogmo_rtdb_obj_insert (kogmo_rtdb_handle_t *db_h,
           // find free slot
           for(i=0;i<KOGMO_RTDB_OBJ_MAX;i++)
             {
-              scan_objmeta_p = &db_h->localdata_p -> objmeta[i];
+              scan_objmeta_p = &db_h->localdata_p->objmeta[i];
               if ( scan_objmeta_p->oid == 0 )
                 {
                   found_slot = i;
@@ -488,7 +488,7 @@ kogmo_rtdb_obj_insert (kogmo_rtdb_handle_t *db_h,
               kogmo_rtdb_objmeta_unlock(db_h);
               if ( new_allocated_heap_idx ) // allocated memory that is useless now
                 kogmo_rtdb_obj_mem_free (db_h, new_allocated_heap_idx,
-                                         metadata_p -> size_max * metadata_p -> history_size);
+                                         metadata_p->size_max * metadata_p->history_size);
               DBGL (DBGL_DB,"found no free object metadata slot");
               return -KOGMO_RTDB_ERR_OUTOFOBJ;
             }
@@ -500,19 +500,19 @@ kogmo_rtdb_obj_insert (kogmo_rtdb_handle_t *db_h,
   // or this unique object shall be unique, but there is already another object with this typeid and name
   for(i=0;i<KOGMO_RTDB_OBJ_MAX;i++)
     {
-      tmp_oid = kogmo_rtdb_obj_searchinfo_nolock(db_h, NULL, metadata_p -> otype, 0, 0, 0, NULL, i+1);
+      tmp_oid = kogmo_rtdb_obj_searchinfo_nolock(db_h, NULL, metadata_p->otype, 0, 0, 0, NULL, i+1);
       if ( tmp_oid <= 0 )
         break;
       tmp_objmeta_p = kogmo_rtdb_obj_findmeta_byid (db_h, tmp_oid);
       if ( tmp_objmeta_p == NULL )
         continue;
       if ( ( strncmp (metadata_p->name, tmp_objmeta_p->name, KOGMO_RTDB_OBJMETA_NAME_MAXLEN) == 0 )
-           && ( tmp_objmeta_p -> flags.unique || metadata_p -> flags.unique) )
+           && ( tmp_objmeta_p->flags.unique || metadata_p->flags.unique) )
           {
             kogmo_rtdb_objmeta_unlock(db_h);
             if ( new_allocated_heap_idx ) // allocated memory that is useless now
               kogmo_rtdb_obj_mem_free (db_h, new_allocated_heap_idx,
-                                       metadata_p -> size_max * metadata_p -> history_size);
+                                       metadata_p->size_max * metadata_p->history_size);
             DBGL (DBGL_DB,"unique object already exists");
             return -KOGMO_RTDB_ERR_NOTUNIQ;
           }
@@ -528,9 +528,9 @@ kogmo_rtdb_obj_insert (kogmo_rtdb_handle_t *db_h,
   free_oid = db_h->localdata_p->objmeta_oid_next++;
   if ( free_oid <=0 )
     {
-      if ( metadata_p -> buffer_idx != 0 )
-        kogmo_rtdb_obj_mem_free (db_h, metadata_p -> buffer_idx,
-                     metadata_p -> size_max * metadata_p -> history_size );
+      if ( metadata_p->buffer_idx != 0 )
+        kogmo_rtdb_obj_mem_free (db_h, metadata_p->buffer_idx,
+                     metadata_p->size_max * metadata_p->history_size );
       kogmo_rtdb_objmeta_unlock(db_h);
       ERR("OUT OF OBJECT-IDs!!!");
       return -KOGMO_RTDB_ERR_OUTOFOBJ;
@@ -543,8 +543,8 @@ kogmo_rtdb_obj_insert (kogmo_rtdb_handle_t *db_h,
   kogmo_rtdb_obj_unlock (db_h, scan_objmeta_p);
 #endif
 
-  // set oid in db -> object activated
-  scan_objmeta_p -> oid = free_oid;
+  // set oid in db->object activated
+  scan_objmeta_p->oid = free_oid;
 
   DBGL (DBGL_DB,"object metadata inserted with new oid %lli",
         (long long int)free_oid );
@@ -560,9 +560,9 @@ kogmo_rtdb_obj_insert (kogmo_rtdb_handle_t *db_h,
     }
 
   // set oid in local context
-  metadata_p -> oid = free_oid;
+  metadata_p->oid = free_oid;
 
-  kogmo_rtdb_obj_trace_send (db_h, metadata_p -> oid, metadata_p -> created_ts, KOGMO_RTDB_TRACE_INSERTED,
+  kogmo_rtdb_obj_trace_send (db_h, metadata_p->oid, metadata_p->created_ts, KOGMO_RTDB_TRACE_INSERTED,
         kogmo_rtdb_obj_slotnum (db_h, metadata_p), -1);
 
   return metadata_p->oid;
@@ -576,14 +576,14 @@ kogmo_rtdb_obj_purgeslot (kogmo_rtdb_handle_t *db_h,
                           int slot)
 {
   kogmo_rtdb_obj_info_t *objmeta_p;
-  objmeta_p = &db_h -> localdata_p -> objmeta[slot];
+  objmeta_p = &db_h->localdata_p->objmeta[slot];
   DBGL (DBGL_DB,"purging object metadata slot %d with old oid %lli",
         slot, (long long int) objmeta_p->oid);
-  if ( objmeta_p -> buffer_idx != 0 )
-    kogmo_rtdb_obj_mem_free (db_h, objmeta_p -> buffer_idx,
-                             objmeta_p -> size_max *
-                             objmeta_p -> history_size );
-  objmeta_p -> oid = 0;
+  if ( objmeta_p->buffer_idx != 0 )
+    kogmo_rtdb_obj_mem_free (db_h, objmeta_p->buffer_idx,
+                             objmeta_p->size_max *
+                             objmeta_p->history_size );
+  objmeta_p->oid = 0;
   db_h->localdata_p->objmeta_free++;
   return 0;
 }
@@ -612,28 +612,28 @@ kogmo_rtdb_obj_delete_imm (kogmo_rtdb_handle_t *db_h,
 
   kogmo_rtdb_objmeta_lock(db_h);
 
-  used_objmeta_p = kogmo_rtdb_obj_findmeta_byid (db_h, metadata_p -> oid );
+  used_objmeta_p = kogmo_rtdb_obj_findmeta_byid (db_h, metadata_p->oid );
 
   if ( used_objmeta_p == NULL)
     {
-      DBGL (DBGL_DB,"object metadata not found for oid %d", metadata_p -> oid);
+      DBGL (DBGL_DB,"object metadata not found for oid %d", metadata_p->oid);
       kogmo_rtdb_objmeta_unlock(db_h);
       return -KOGMO_RTDB_ERR_NOTFOUND;
     }
 
-  if ( !used_objmeta_p -> flags.write_allow
-       && used_objmeta_p -> created_proc != db_h->ipc_h.this_process.proc_oid
+  if ( !used_objmeta_p->flags.write_allow
+       && used_objmeta_p->created_proc != db_h->ipc_h.this_process.proc_oid
        && !this_process_is_admin (db_h) )
     {
-      DBGL (DBGL_MSG,"delete permission denied for oid %d", used_objmeta_p -> oid);
+      DBGL (DBGL_MSG,"delete permission denied for oid %d", used_objmeta_p->oid);
       kogmo_rtdb_objmeta_unlock(db_h);
       return -KOGMO_RTDB_ERR_NOPERM;
     }
 
   // kogmo_rtdb_housekeeping.c:kogmo_rtdb_objmeta_purge_procs() may add immediately_delete
-  if ( used_objmeta_p -> deleted_ts && !used_objmeta_p ->flags.immediately_delete && !immediately_delete )
+  if ( used_objmeta_p->deleted_ts && !used_objmeta_p ->flags.immediately_delete && !immediately_delete )
     {
-      DBGL (DBGL_MSG,"object with oid %d already deleted", used_objmeta_p -> oid);
+      DBGL (DBGL_MSG,"object with oid %d already deleted", used_objmeta_p->oid);
       kogmo_rtdb_objmeta_unlock(db_h);
       return -KOGMO_RTDB_ERR_NOTFOUND;
     }
@@ -645,13 +645,13 @@ kogmo_rtdb_obj_delete_imm (kogmo_rtdb_handle_t *db_h,
     child_objlist[0]=0;
 
   // mark as deleted
-  used_objmeta_p -> deleted_proc = db_h->ipc_h.this_process.proc_oid;
-  used_objmeta_p -> deleted_ts = kogmo_rtdb_timestamp_now (db_h);
+  used_objmeta_p->deleted_proc = db_h->ipc_h.this_process.proc_oid;
+  used_objmeta_p->deleted_ts = kogmo_rtdb_timestamp_now (db_h);
 
   // clear data in return context
-  // bad. better update it (add deleted_time etc..). unique oid will stay invalid forever -> no problem
+  // bad. better update it (add deleted_time etc..). unique oid will stay invalid forever->no problem
   // memset (metadata_p, 0, sizeof(kogmo_rtdb_obj_info_t));
-  // metadata_p -> oid = 0;
+  // metadata_p->oid = 0;
 
   // update local context
   memcpy (metadata_p, used_objmeta_p, sizeof(kogmo_rtdb_obj_info_t));
@@ -668,15 +668,15 @@ kogmo_rtdb_obj_delete_imm (kogmo_rtdb_handle_t *db_h,
   kogmo_rtdb_obj_do_notify_prepare(db_h, used_objmeta_p);
   kogmo_rtdb_obj_do_notify (db_h, used_objmeta_p);
 
-  kogmo_rtdb_obj_trace_send (db_h, metadata_p -> oid, metadata_p -> deleted_ts, KOGMO_RTDB_TRACE_DELETED,
-        kogmo_rtdb_obj_slotnum (db_h, metadata_p), -1);               
+  kogmo_rtdb_obj_trace_send (db_h, metadata_p->oid, metadata_p->deleted_ts, KOGMO_RTDB_TRACE_DELETED,
+        kogmo_rtdb_obj_slotnum (db_h, metadata_p), -1);
 
   // delete all objects that depend on this as parent
   for (i=0; child_objlist[i] != 0; i++ )
     {
       err = kogmo_rtdb_obj_readinfo (db_h, child_objlist[i], 0, &child_objmeta );
       if ( err < 0 )
-        continue;   
+        continue;
       if ( child_objmeta.flags.parent_delete )
         {
           DBG("deleting depending object '%s'",child_objmeta.name);
@@ -697,7 +697,7 @@ kogmo_rtdb_obj_delete (kogmo_rtdb_handle_t *db_h,
 
 
 int
-kogmo_rtdb_obj_readinfo (kogmo_rtdb_handle_t *db_h, 
+kogmo_rtdb_obj_readinfo (kogmo_rtdb_handle_t *db_h,
                          kogmo_rtdb_objid_t id, kogmo_timestamp_t ts,
                          kogmo_rtdb_obj_info_t *metadata_p)
 {
@@ -712,22 +712,22 @@ kogmo_rtdb_obj_readinfo (kogmo_rtdb_handle_t *db_h,
 
   if ( used_objmeta_p == NULL)
     {
-      DBGL (DBGL_DB,"object metadata not found for oid %d", metadata_p -> oid);
+      DBGL (DBGL_DB,"object metadata not found for oid %d", metadata_p->oid);
       kogmo_rtdb_objmeta_unlock(db_h);
       return -KOGMO_RTDB_ERR_NOTFOUND;
     }
 
-  if ( used_objmeta_p -> created_ts > ts && ts != 0 )
+  if ( used_objmeta_p->created_ts > ts && ts != 0 )
     {
-      DBGL (DBGL_DB,"object metadata of oid %d does not yet exist", metadata_p -> oid);
+      DBGL (DBGL_DB,"object metadata of oid %d does not yet exist", metadata_p->oid);
       kogmo_rtdb_objmeta_unlock(db_h);
       return -KOGMO_RTDB_ERR_NOTFOUND;
     }
-  if ( used_objmeta_p -> deleted_ts != 0 )
+  if ( used_objmeta_p->deleted_ts != 0 )
     {
-      if ( used_objmeta_p -> deleted_ts < ts || ts == 0 )
+      if ( used_objmeta_p->deleted_ts < ts || ts == 0 )
         {
-          DBGL (DBGL_DB,"object metadata of oid %d is deleted", metadata_p -> oid);
+          DBGL (DBGL_DB,"object metadata of oid %d is deleted", metadata_p->oid);
           kogmo_rtdb_objmeta_unlock(db_h);
           return -KOGMO_RTDB_ERR_NOTFOUND;
         }
@@ -857,11 +857,11 @@ int
 kogmo_rtdb_obj_searchinfo_waitnext_until(
                            kogmo_rtdb_handle_t *db_h,
                            _const char *name,
-                           kogmo_rtdb_objtype_t otype,   
+                           kogmo_rtdb_objtype_t otype,
                            kogmo_rtdb_objid_t parent_oid,
                            kogmo_rtdb_objid_t proc_oid,
-                           kogmo_rtdb_objid_list_t known_idlist,    
-                           kogmo_rtdb_objid_list_t added_idlist,   
+                           kogmo_rtdb_objid_list_t known_idlist,
+                           kogmo_rtdb_objid_list_t added_idlist,
                            kogmo_rtdb_objid_list_t deleted_idlist,
                            kogmo_timestamp_t wakeup_ts)
 {
@@ -968,11 +968,11 @@ kogmo_rtdb_obj_searchinfo_waitnext(
 int
 kogmo_rtdb_obj_searchinfo_lists_nonblocking(kogmo_rtdb_handle_t *db_h,
                            _const char *name,
-                           kogmo_rtdb_objtype_t otype,   
+                           kogmo_rtdb_objtype_t otype,
                            kogmo_rtdb_objid_t parent_oid,
                            kogmo_rtdb_objid_t proc_oid,
-                           kogmo_rtdb_objid_list_t known_idlist,    
-                           kogmo_rtdb_objid_list_t added_idlist,   
+                           kogmo_rtdb_objid_list_t known_idlist,
+                           kogmo_rtdb_objid_list_t added_idlist,
                            kogmo_rtdb_objid_list_t deleted_idlist)
 {
   kogmo_rtdb_objid_t num_added = 0;
@@ -1079,35 +1079,35 @@ kogmo_rtdb_obj_changeinfo (kogmo_rtdb_handle_t *db_h,
 
   if ( used_objmeta_p == NULL)
     {
-      DBGL (DBGL_DB,"object metadata not found for oid %d", metadata_p -> oid);
+      DBGL (DBGL_DB,"object metadata not found for oid %d", metadata_p->oid);
       kogmo_rtdb_objmeta_unlock(db_h);
       return -KOGMO_RTDB_ERR_NOTFOUND;
     }
 
-  used_objmeta_p -> lastmodified_proc = db_h->ipc_h.this_process.proc_oid;
-  used_objmeta_p -> lastmodified_ts = ts;
+  used_objmeta_p->lastmodified_proc = db_h->ipc_h.this_process.proc_oid;
+  used_objmeta_p->lastmodified_ts = ts;
 
-  metadata_p -> name[KOGMO_RTDB_OBJMETA_NAME_MAXLEN-1] = '\0';
-  if ( metadata_p -> name[0] != '\0' )
+  metadata_p->name[KOGMO_RTDB_OBJMETA_NAME_MAXLEN-1] = '\0';
+  if ( metadata_p->name[0] != '\0' )
     strncpy(used_objmeta_p->name,metadata_p->name,sizeof(metadata_p->name));
 
   // here: allow change to 0?..
 
-  if ( metadata_p -> otype )
-    used_objmeta_p -> otype = metadata_p -> otype;
+  if ( metadata_p->otype )
+    used_objmeta_p->otype = metadata_p->otype;
 
-  if ( metadata_p -> parent_oid )
-    used_objmeta_p -> parent_oid = metadata_p -> parent_oid;
+  if ( metadata_p->parent_oid )
+    used_objmeta_p->parent_oid = metadata_p->parent_oid;
 
-  //if ( metadata_p -> flags ) // hmm.. does not allow setting to 0.. (TODO)
-  //  used_objmeta_p -> flags = metadata_p -> flags;
+  //if ( metadata_p->flags ) // hmm.. does not allow setting to 0.. (TODO)
+  //  used_objmeta_p->flags = metadata_p->flags;
 
-  if ( metadata_p -> max_cycletime > 0 )
-    used_objmeta_p -> max_cycletime = metadata_p -> max_cycletime;
-  if ( metadata_p -> min_cycletime > 0 )
-    used_objmeta_p -> min_cycletime = metadata_p -> min_cycletime;
-  if ( metadata_p -> history_interval > 0 )
-    used_objmeta_p -> history_interval = metadata_p -> history_interval;
+  if ( metadata_p->max_cycletime > 0 )
+    used_objmeta_p->max_cycletime = metadata_p->max_cycletime;
+  if ( metadata_p->min_cycletime > 0 )
+    used_objmeta_p->min_cycletime = metadata_p->min_cycletime;
+  if ( metadata_p->history_interval > 0 )
+    used_objmeta_p->history_interval = metadata_p->history_interval;
 
   kogmo_rtdb_objmeta_unlock_notify(db_h);
 
@@ -1119,7 +1119,7 @@ kogmo_rtdb_obj_changeinfo (kogmo_rtdb_handle_t *db_h,
       free(p);
     }
 
-  kogmo_rtdb_obj_trace_send (db_h, used_objmeta_p -> oid, used_objmeta_p -> lastmodified_ts, KOGMO_RTDB_TRACE_CHANGED,
+  kogmo_rtdb_obj_trace_send (db_h, used_objmeta_p->oid, used_objmeta_p->lastmodified_ts, KOGMO_RTDB_TRACE_CHANGED,
         kogmo_rtdb_obj_slotnum (db_h, used_objmeta_p), -1);
 
   return used_objmeta_p->oid;

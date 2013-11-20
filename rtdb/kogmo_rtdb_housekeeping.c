@@ -26,8 +26,8 @@ kogmo_rtdb_objmeta_purge_objs (kogmo_rtdb_handle_t *db_h)
 
   CHK_DBH("kogmo_rtdb_objmeta_purge",db_h,0);
 
-  percent_free = (float)db_h->localdata_p -> heap_free * 100 /
-                 db_h->localdata_p -> heap_size;
+  percent_free = (float)db_h->localdata_p->heap_free * 100 /
+                 db_h->localdata_p->heap_size;
 
 #ifndef KOGMO_RTDB_HARDREALTIME
   if ( percent_free < KOGMO_RTDB_PURGE_KEEPALLOC_PERCFREE )
@@ -43,15 +43,15 @@ kogmo_rtdb_objmeta_purge_objs (kogmo_rtdb_handle_t *db_h)
   kogmo_rtdb_objmeta_lock(db_h);
   for(i=0;i<KOGMO_RTDB_OBJ_MAX;i++)
     {
-      scan_objmeta_p = &db_h->localdata_p -> objmeta[i];
+      scan_objmeta_p = &db_h->localdata_p->objmeta[i];
       scan_oid = scan_objmeta_p->oid;
-      scan_delete_ts = scan_objmeta_p -> deleted_ts;
+      scan_delete_ts = scan_objmeta_p->deleted_ts;
       if (scan_oid && scan_delete_ts)
         {
           scan_delete_ts = kogmo_timestamp_add_secs(
                scan_delete_ts,
-               scan_objmeta_p -> history_interval > db_h->localdata_p->default_keep_deleted_interval ?
-               scan_objmeta_p -> history_interval : db_h->localdata_p->default_keep_deleted_interval);
+               scan_objmeta_p->history_interval > db_h->localdata_p->default_keep_deleted_interval ?
+               scan_objmeta_p->history_interval : db_h->localdata_p->default_keep_deleted_interval);
           if ( scan_delete_ts < ts )
             {
               if ( scan_objmeta_p->flags.keep_alloc &&
@@ -67,11 +67,11 @@ kogmo_rtdb_objmeta_purge_objs (kogmo_rtdb_handle_t *db_h)
     }
   kogmo_rtdb_objmeta_unlock(db_h);
 
-  percent_free = (float)db_h->localdata_p -> heap_free * 100 /
-                 db_h->localdata_p -> heap_size;
+  percent_free = (float)db_h->localdata_p->heap_free * 100 /
+                 db_h->localdata_p->heap_size;
   DBG("purge: %i%% free (%lli/%lli)", percent_free,
-      (long long int) db_h->localdata_p -> heap_free,
-      (long long int) db_h->localdata_p -> heap_size);
+      (long long int) db_h->localdata_p->heap_free,
+      (long long int) db_h->localdata_p->heap_size);
 
   return 0;
 }
@@ -177,7 +177,7 @@ kogmo_rtdb_objmeta_upd_stats (kogmo_rtdb_handle_t *db_h)
   rtdbobj.base.data_ts = kogmo_timestamp_now();
   rtdbobj.rtdb.objects_free=db_h->localdata_p->objmeta_free;
   rtdbobj.rtdb.processes_free=db_h->ipc_h.shm_p->proc_free;
-  rtdbobj.rtdb.memory_free=db_h->localdata_p -> heap_free;
+  rtdbobj.rtdb.memory_free=db_h->localdata_p->heap_free;
   err = kogmo_rtdb_obj_writedata (db_h, oid, &rtdbobj);
   if (err<0) return err;
   return 0;

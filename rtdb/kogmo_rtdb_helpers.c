@@ -36,7 +36,7 @@ kogmo_rtdb_obj_findmeta_byid (kogmo_rtdb_handle_t *db_h, kogmo_rtdb_objid_t oid 
         {
           return NULL;
         }
-      scan_objmeta_p = &db_h->localdata_p -> objmeta[i];
+      scan_objmeta_p = &db_h->localdata_p->objmeta[i];
     }
   while ( scan_objmeta_p->oid != oid );
 

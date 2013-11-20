@@ -376,7 +376,7 @@ kogmo_rtdb_ipc_connect (struct kogmo_rtdb_ipc_handle_t *ipc_h,
 
           scan_process_p = &ipc_h->shm_p->proc[i];
         }
-      while ( scan_process_p -> proc_oid != 0);
+      while ( scan_process_p->proc_oid != 0);
 
       ipc_h->this_process_slot = i;
 
