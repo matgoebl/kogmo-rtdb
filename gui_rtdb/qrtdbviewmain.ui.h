@@ -396,4 +396,3 @@ QRTDBGUI::remove_object ()
     return;
   tabWidgetObjects->removePage( tabWidgetObjects->currentPage() );
 }
-

@@ -6,4 +6,3 @@
 #undef METHODDEF
 #define METHODDEF(type) type
 #endif
-
