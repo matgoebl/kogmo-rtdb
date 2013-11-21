@@ -68,20 +68,20 @@ struct kogmo_rtdb_ipc_process_t {
 #ifndef KOGMO_RTDB_PROC_MAX
 #define KOGMO_RTDB_PROC_MAX 100
 #endif
-    
+
 struct kogmo_rtdb_ipc_shm_t {
  uint32_t revision;
  // manager internals
  pid_t manager_pid;
  kogmo_timestamp_t manager_alive_ts; // 0: manager at initialization
  pthread_mutex_t global_lock;
- 
+
  // process administration
  struct kogmo_rtdb_ipc_process_t proc[KOGMO_RTDB_PROC_MAX];
  uint32_t proc_free;
  pthread_mutex_t proc_lock;
  uint64_t proc_oid_next;
- 
+
  long int data_size;
  // this struct is followed by the local object data in shared memory
 };
@@ -101,7 +101,7 @@ struct kogmo_rtdb_ipc_handle_t {
 };
 
 
-	
+
 
 
 #define KOGMO_RTDB_CONNECT_FLAGS_SPECTATOR  0x0002
@@ -135,11 +135,11 @@ int kogmo_rtdb_ipc_condvar_destroy(pthread_cond_t *condvar);
 int kogmo_rtdb_ipc_condvar_wait(pthread_cond_t *condvar, pthread_mutex_t *mutex, kogmo_timestamp_t wakeup_ts);
 int kogmo_rtdb_ipc_condvar_signalall(pthread_cond_t *condvar);
 
-int kogmo_rtdb_ipc_mq_init(mqd_t *mqfd, char *name, int do_init, int size, int len); 
-int kogmo_rtdb_ipc_mq_destroy(mqd_t mqfd, char *name, int do_destroy); 
-int kogmo_rtdb_ipc_mq_send(mqd_t mqfd, void *msg, int size); 
+int kogmo_rtdb_ipc_mq_init(mqd_t *mqfd, char *name, int do_init, int size, int len);
+int kogmo_rtdb_ipc_mq_destroy(mqd_t mqfd, char *name, int do_destroy);
+int kogmo_rtdb_ipc_mq_send(mqd_t mqfd, void *msg, int size);
 int kogmo_rtdb_ipc_mq_receive_init(mqd_t *mqfd, char *name);
-int kogmo_rtdb_ipc_mq_receive(mqd_t mqfd, void *msg, int size); 
+int kogmo_rtdb_ipc_mq_receive(mqd_t mqfd, void *msg, int size);
 int kogmo_rtdb_ipc_mq_curmsgs(mqd_t mqfd);
 
 #ifdef __cplusplus

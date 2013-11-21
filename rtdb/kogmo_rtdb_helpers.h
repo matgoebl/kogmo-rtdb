@@ -16,7 +16,7 @@
 #else
 # include <endian.h>
 #endif
- 
+
 #ifndef __BYTE_ORDER
 # error no byte order defined
 #endif
