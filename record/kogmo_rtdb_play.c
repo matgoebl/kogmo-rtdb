@@ -192,7 +192,7 @@ main (int argc, char **argv)
   char listfcc[4];
   unsigned char pre_buf[PREBUFSZ];
   unsigned char *base_buf=NULL, *buf=NULL;
-  int base_bufsz=INITBUFSZ;
+  unsigned base_bufsz=INITBUFSZ;
   struct kogmo_rtdb_stream_chunk_t *rtdbchunk = NULL;
   kogmo_rtdb_obj_info_t *info_p = NULL;
   kogmo_rtdb_subobj_base_t *base_p = NULL;

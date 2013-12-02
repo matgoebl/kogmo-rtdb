@@ -83,6 +83,9 @@ typedef int32_t kogmo_rtdb_objtype_t;
  *  - So please use this type and print it with
  *    \code printf("%lli",(long long int)osize) \endcode
  *  - <0 represents errors as return value
+ *  - Can not be an unsigned type although it is a size
+ *    because of the error-represenation using negative
+ *    values
  *
  * TODO:
  *  - use consequently

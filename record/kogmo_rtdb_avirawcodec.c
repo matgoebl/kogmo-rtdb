@@ -341,7 +341,7 @@ int aviraw_chunk_nr_stream(riffchunk_t *datachunk_p)
   return datachunk_p->fcc[1] - '0';
 }
 
-int aviraw_fget_chunkdata(FILE *fp, riffchunk_t *datachunk_p, void *data, int maxsize)
+int aviraw_fget_chunkdata(FILE *fp, riffchunk_t *datachunk_p, void *data, unsigned maxsize)
 {
   int ret;
   int pad = (datachunk_p->cb & 1 ) ? 1 : 0; // odd number

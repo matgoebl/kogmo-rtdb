@@ -122,7 +122,7 @@ _kogmo_rtdb_obj_searchinfo(kogmo_rtdb_handle_t *db_h,
                 len = p-q;
               else
                 len = strlen ( q );
-              if ( len > sizeof(searchname) )
+              if ( len > (int)(sizeof(searchname)) )
                 len = sizeof(searchname); // error! remapped name to long!
               strncpy(searchname, q, len);
               searchname[len] = '\0'; // ensure NUL termination
@@ -295,7 +295,7 @@ kogmo_rtdb_obj_insert (kogmo_rtdb_handle_t *db_h,
 //  DxBG("obj_insert: handle is at %p and points to %p",&db_h,db_h);
   DBGL (DBGL_API,"obj_insert(%p = %s, %i)", metadata_p, metadata_p->name, metadata_p->size_max);
 
-  if ( metadata_p->size_max != 0 && metadata_p->size_max < sizeof(kogmo_rtdb_subobj_base_t) )
+  if ( metadata_p->size_max != 0 && metadata_p->size_max < (int)(sizeof(kogmo_rtdb_subobj_base_t)) )
     return -KOGMO_RTDB_ERR_INVALID;
 
   if ( metadata_p == NULL )
@@ -520,6 +520,8 @@ kogmo_rtdb_obj_insert (kogmo_rtdb_handle_t *db_h,
 
 
   DBGL (DBGL_DB,"using object metadata slot %d", found_slot);
+  if ( found_slot == -1 )
+      return -KOGMO_RTDB_ERR_OUTOFOBJ;
 
   // copy metadata with oid still 0
   memcpy (scan_objmeta_p, metadata_p, sizeof(kogmo_rtdb_obj_info_t));

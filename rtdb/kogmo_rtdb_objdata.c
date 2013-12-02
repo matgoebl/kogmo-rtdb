@@ -63,7 +63,7 @@ kogmo_rtdb_obj_writedata (kogmo_rtdb_handle_t *db_h,
 
   // better fail: if ( size == 0 ) size = used_objmeta_p -> size_max;
   if ( size > used_objmeta_p->size_max ) return -KOGMO_RTDB_ERR_INVALID;
-  if ( size < sizeof ( kogmo_rtdb_subobj_base_t ) ) return -KOGMO_RTDB_ERR_INVALID;
+  if ( size < (int)(sizeof ( kogmo_rtdb_subobj_base_t )) ) return -KOGMO_RTDB_ERR_INVALID;
 
   if ( !used_objmeta_p->flags.write_allow
     && used_objmeta_p->created_proc != db_h->ipc_h.this_process.proc_oid
@@ -271,7 +271,7 @@ kogmo_rtdb_obj_writedata_ptr_commit (kogmo_rtdb_handle_t *db_h,
   if ( used_objmeta_p->buffer_idx == 0 ) return -KOGMO_RTDB_ERR_NOTFOUND;
 
   if ( size > used_objmeta_p->size_max ) return -KOGMO_RTDB_ERR_INVALID;
-  if ( size < sizeof ( kogmo_rtdb_subobj_base_t ) ) return -KOGMO_RTDB_ERR_INVALID;
+  if ( size < (int)(sizeof ( kogmo_rtdb_subobj_base_t )) ) return -KOGMO_RTDB_ERR_INVALID;
 
   if ( used_objmeta_p->flags.write_allow
     || used_objmeta_p->created_proc != db_h->ipc_h.this_process.proc_oid )

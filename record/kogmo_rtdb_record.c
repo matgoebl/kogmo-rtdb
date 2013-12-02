@@ -386,7 +386,7 @@ main (int argc, char **argv)
                   oid_stream[i] = 0;
                   continue;
                 }
-              if ( olen < sizeof(kogmo_rtdb_obj_a2_image_t) )
+              if ( (unsigned)olen < sizeof(kogmo_rtdb_obj_a2_image_t) )
                 DIE("avistream: size too small for object named '%s'",name_stream[i]);
               videoobj_p = (kogmo_rtdb_obj_a2_image_t *) &obj_data;
               bpp = videoobj_p->image.channels * (videoobj_p->image.depth&0xFFFF);
@@ -648,7 +648,7 @@ main (int argc, char **argv)
                 olen = kogmo_rtdb_obj_readdataslot_ptr (dbc, -1, 0, &trace_slot, &obj_data_p);
                 if ( olen > 0 )
                   {
-                    memcpy(&obj_data, obj_data_p, olen < sizeof(obj_data) ? olen : sizeof(obj_data));
+                    memcpy(&obj_data, obj_data_p, (unsigned)olen < sizeof(obj_data) ? (unsigned)olen : sizeof(obj_data));
                     olen = kogmo_rtdb_obj_readdataslot_ptr (dbc, 1, 0, &trace_slot, &obj_data_p); 
                   }
               }
@@ -660,7 +660,7 @@ main (int argc, char **argv)
               }
             if ( olen < 0 )
               olen = 0;
-            if ( olen > sizeof(obj_data) )
+            if ( (unsigned)olen > sizeof(obj_data) )
               {
               if (!do_quiet) printf("%05i %s # ERROR: internal record buffer too small for object %lli: buffer (%lli) < object data (%lli) will be truncated\n",
                      freebuf,timestring,(long long int)oid, (long long int)sizeof(obj_data), (long long int)olen );

@@ -10,7 +10,7 @@ kogmo_rtdb_obj_dumpbase_str (kogmo_rtdb_handle_t *db_h, void *data_p)
 
   objbase = (kogmo_rtdb_subobj_base_t*) data_p;
 
-  if ( objbase->size < sizeof(kogmo_rtdb_subobj_base_t) )
+  if ( objbase->size < (int)(sizeof(kogmo_rtdb_subobj_base_t)) )
     {
       STRPRINTF(buf,"* NO DATA\n");
       return buf;
