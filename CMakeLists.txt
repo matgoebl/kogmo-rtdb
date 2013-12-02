@@ -42,6 +42,7 @@ add_definitions(
     -O2
     -g
     -Wstrict-prototypes
+    -fno-strict-aliasing
     -D_GNU_SOURCE
     -D_REENTRANT
 )
