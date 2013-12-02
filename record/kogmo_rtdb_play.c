@@ -307,7 +307,7 @@ main (int argc, char **argv)
     }
 
   if ( do_db )
-    { 
+    {
       // Verbindung zur Datenbank aufbauen, unsere Zykluszeit ist 33 ms
       err = kogmo_rtdb_connect_initinfo (&dbinfo, "", "kogmo_rtdb_play", 0.033); DIEonERR(err);
       dbinfo.flags = KOGMO_RTDB_CONNECT_FLAGS_IMMEDIATELYDELETE;
@@ -440,7 +440,7 @@ main (int argc, char **argv)
                     {
                       do_goto = ctrlobj.playerctrl.goto_ts;
                       filepos = timeidx_lookup ( do_goto );
-                      if (do_verbose)    
+                      if (do_verbose)
                         printf("%% CTRL GOTO: %lli (pos: %lli)\n",(long long int)do_goto, (long long int)filepos);
                       if ( do_goto < rtdbchunk->ts ) // Zurueck
                         fseeko ( fp, filepos >= 0 ? filepos : 0, SEEK_SET); // jump to known position or start from the beginning

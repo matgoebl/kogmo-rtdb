@@ -11,7 +11,7 @@
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */
- 
+
 #include "kogmo_rtdb_internal.h"
 
 
@@ -142,7 +142,7 @@ kogmo_rtdb_obj_readdataslot_relative (kogmo_rtdb_handle_t *db_h,
   olen = kogmo_rtdb_obj_readdataslot_ptr (db_h, 1, offset, objslot, &objdata_p);
   if ( olen < 0 )
     {
-      DBG("kogmo_rtdb_obj_readdataslot(oid %lli, offset %i) returns %lli", (long long int)objslot->oid, offset, (long long int)olen);                                                 
+      DBG("kogmo_rtdb_obj_readdataslot(oid %lli, offset %i) returns %lli", (long long int)objslot->oid, offset, (long long int)olen);
       kogmo_rtdb_obj_readdataslot_ptr (db_h, 0, 0, objslot, NULL); // re-init
       return olen;
     }
@@ -151,7 +151,7 @@ kogmo_rtdb_obj_readdataslot_relative (kogmo_rtdb_handle_t *db_h,
   olen = kogmo_rtdb_obj_readdataslot_ptr (db_h, 1, 0, objslot, NULL);
   if ( olen < 0 )
     {
-      DBG("kogmo_rtdb_obj_readdataslot(oid %lli, offset %i) returns %lli", (long long int)objslot->oid, offset, (long long int)olen);                                                 
+      DBG("kogmo_rtdb_obj_readdataslot(oid %lli, offset %i) returns %lli", (long long int)objslot->oid, offset, (long long int)olen);
       kogmo_rtdb_obj_readdataslot_ptr (db_h, 0, 0, objslot, NULL); // re-init
       return olen;
     }
@@ -176,7 +176,7 @@ kogmo_rtdb_obj_readdataslot_relative_ptr (kogmo_rtdb_handle_t *db_h,
   olen = kogmo_rtdb_obj_readdataslot_ptr (db_h, 1, offset, objslot, &objdata_p);
   if ( olen < 0 )
     {
-      DBG("kogmo_rtdb_obj_readdataslot_next(oid %lli, offset %i) returns %lli", (long long int)objslot->oid, offset, (long long int)olen);                                                 
+      DBG("kogmo_rtdb_obj_readdataslot_next(oid %lli, offset %i) returns %lli", (long long int)objslot->oid, offset, (long long int)olen);
       kogmo_rtdb_obj_readdataslot_ptr (db_h, 0, 0, objslot, NULL); // re-init
       return olen;
     }

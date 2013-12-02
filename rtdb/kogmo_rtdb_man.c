@@ -249,7 +249,7 @@ int main(int argc, char *argv[]) {
   err = kogmo_rtdb_objmeta_upd_stats (dbc);
   if(err<0) MSG("error %d in upd_stats()",err);
 
-  if(!daemon && kogmo_rtdb_debug & DBGL_APP) 
+  if(!daemon && kogmo_rtdb_debug & DBGL_APP)
   do {
    kogmo_rtdb_objid_t oid;
    kogmo_rtdb_obj_c3_rtdb_t rtdbobj;

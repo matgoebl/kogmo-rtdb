@@ -54,7 +54,7 @@ kogmo_rtdb_obj_mem_alloc (kogmo_rtdb_handle_t *db_h, kogmo_rtdb_objsize_t size )
   void *ptr = NULL;
   void *base = db_h->localdata_p->heap;
 
-  DBGL(DBGL_DB,"mem_alloc: heap pointers: base %p", 
+  DBGL(DBGL_DB,"mem_alloc: heap pointers: base %p",
        db_h->localdata_p->heap);
 
   DBGL(DBGL_DB,"mem_alloc: %lli bytes (%lli used, %lli free)",

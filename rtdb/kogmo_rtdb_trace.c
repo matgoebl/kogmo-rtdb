@@ -11,7 +11,7 @@
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */
- 
+
 #include "kogmo_rtdb_internal.h"
 
  /* ******************** TRACE MANAGEMENT ******************** */

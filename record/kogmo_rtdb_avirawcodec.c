@@ -54,7 +54,7 @@ int aviraw_initheader(avirawheader_t *avirawheader, float fps, int width, int he
        sizeof(avirawheader->strl_list) + sizeof(avirawheader->str_headers) - 8;
 #else
                                        + sizeof(avirawheader->str_headers) - 8;
-#endif 
+#endif
   avirawheader->hdrl_list.type_fcc[0] = 'h';
   avirawheader->hdrl_list.type_fcc[1] = 'd';
   avirawheader->hdrl_list.type_fcc[2] = 'r';

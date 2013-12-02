@@ -150,7 +150,7 @@ known_obj(kogmo_rtdb_objid_t id)
 }
 
 
-// comparison function for qsort to sort oids ascending           
+// comparison function for qsort to sort oids ascending
 static int compare_oid(const void *a, const void *b) {
      kogmo_rtdb_objid_t * oid_a = (kogmo_rtdb_objid_t *) a;
      kogmo_rtdb_objid_t * oid_b = (kogmo_rtdb_objid_t *) b;
@@ -211,7 +211,7 @@ main (int argc, char **argv)
   int i,j;
   kogmo_rtdb_objsize_t olen=0;
   kogmo_rtdb_objid_t oret;
- 
+
   int do_oid=0, do_tid=0, do_name=0, do_xoid=0, do_xtid=0, do_xname=0;
   int do_all=0, do_log=0, do_avi=0, do_bandwidth=0, do_quiet=0;
   float do_fps=0, fps_stream0=0, fps=0, do_seconds=0;
@@ -460,7 +460,7 @@ main (int argc, char **argv)
       if ( oid > 0 )
         record_enable = 1;
       if ( do_log )
-        printf("# %s START-OBJECT '%s'.\n", 
+        printf("# %s START-OBJECT '%s'.\n",
                record_enable ? "FOUND" : "WAITING FOR", do_waitobject);
     }
 
@@ -649,7 +649,7 @@ main (int argc, char **argv)
                 if ( olen > 0 )
                   {
                     memcpy(&obj_data, obj_data_p, (unsigned)olen < sizeof(obj_data) ? (unsigned)olen : sizeof(obj_data));
-                    olen = kogmo_rtdb_obj_readdataslot_ptr (dbc, 1, 0, &trace_slot, &obj_data_p); 
+                    olen = kogmo_rtdb_obj_readdataslot_ptr (dbc, 1, 0, &trace_slot, &obj_data_p);
                   }
               }
             if ( olen < 0 && ( !init_phase || olen != -KOGMO_RTDB_ERR_NOTFOUND ) )

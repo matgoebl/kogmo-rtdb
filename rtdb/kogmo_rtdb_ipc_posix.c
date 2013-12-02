@@ -137,7 +137,7 @@ kogmo_rtdb_ipc_connect (struct kogmo_rtdb_ipc_handle_t *ipc_h,
       if( signal(SIGHUP, term_signal_handler) == SIG_ERR ) ok=0;
       if( signal(SIGINT, term_signal_handler) == SIG_ERR ) ok=0;
       if( signal(SIGQUIT, term_signal_handler) == SIG_ERR ) ok=0;
-      if( signal(SIGTERM, term_signal_handler) == SIG_ERR ) ok=0;       
+      if( signal(SIGTERM, term_signal_handler) == SIG_ERR ) ok=0;
 
       if( signal(SIGILL, term_signal_handler) == SIG_ERR ) ok=0;
       if( signal(SIGBUS, term_signal_handler) == SIG_ERR ) ok=0;
@@ -360,7 +360,7 @@ kogmo_rtdb_ipc_connect (struct kogmo_rtdb_ipc_handle_t *ipc_h,
     {
       // find free process slot and enter client data
       struct kogmo_rtdb_ipc_process_t *scan_process_p=NULL;
-      
+
       kogmo_rtdb_ipc_mutex_lock (&ipc_h->shm_p->proc_lock);
       i=-1;
       do
@@ -813,7 +813,7 @@ kogmo_rtdb_pthread_create(kogmo_rtdb_handle_t *db_h,
   struct sched_param schedparam;
   pthread_attr_t myat;
   pthread_attr_t *at;
-  if (attr==NULL) 
+  if (attr==NULL)
     {
       at=&myat;
       ret = pthread_attr_init (at);

@@ -29,7 +29,7 @@
 kogmo_timestamp_t
 kogmo_timestamp_now (void)
 {
-  kogmo_timestamp_t ts; 
+  kogmo_timestamp_t ts;
   struct timeval tval;
   int err;
   err = gettimeofday ( &tval, NULL);
@@ -38,7 +38,7 @@ kogmo_timestamp_now (void)
   ts = (kogmo_timestamp_t) tval.tv_sec*KOGMO_TIMESTAMP_TICKSPERSECOND
        + tval.tv_usec*1000/KOGMO_TIMESTAMP_NANOSECONDSPERTICK;
   return ts;
-} 
+}
 
 #else
 
@@ -60,7 +60,7 @@ kogmo_timestamp_now (void)
   ts = (kogmo_timestamp_t) tspec.tv_sec*KOGMO_TIMESTAMP_TICKSPERSECOND
        + tspec.tv_nsec/KOGMO_TIMESTAMP_NANOSECONDSPERTICK;
   return ts;
-} 
+}
 #endif
 
 

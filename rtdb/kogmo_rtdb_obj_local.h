@@ -84,7 +84,7 @@ kogmo_rtdb_obj_slotnum (kogmo_rtdb_handle_t *db_h,
                         kogmo_rtdb_obj_info_t *objmeta_p)
 {
   return (int) ( ( (long int)objmeta_p - (long int) (&db_h->localdata_p->objmeta[0]))
-          / sizeof( kogmo_rtdb_obj_info_t ) ) ;
+          / sizeof( kogmo_rtdb_obj_info_t ) );
 }
 
 
