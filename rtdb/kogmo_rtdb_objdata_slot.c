@@ -92,11 +92,11 @@ kogmo_rtdb_obj_readdataslot_ptr (kogmo_rtdb_handle_t *db_h,
       if ( final_ts != objslot->committed_ts )
         return -KOGMO_RTDB_ERR_HISTWRAP;
 
-      // slot no longer existant, exceeded tail
+      // slot no longer existent, exceeded tail
       if ( offset < 0 && scan_ts > objslot->committed_ts )
         return -KOGMO_RTDB_ERR_HISTWRAP;
 
-      // not yet existant, exceeded head
+      // not yet existent, exceeded head
       if ( offset > 0 && scan_ts < objslot->committed_ts )
         return -KOGMO_RTDB_ERR_TOOFAST;
     }

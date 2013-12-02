@@ -304,7 +304,7 @@ typedef PACKED_struct
 typedef struct
 {
   _const char *procname;
-    //!< choosen name for the process that connects to the database;
+    //!< chosen name for the process that connects to the database;
     //!< example: a2_roadtracker (should begin with subproject number)
   float cycletime;
     //!< your internal cycle time (0 for system default);

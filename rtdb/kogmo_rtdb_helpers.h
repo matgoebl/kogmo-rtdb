@@ -24,7 +24,7 @@
 
 // 32-bit functions to copy int64 values in a controlled word order
 
-// note: better use pointer variables or volatiles for src+dest to surpress unwanted compiler optimizations
+// note: better use pointer variables or volatiles for src+dest to suppress unwanted compiler optimizations
 #define _COPY_INT64(dest,src,word) ( (int*) ((void*)&(dest)) )[word] = ( (int*) ((void*)&(src)) )[word]
 //DEBUG: #define _COPY_INT64(dest,src,word) do { ( (int*) ((void*)&(dest)) )[word] = ( (int*) ((void*)&(src)) )[word]; printf("%lli %i %i\n",dest,(int)(dest>>32)&0xFFFFFFFF,(int)(dest&0xFF
 #define _CMP_INT64(dest,src,word) ( (int*) ((void*)&(dest)) )[word] == ( (int*) ((void*)&(src)) )[word]
