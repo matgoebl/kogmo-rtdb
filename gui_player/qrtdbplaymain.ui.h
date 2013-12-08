@@ -439,5 +439,3 @@ void QRTDBGUI::gorev()
    gototime->setText( GoTS.string() );
    goset();
 }
-
-

@@ -78,8 +78,8 @@ void timeidx_init (char *filename)
     {
       int size;
       size = timeidx_info_size + timeidx_entry_size * TIMEIDXENTRIES_DEFAULT;
-      timeidx_p = calloc (1, size); 
-      if ( timeidx_p == NULL )   
+      timeidx_p = calloc (1, size);
+      if ( timeidx_p == NULL )
         DIE("cannot allocate %i bytes of memory for initial index", size);
       memcpy(timeidx_p->fcc,"RDBX",4);
       timeidx_p->max_entries = TIMEIDXENTRIES_DEFAULT;
@@ -140,7 +140,8 @@ kogmo_timestamp_t timeidx_get_last (void)
 int timeidx_add (kogmo_timestamp_t ts, off_t off)
 {
   float diff_to_last;
-  int idx,i;
+  int idx;
+  unsigned i;
 
   if ( ts <= 0 || off <= 0 || timeidx_p == NULL )
     return -1; // (should not happen)
@@ -166,7 +167,7 @@ int timeidx_add (kogmo_timestamp_t ts, off_t off)
 
   //DBGIDX("setting index number %i at %lli to %lli",idx,ts,off);
 
-  for ( i = timeidx_p->last_entry + 1; i <= idx; i++ )
+  for ( i = timeidx_p->last_entry + 1; i <= (unsigned)idx; i++ )
     {
       if ( i >= timeidx_p->max_entries - 1 )
         {
@@ -201,7 +202,7 @@ off_t timeidx_lookup (kogmo_timestamp_t ts)
   if ( idx < 0 )
     return -1; // (should not happen)
 
-  if ( idx > timeidx_p->last_entry )
+  if ( idx > (int)timeidx_p->last_entry )
     idx = timeidx_p->last_entry;
 
   DBGIDX("loopup found: %i. =  %lli", idx, (long long int)timeidx_p->entry[idx].off);

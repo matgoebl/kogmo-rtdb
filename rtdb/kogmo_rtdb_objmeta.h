@@ -22,14 +22,14 @@ kogmo_rtdb_obj_searchinfo_deleted (kogmo_rtdb_handle_t *db_h,
                            _const char *name,
                            kogmo_rtdb_objtype_t otype,
                            kogmo_rtdb_objid_t parent_oid,
-                           kogmo_rtdb_objid_t proc_oid,  
+                           kogmo_rtdb_objid_t proc_oid,
                            kogmo_timestamp_t ts,
                            kogmo_rtdb_objid_list_t idlist,
                            int nth);
 
 kogmo_rtdb_objid_t
 kogmo_rtdb_obj_changeinfo (kogmo_rtdb_handle_t *db_h,
-                           kogmo_rtdb_objid_t oid,   
+                           kogmo_rtdb_objid_t oid,
                            kogmo_rtdb_obj_info_t *metadata_p);
 
 

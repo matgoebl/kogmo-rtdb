@@ -24,7 +24,7 @@ main (int argc, char **argv)
   kogmo_rtdb_obj_c3_ints256_t demoobj;
   kogmo_rtdb_objid_t oid;
   int err, i;
-  
+
   // Verbindung zur Datenbank aufbauen, unsere Zykluszeit is 33 ms
   err = kogmo_rtdb_connect_initinfo (&dbinfo, "", "demo_object_writer", 0.033); DIEonERR(err);
   oid = kogmo_rtdb_connect (&dbc, &dbinfo); DIEonERR(oid);

@@ -11,7 +11,7 @@
  *     Lehrstuhl fuer Realzeit-Computersysteme (RCS)
  *     Technische Universitaet Muenchen (TUM)
  */
- 
+
 #include "kogmo_rtdb_internal.h"
 
 
@@ -39,7 +39,7 @@ kogmo_rtdb_obj_readdataslot_ptr (kogmo_rtdb_handle_t *db_h,
         if ( scan_objmeta_p == NULL )
           return -KOGMO_RTDB_ERR_NOTFOUND;
         objslot->object_slot = kogmo_rtdb_obj_slotnum (db_h, scan_objmeta_p );
-        objslot->history_slot =  scan_objmeta_p -> history_slot;
+        objslot->history_slot =  scan_objmeta_p->history_slot;
         if ( objslot->history_slot < 0 ) // no writes yet
           return -KOGMO_RTDB_ERR_NOTFOUND;
         objslot->committed_ts = invalid_ts;
@@ -51,7 +51,7 @@ kogmo_rtdb_obj_readdataslot_ptr (kogmo_rtdb_handle_t *db_h,
       if ( objslot->object_slot < 0 || objslot->object_slot >= KOGMO_RTDB_OBJ_MAX )
         return -KOGMO_RTDB_ERR_INVALID;
 
-      scan_objmeta_p = &db_h->localdata_p -> objmeta[objslot->object_slot];
+      scan_objmeta_p = &db_h->localdata_p->objmeta[objslot->object_slot];
 
       if ( objslot->oid != scan_objmeta_p ->oid )
         return -KOGMO_RTDB_ERR_NOTFOUND;
@@ -61,24 +61,24 @@ kogmo_rtdb_obj_readdataslot_ptr (kogmo_rtdb_handle_t *db_h,
     {
       // remember old position with committed_ts
       last_scan_objbase_p = (kogmo_rtdb_subobj_base_t *)
-                 & ( db_h->localdata_p -> heap [
-                                                 scan_objmeta_p -> buffer_idx +
-                                                 objslot->history_slot * scan_objmeta_p -> size_max
+                 & ( db_h->localdata_p->heap [
+                                                 scan_objmeta_p->buffer_idx +
+                                                 objslot->history_slot * scan_objmeta_p->size_max
                                                ] );
     }
 
   // calculate next slot position
-  objslot->history_slot = ( objslot->history_slot + ( offset % scan_objmeta_p -> history_size ) + scan_objmeta_p -> history_size )
-                          % scan_objmeta_p -> history_size;
+  objslot->history_slot = ( objslot->history_slot + ( offset % scan_objmeta_p->history_size ) + scan_objmeta_p->history_size )
+                          % scan_objmeta_p->history_size;
 
   // calculate object data pointer from history slot number
   scan_objbase_p = (kogmo_rtdb_subobj_base_t *)
-             & ( db_h->localdata_p -> heap [
-                                             scan_objmeta_p -> buffer_idx +
-                                             objslot->history_slot * scan_objmeta_p -> size_max
+             & ( db_h->localdata_p->heap [
+                                             scan_objmeta_p->buffer_idx +
+                                             objslot->history_slot * scan_objmeta_p->size_max
                                            ] );
 
-  COPY_INT64_HIGHFIRST( scan_ts, scan_objbase_p -> committed_ts);
+  COPY_INT64_HIGHFIRST( scan_ts, scan_objbase_p->committed_ts);
 
   if ( scan_ts == invalid_ts )
     {
@@ -88,15 +88,15 @@ kogmo_rtdb_obj_readdataslot_ptr (kogmo_rtdb_handle_t *db_h,
   if ( mode == 1 && last_scan_objbase_p != NULL )
     {
       // check old position against known committed_ts
-      COPY_INT64_LOWFIRST( final_ts, last_scan_objbase_p -> committed_ts );
+      COPY_INT64_LOWFIRST( final_ts, last_scan_objbase_p->committed_ts );
       if ( final_ts != objslot->committed_ts )
         return -KOGMO_RTDB_ERR_HISTWRAP;
 
-      // slot no longer existant, exceeded tail
+      // slot no longer existent, exceeded tail
       if ( offset < 0 && scan_ts > objslot->committed_ts )
         return -KOGMO_RTDB_ERR_HISTWRAP;
 
-      // not yet existant, exceeded head
+      // not yet existent, exceeded head
       if ( offset > 0 && scan_ts < objslot->committed_ts )
         return -KOGMO_RTDB_ERR_TOOFAST;
     }
@@ -104,7 +104,7 @@ kogmo_rtdb_obj_readdataslot_ptr (kogmo_rtdb_handle_t *db_h,
   objslot->committed_ts = scan_ts;
   if ( data_pp != NULL )
     *(kogmo_rtdb_subobj_base_t**) data_pp = scan_objbase_p;
-  return scan_objbase_p -> size; // return real size;
+  return scan_objbase_p->size; // return real size;
 }
 
 
@@ -142,7 +142,7 @@ kogmo_rtdb_obj_readdataslot_relative (kogmo_rtdb_handle_t *db_h,
   olen = kogmo_rtdb_obj_readdataslot_ptr (db_h, 1, offset, objslot, &objdata_p);
   if ( olen < 0 )
     {
-      DBG("kogmo_rtdb_obj_readdataslot(oid %lli, offset %i) returns %lli", (long long int)objslot->oid, offset, (long long int)olen);                                                 
+      DBG("kogmo_rtdb_obj_readdataslot(oid %lli, offset %i) returns %lli", (long long int)objslot->oid, offset, (long long int)olen);
       kogmo_rtdb_obj_readdataslot_ptr (db_h, 0, 0, objslot, NULL); // re-init
       return olen;
     }
@@ -151,7 +151,7 @@ kogmo_rtdb_obj_readdataslot_relative (kogmo_rtdb_handle_t *db_h,
   olen = kogmo_rtdb_obj_readdataslot_ptr (db_h, 1, 0, objslot, NULL);
   if ( olen < 0 )
     {
-      DBG("kogmo_rtdb_obj_readdataslot(oid %lli, offset %i) returns %lli", (long long int)objslot->oid, offset, (long long int)olen);                                                 
+      DBG("kogmo_rtdb_obj_readdataslot(oid %lli, offset %i) returns %lli", (long long int)objslot->oid, offset, (long long int)olen);
       kogmo_rtdb_obj_readdataslot_ptr (db_h, 0, 0, objslot, NULL); // re-init
       return olen;
     }
@@ -176,7 +176,7 @@ kogmo_rtdb_obj_readdataslot_relative_ptr (kogmo_rtdb_handle_t *db_h,
   olen = kogmo_rtdb_obj_readdataslot_ptr (db_h, 1, offset, objslot, &objdata_p);
   if ( olen < 0 )
     {
-      DBG("kogmo_rtdb_obj_readdataslot_next(oid %lli, offset %i) returns %lli", (long long int)objslot->oid, offset, (long long int)olen);                                                 
+      DBG("kogmo_rtdb_obj_readdataslot_next(oid %lli, offset %i) returns %lli", (long long int)objslot->oid, offset, (long long int)olen);
       kogmo_rtdb_obj_readdataslot_ptr (db_h, 0, 0, objslot, NULL); // re-init
       return olen;
     }

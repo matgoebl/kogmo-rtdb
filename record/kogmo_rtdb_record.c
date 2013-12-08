@@ -20,6 +20,7 @@
 #include <stdlib.h> /* qsort */
 #include <getopt.h>
 #include <signal.h>
+#include <sys/resource.h>
 #include "kogmo_rtdb_internal.h"
 #include "kogmo_rtdb_trace.h"
 #include "kogmo_rtdb_stream.h"
@@ -41,6 +42,7 @@ usage (void)
   fprintf(stderr,
 "KogMo-RTDB Recorder (Rev.%d) (c) Matthias Goebl <matthias.goebl*goebl.net> RCS-TUM\n"
 "Usage: kogmo_rtdb_record [.....]\n"
+" -X       Disable exclusive recording, i.e. allow recording even if another recorder is already running.\n"
 " -i ID    record object with id ID\n"
 " -t TID   record objects with type TID\n"
 " -n NAME  record objects with name NAME\n"
@@ -148,7 +150,7 @@ known_obj(kogmo_rtdb_objid_t id)
 }
 
 
-// comparison function for qsort to sort oids ascending           
+// comparison function for qsort to sort oids ascending
 static int compare_oid(const void *a, const void *b) {
      kogmo_rtdb_objid_t * oid_a = (kogmo_rtdb_objid_t *) a;
      kogmo_rtdb_objid_t * oid_b = (kogmo_rtdb_objid_t *) b;
@@ -171,6 +173,21 @@ unsigned long int events_total_written = 0, events_total = 0;
 int
 main (int argc, char **argv)
 {
+  // set maximumum object size, and adjust stack size if necessary
+  const uint64_t obj_data_size = 16 * 1024 * 1024; // THIS WILL BE THE MAXIMUM RECORDABLE OBJECT SIZE!!
+  const rlim_t kStackSize = obj_data_size + 1024 * 1024;
+  struct rlimit rl;
+  int result = getrlimit(RLIMIT_STACK, &rl);
+  if (result == 0)
+  {
+    if (rl.rlim_cur < kStackSize)
+    {
+      rl.rlim_cur = kStackSize;
+      result = setrlimit(RLIMIT_STACK, &rl);
+      if (result != 0)
+        sprintf(stderr, "setrlimit failed, returnvalue = %d\n", result);
+    }
+  }
   kogmo_rtdb_connect_info_t dbinfo;
   kogmo_rtdb_objid_t oid, recorderoid;
   //kogmo_rtdb_obj_info_t ctrlobj_info;
@@ -186,7 +203,7 @@ main (int argc, char **argv)
   struct
   {
     kogmo_rtdb_subobj_base_t base;
-    char data[5*1024*1024]; // THIS WILL BE THE MAXIMUM RECORDABLE OBJECT SIZE!!
+    char data[obj_data_size]; // THIS WILL BE THE MAXIMUM RECORDABLE OBJECT SIZE!!
   } obj_data, *obj_data_p;
 
   int event;
@@ -194,7 +211,7 @@ main (int argc, char **argv)
   int i,j;
   kogmo_rtdb_objsize_t olen=0;
   kogmo_rtdb_objid_t oret;
- 
+
   int do_oid=0, do_tid=0, do_name=0, do_xoid=0, do_xtid=0, do_xname=0;
   int do_all=0, do_log=0, do_avi=0, do_bandwidth=0, do_quiet=0;
   float do_fps=0, fps_stream0=0, fps=0, do_seconds=0;
@@ -240,9 +257,11 @@ main (int argc, char **argv)
     }
   known_obj(0);
 
-  while( ( opt = getopt (argc, argv, "i:t:n:I:T:N:0:1:2:3:4:5:6:7:8:9:r:alo:s:BW:P:qh") ) != -1 )
+  int exclusive_recording_enabled = 1;
+  while( ( opt = getopt (argc, argv, "i:t:n:I:T:N:0:1:2:3:4:5:6:7:8:9:r:Xalo:s:BW:P:qh") ) != -1 )
     switch(opt)
       {
+        case 'X': exclusive_recording_enabled = 0; break;
         case 'i': if (++do_oid>MAXOPTLIST) DIE("ERROR: at maximum %d -%c items are allowed!",MAXOPTLIST,opt);
                   oid_list[do_oid-1] = strtol(optarg, (char **)NULL, 0); break;
         case 't': if (++do_tid>MAXOPTLIST) DIE("ERROR: at maximum %d -%c items are allowed!",MAXOPTLIST,opt);
@@ -297,6 +316,27 @@ main (int argc, char **argv)
   oid = kogmo_rtdb_connect (&dbc, &dbinfo); DIEonERR(oid);
   recorderoid = kogmo_rtdb_obj_c3_process_searchprocessobj (dbc, 0, oid); DIEonERR(recorderoid);
 
+  // Exklusiven modus überprüfen
+  kogmo_rtdb_objid_list_t idlist;
+  int num_matching_objects = kogmo_rtdb_obj_searchinfo (dbc, "c3_recorder", 0, 0, 0, 0, &idlist, 0);
+  int matching_object_idx;
+  for ( matching_object_idx = 0; matching_object_idx < num_matching_objects; ++matching_object_idx )
+  {
+      kogmo_rtdb_objid_t manoid = idlist[matching_object_idx];
+      if (manoid >= 0 && manoid != recorderoid)
+      {
+          if (exclusive_recording_enabled)
+          {
+              printf("Another rtdb_record (OID %d) is already running - quitting.\n",manoid);
+              do_exit();
+          }
+          else
+          {
+              printf("!!!\n!!! Another rtdb_record (OID %d) is already running - expect a bad recording!\n!!!\n");
+          }
+      }
+  }
+
   // Object fuer Status erstellen, initialisieren und initiale Werte eintragen
   err = kogmo_rtdb_obj_initinfo (dbc, &statobj_info,
     "recorderstat", KOGMO_RTDB_OBJTYPE_C3_RECORDERSTAT, sizeof (statobj)); DIEonERR(err);
@@ -346,7 +386,7 @@ main (int argc, char **argv)
                   oid_stream[i] = 0;
                   continue;
                 }
-              if ( olen < sizeof(kogmo_rtdb_obj_a2_image_t) )
+              if ( (unsigned)olen < sizeof(kogmo_rtdb_obj_a2_image_t) )
                 DIE("avistream: size too small for object named '%s'",name_stream[i]);
               videoobj_p = (kogmo_rtdb_obj_a2_image_t *) &obj_data;
               bpp = videoobj_p->image.channels * (videoobj_p->image.depth&0xFFFF);
@@ -420,7 +460,7 @@ main (int argc, char **argv)
       if ( oid > 0 )
         record_enable = 1;
       if ( do_log )
-        printf("# %s START-OBJECT '%s'.\n", 
+        printf("# %s START-OBJECT '%s'.\n",
                record_enable ? "FOUND" : "WAITING FOR", do_waitobject);
     }
 
@@ -608,8 +648,8 @@ main (int argc, char **argv)
                 olen = kogmo_rtdb_obj_readdataslot_ptr (dbc, -1, 0, &trace_slot, &obj_data_p);
                 if ( olen > 0 )
                   {
-                    memcpy(&obj_data, obj_data_p, olen < sizeof(obj_data) ? olen : sizeof(obj_data));
-                    olen = kogmo_rtdb_obj_readdataslot_ptr (dbc, 1, 0, &trace_slot, &obj_data_p); 
+                    memcpy(&obj_data, obj_data_p, (unsigned)olen < sizeof(obj_data) ? (unsigned)olen : sizeof(obj_data));
+                    olen = kogmo_rtdb_obj_readdataslot_ptr (dbc, 1, 0, &trace_slot, &obj_data_p);
                   }
               }
             if ( olen < 0 && ( !init_phase || olen != -KOGMO_RTDB_ERR_NOTFOUND ) )
@@ -620,7 +660,7 @@ main (int argc, char **argv)
               }
             if ( olen < 0 )
               olen = 0;
-            if ( olen > sizeof(obj_data) )
+            if ( (unsigned)olen > sizeof(obj_data) )
               {
               if (!do_quiet) printf("%05i %s # ERROR: internal record buffer too small for object %lli: buffer (%lli) < object data (%lli) will be truncated\n",
                      freebuf,timestring,(long long int)oid, (long long int)sizeof(obj_data), (long long int)olen );

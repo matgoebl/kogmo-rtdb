@@ -52,15 +52,15 @@ kogmo_rtdb_objsize_t
 kogmo_rtdb_obj_mem_alloc (kogmo_rtdb_handle_t *db_h, kogmo_rtdb_objsize_t size )
 {
   void *ptr = NULL;
-  void *base = db_h->localdata_p -> heap;
+  void *base = db_h->localdata_p->heap;
 
-  DBGL(DBGL_DB,"mem_alloc: heap pointers: base %p", 
-       db_h->localdata_p -> heap);
+  DBGL(DBGL_DB,"mem_alloc: heap pointers: base %p",
+       db_h->localdata_p->heap);
 
   DBGL(DBGL_DB,"mem_alloc: %lli bytes (%lli used, %lli free)",
        (long long int) size,
-       (long long int) db_h->localdata_p -> heap_used,
-       (long long int) db_h->localdata_p -> heap_free);
+       (long long int) db_h->localdata_p->heap_used,
+       (long long int) db_h->localdata_p->heap_free);
   if ( size <= 0 ) return -1;
 
   // speedup: round size to page_size (achieved with tlsf parameters)
@@ -70,9 +70,9 @@ kogmo_rtdb_obj_mem_alloc (kogmo_rtdb_handle_t *db_h, kogmo_rtdb_objsize_t size )
 #elif defined(RTMALLOC_suba)
   ptr = suba_alloc(db_h->heapinfo, size, 0/* dont zero*/);
 #else
-  if ( size <= db_h->localdata_p -> heap_free )
+  if ( size <= db_h->localdata_p->heap_free )
     {
-      ptr = base + db_h->localdata_p -> heap_used;
+      ptr = base + db_h->localdata_p->heap_used;
     }
 #endif
   DBG("mem_malloc: at %p",ptr);
@@ -80,11 +80,11 @@ kogmo_rtdb_obj_mem_alloc (kogmo_rtdb_handle_t *db_h, kogmo_rtdb_objsize_t size )
     {
       kogmo_rtdb_heap_unlock(db_h);
       ERR("object mem_alloc failed for %i continuous bytes, %lli (discontinuous) bytes free", size,
-          (long long int) db_h->localdata_p -> heap_free );
+          (long long int) db_h->localdata_p->heap_free );
       return -1;
     }
-  db_h->localdata_p -> heap_free -= size;
-  db_h->localdata_p -> heap_used += size;
+  db_h->localdata_p->heap_free -= size;
+  db_h->localdata_p->heap_used += size;
   kogmo_rtdb_heap_unlock(db_h);
   memset (ptr, 0, size);
   DBG("allocated mem cleared");
@@ -96,19 +96,19 @@ kogmo_rtdb_obj_mem_free (kogmo_rtdb_handle_t *db_h, kogmo_rtdb_objsize_t idx,
                          kogmo_rtdb_objsize_t size )
 {
 #if defined(RTMALLOC_tlsf)
-  void *base = db_h->localdata_p -> heap;
+  void *base = db_h->localdata_p->heap;
 #endif
-  void *ptr = db_h->localdata_p -> heap + idx;
+  void *ptr = db_h->localdata_p->heap + idx;
   DBGL(DBGL_DB,"mem_free: %i bytes at %p", size, ptr);
   kogmo_rtdb_heap_lock(db_h);
 #if defined(RTMALLOC_tlsf)
   free_ex (ptr, base);
-  db_h->localdata_p -> heap_free += size;
-  db_h->localdata_p -> heap_used -= size;
+  db_h->localdata_p->heap_free += size;
+  db_h->localdata_p->heap_used -= size;
 #elif defined(RTMALLOC_suba)
   suba_free (db_h-> heapinfo, ptr);
-  db_h->localdata_p -> heap_free += size;
-  db_h->localdata_p -> heap_used -= size;
+  db_h->localdata_p->heap_free += size;
+  db_h->localdata_p->heap_used -= size;
 #else
 // do nothing
 #endif
@@ -118,9 +118,9 @@ kogmo_rtdb_obj_mem_free (kogmo_rtdb_handle_t *db_h, kogmo_rtdb_objsize_t idx,
 kogmo_rtdb_objsize_t
 kogmo_rtdb_obj_mem_init (kogmo_rtdb_handle_t *db_h)
 {
-  kogmo_rtdb_objsize_t size = db_h->localdata_p -> heap_size;
+  kogmo_rtdb_objsize_t size = db_h->localdata_p->heap_size;
   kogmo_rtdb_objsize_t free;
-  void *base = db_h->localdata_p -> heap;
+  void *base = db_h->localdata_p->heap;
   DBGL(DBGL_DB,"mem_init: %i bytes at %p", size, base);
 #if defined(RTMALLOC_tlsf)
   free = init_memory_pool (size, base);
@@ -131,8 +131,8 @@ kogmo_rtdb_obj_mem_init (kogmo_rtdb_handle_t *db_h)
 #else
   free = size;
 #endif
-  db_h->localdata_p -> heap_free = free;
-  db_h->localdata_p -> heap_used = 0;
+  db_h->localdata_p->heap_free = free;
+  db_h->localdata_p->heap_used = 0;
   return free;
 }
 
@@ -140,7 +140,7 @@ kogmo_rtdb_objsize_t
 kogmo_rtdb_obj_mem_attach (kogmo_rtdb_handle_t *db_h)
 {
 #if !defined(RTMALLOC_tlsf)
-  kogmo_rtdb_objsize_t size = db_h->localdata_p -> heap_size;
+  kogmo_rtdb_objsize_t size = db_h->localdata_p->heap_size;
   void *base = db_h->localdata_p ->heap;
 #endif
 #if defined(RTMALLOC_tlsf)
@@ -161,11 +161,11 @@ kogmo_rtdb_obj_mem_attach (kogmo_rtdb_handle_t *db_h)
 void
 kogmo_rtdb_obj_mem_destroy (kogmo_rtdb_handle_t *db_h)
 {
-  void *base = db_h->localdata_p -> heap;
+  void *base = db_h->localdata_p->heap;
   DBGL(DBGL_DB,"mem_destroy: release %p, %lli bytes were used, %lli free",
       base,
-      (long long int) db_h->localdata_p -> heap_used,
-      (long long int) db_h->localdata_p -> heap_free);
+      (long long int) db_h->localdata_p->heap_used,
+      (long long int) db_h->localdata_p->heap_free);
 #if defined(RTMALLOC_tlsf)
   destroy_memory_pool (base);
 #elif defined(RTMALLOC_suba)

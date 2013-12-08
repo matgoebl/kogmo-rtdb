@@ -83,6 +83,9 @@ typedef int32_t kogmo_rtdb_objtype_t;
  *  - So please use this type and print it with
  *    \code printf("%lli",(long long int)osize) \endcode
  *  - <0 represents errors as return value
+ *  - Can not be an unsigned type although it is a size
+ *    because of the error-represenation using negative
+ *    values
  *
  * TODO:
  *  - use consequently
@@ -301,7 +304,7 @@ typedef PACKED_struct
 typedef struct
 {
   _const char *procname;
-    //!< choosen name for the process that connects to the database;
+    //!< chosen name for the process that connects to the database;
     //!< example: a2_roadtracker (should begin with subproject number)
   float cycletime;
     //!< your internal cycle time (0 for system default);

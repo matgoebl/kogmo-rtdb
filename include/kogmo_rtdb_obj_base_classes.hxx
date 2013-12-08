@@ -17,6 +17,11 @@
 
 #include "kogmo_rtdb.hxx"
 
+// This is a hook for your extentions, if you need extra includes for your extra methods
+#ifdef KOGMO_RTDB_OBJ_BASE_CLASS_EXTRA_INCLUDES_FILE
+    #include KOGMO_RTDB_OBJ_BASE_CLASS_EXTRA_INCLUDES_FILE
+#endif
+
 namespace KogniMobil {
 
 /*! \addtogroup kogmo_rtdb_objects_cxx C++ Classes for Data Objects.

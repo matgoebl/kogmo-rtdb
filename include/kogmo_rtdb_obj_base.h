@@ -54,7 +54,7 @@ typedef PACKED_struct
     //    at the end committed_ts is set with the new value
     //    => as long as committed_ts is constant, the data is valid
   kogmo_rtdb_objid_t	committed_proc;
-    //!< (D) Process-ID of the Process that commiting the data
+    //!< (D) Process-ID of the Process that committing the data
     //!< (set automatically on commit)
   kogmo_timestamp_t	data_ts;
     //!< (U) Time at which this Data has been created;

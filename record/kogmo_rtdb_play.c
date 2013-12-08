@@ -192,7 +192,7 @@ main (int argc, char **argv)
   char listfcc[4];
   unsigned char pre_buf[PREBUFSZ];
   unsigned char *base_buf=NULL, *buf=NULL;
-  int base_bufsz=INITBUFSZ;
+  unsigned base_bufsz=INITBUFSZ;
   struct kogmo_rtdb_stream_chunk_t *rtdbchunk = NULL;
   kogmo_rtdb_obj_info_t *info_p = NULL;
   kogmo_rtdb_subobj_base_t *base_p = NULL;
@@ -307,7 +307,7 @@ main (int argc, char **argv)
     }
 
   if ( do_db )
-    { 
+    {
       // Verbindung zur Datenbank aufbauen, unsere Zykluszeit ist 33 ms
       err = kogmo_rtdb_connect_initinfo (&dbinfo, "", "kogmo_rtdb_play", 0.033); DIEonERR(err);
       dbinfo.flags = KOGMO_RTDB_CONNECT_FLAGS_IMMEDIATELYDELETE;
@@ -440,7 +440,7 @@ main (int argc, char **argv)
                     {
                       do_goto = ctrlobj.playerctrl.goto_ts;
                       filepos = timeidx_lookup ( do_goto );
-                      if (do_verbose)    
+                      if (do_verbose)
                         printf("%% CTRL GOTO: %lli (pos: %lli)\n",(long long int)do_goto, (long long int)filepos);
                       if ( do_goto < rtdbchunk->ts ) // Zurueck
                         fseeko ( fp, filepos >= 0 ? filepos : 0, SEEK_SET); // jump to known position or start from the beginning
@@ -727,7 +727,7 @@ main (int argc, char **argv)
                       {
                         aviraw_fput_chunk(fout, &dc, buf);
                       }
-                    oid = info_p -> oid;
+                    oid = info_p->oid;
                     if ( map_exists(oid) )
                       {
                         // bei einen RFR refresh ist es erlaubt, dass das objekt schon existiert, bei einen ADD nicht
@@ -750,14 +750,14 @@ main (int argc, char **argv)
                         map_add (oid,1,info_p->name,info_p->otype);
                         break;
                       }
-                    info_p -> oid = 0;
+                    info_p->oid = 0;
                     tmpoid = map_querydest(info_p->parent_oid);
                     if ( tmpoid )
-                      info_p -> parent_oid = tmpoid;
+                      info_p->parent_oid = tmpoid;
                     else
                       // Nicht sehr schoen, ab das sinnvollste: Default-Parent ist Player
-                      info_p -> parent_oid = playeroid;
-                    info_p -> flags.cycle_watch = 0; // sonst geht mehrfache Abspielgeschwindigkeit nicht
+                      info_p->parent_oid = playeroid;
+                    info_p->flags.cycle_watch = 0; // sonst geht mehrfache Abspielgeschwindigkeit nicht
                     destoid = kogmo_rtdb_obj_insert (dbc, info_p);
                     if(destoid==-KOGMO_RTDB_ERR_NOMEMORY)
                       {
@@ -792,7 +792,7 @@ main (int argc, char **argv)
                       }
                     if ( !do_db )
                         break;
-                    info_p -> oid = destoid;
+                    info_p->oid = destoid;
                     if ( destoid != 0 ) // can be 0 if there was an error (was not unique) or it was filtered
                       {
                         err = kogmo_rtdb_obj_delete (dbc, info_p); WARNonERR(err);
