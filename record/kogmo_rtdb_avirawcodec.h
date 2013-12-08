@@ -193,7 +193,7 @@ int aviraw_fget_header(FILE *fp, avirawheader_t *avirawheader);
 int aviraw_fget_chunkheader(FILE *fp, riffchunk_t *datachunk_p);
 int aviraw_chunk_is_junk(riffchunk_t *datachunk_p);
 int aviraw_chunk_nr_stream(riffchunk_t *datachunk_p);
-int aviraw_fget_chunkdata(FILE *fp, riffchunk_t *datachunk_p, void *data, int maxsize);
+int aviraw_fget_chunkdata(FILE *fp, riffchunk_t *datachunk_p, void *data, unsigned maxsize);
 int aviraw_fskip_chunkdata(FILE *fp, riffchunk_t *datachunk_p);
 int aviraw_fput_data(FILE *fp, void *data, int size);
 int aviraw_fput_chunk(FILE *fp, riffchunk_t *datachunk_p, void *data);

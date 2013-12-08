@@ -86,6 +86,8 @@ class RTDBConn
       {
         dbc = src.dbc;
         connected = false;
+        cycle_period = src.cycle_period;
+        cycle_ts.now();
         // achtung: die instanz, die RTDBConn() mit vollem parametersatz aufgerufen hat, schliesst die verbindung!
       };
     //! Close Connection (must be done at process exit)

@@ -157,7 +157,7 @@ main (int argc, char **argv)
       kogmo_rtdb_objid_t oid;
       oid = kogmo_rtdb_obj_searchinfo (dbc, "rtdb", KOGMO_RTDB_OBJTYPE_C3_RTDB,
                                        0, 0, 0/*ts*/, NULL, 1);
-      if ( oid < 0 ) 
+      if ( oid < 0 )
         DIE("cannot find rtdb object");
       olen = kogmo_rtdb_obj_readdata (dbc, oid, 0/*ts*/, &rtdbobj, sizeof(rtdbobj));
       if ( olen < 0 )
@@ -303,8 +303,8 @@ main (int argc, char **argv)
                       olen = kogmo_rtdb_obj_readdata_older (dbc, om.oid, scan_ts, &ob, sizeof(ob));
                       if ( olen >= 0 )
                         {
-                          olentmp = ob.base.size; 
-                          ob.base.size = olen; 
+                          olentmp = ob.base.size;
+                          ob.base.size = olen;
                           p=kogmo_rtdb_obj_dumpbase_str (dbc, &ob);
                           ob.base.size = olentmp;
                           printf("%s",p);
@@ -353,8 +353,8 @@ main (int argc, char **argv)
           if ( olen >= 0 )
             {
 
-              olentmp = ob.base.size; 
-              ob.base.size = olen; 
+              olentmp = ob.base.size;
+              ob.base.size = olen;
               p=kogmo_rtdb_obj_dumpbase_str (dbc, &ob);
               ob.base.size = olentmp;
               printf("%s",p);

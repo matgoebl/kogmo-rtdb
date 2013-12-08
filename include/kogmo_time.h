@@ -53,7 +53,7 @@
  *  - less than 50 days with millisecond resolution
  *    ( 2^32/1000/60/60/24 = 49.710.. )
  *
- * So only a millisecond granularity would be usefull, but
+ * So only a millisecond granularity would be useful, but
  *  - we can use it only for a relative time with a defined
  *    begin (e.g. system boot)
  *  - We have to remember this start time (and possibly
@@ -153,7 +153,7 @@ typedef char kogmo_timestamp_string_t[KOGMO_TIMESTAMP_STRINGLENGTH];
 
 
 /*! \brief Convert an Absolute Timestamp to a String,
- * formated according to the ISO-Standard.
+ * formatted according to the ISO-Standard.
  *
  * Format: 2006-04-26 23:54:27.832241000 (YYYY-MM-DD hh:mm:ss.sssssssss)
  * \param ts Timestamp

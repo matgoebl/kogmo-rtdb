@@ -10,7 +10,7 @@ kogmo_rtdb_obj_dumpbase_str (kogmo_rtdb_handle_t *db_h, void *data_p)
 
   objbase = (kogmo_rtdb_subobj_base_t*) data_p;
 
-  if ( objbase->size < sizeof(kogmo_rtdb_subobj_base_t) )
+  if ( objbase->size < (int)(sizeof(kogmo_rtdb_subobj_base_t)) )
     {
       STRPRINTF(buf,"* NO DATA\n");
       return buf;
@@ -35,7 +35,7 @@ kogmo_rtdb_obj_dumphex_str (kogmo_rtdb_handle_t *db_h, void *data_p)
   kogmo_rtdb_objsize_t size;
   int i;
   NEWSTR(buf);
-  size = ( (kogmo_rtdb_subobj_base_t*) data_p ) -> size;
+  size = ( (kogmo_rtdb_subobj_base_t*) data_p )->size;
   STRPRINTF(buf, "* BINARY DATA:\n");
   for(i=0;i<size;i++) {
    STRPRINTF(buf,"%02x ", ((unsigned char*)data_p)[i]);

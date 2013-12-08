@@ -43,7 +43,7 @@ kogmo_rtdb_obj_local_init (kogmo_rtdb_handle_t *db_h,
   //memset(db_h->localdata_p, 0, sizeof(struct kogmo_rtdb_obj_local_t) +
   //                             db_h->localdata_p->heap_size);
 
-  // objmeta[]=[0..0] initialized by memset(..,0,..) 
+  // objmeta[]=[0..0] initialized by memset(..,0,..)
   db_h->localdata_p->objmeta_oid_next=1;
 
   db_h->localdata_p->default_history_interval =
@@ -405,7 +405,7 @@ kogmo_rtdb_disconnect (kogmo_rtdb_handle_t *db_h, void *discinfo)
 
       //db_h->procobj.process.disconnected_ts = kogmo_rtdb_timestamp_now(db_h);
       //kogmo_rtdb_obj_writedata (db_h, db_h->procobjmeta.oid, &db_h->procobj);
-      
+
       immediately_delete = db_h->procobj.process.flags & KOGMO_RTDB_CONNECT_FLAGS_IMMEDIATELYDELETE;
 
       err = kogmo_rtdb_obj_searchinfo_deleted (db_h, "", 0, 0,

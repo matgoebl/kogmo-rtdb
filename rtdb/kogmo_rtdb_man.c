@@ -249,7 +249,7 @@ int main(int argc, char *argv[]) {
   err = kogmo_rtdb_objmeta_upd_stats (dbc);
   if(err<0) MSG("error %d in upd_stats()",err);
 
-  if(!daemon && kogmo_rtdb_debug & DBGL_APP) 
+  if(!daemon && kogmo_rtdb_debug & DBGL_APP)
   do {
    kogmo_rtdb_objid_t oid;
    kogmo_rtdb_obj_c3_rtdb_t rtdbobj;
@@ -272,7 +272,7 @@ int main(int argc, char *argv[]) {
       MSG("MANAGER ERROR: process check thread died");
     }
 
-  dbc->ipc_h.shm_p -> manager_alive_ts = ts_now;
+  dbc->ipc_h.shm_p->manager_alive_ts = ts_now;
   kogmo_rtdb_cycle_done(dbc,0);
 
   //if (!cycle_ts || kogmo_timestamp_diff_secs(cycle_ts,kogmo_timestamp_now()) > 2*KOGMO_RTDB_MANAGER_ALIVE_INTERVAL )
