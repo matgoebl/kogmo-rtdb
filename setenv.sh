@@ -1,4 +1,4 @@
-# Please source this file in your shell by typing ". ./rtdbenv.sh"!
+# Please source this file in your shell by typing ". ./setenv.sh"!
 
 # Total amount of Memory dedicated to the Database, including all objects
 # with histories,  e.g. 64MB for local tests, 500MB on kognimobil-refsys
