@@ -827,6 +827,7 @@ main (int argc, char **argv)
                       }
                     if ( !do_db )
                         break;
+                    base_p->data_ts += kogmo_timestamp_now() - base_p->committed_ts;
                     err = kogmo_rtdb_obj_writedata (dbc, oid, base_p);
                     if ( err == -KOGMO_RTDB_ERR_NOPERM || err == -KOGMO_RTDB_ERR_NOTFOUND)
                       break;
